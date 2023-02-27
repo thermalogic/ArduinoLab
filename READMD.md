@@ -8,7 +8,7 @@ Arduino有很多类型开发版，本实验室使用其中的2种：`Auduino Uno
 
 ![](img/arduino.jpg)
 
-* Arduino Pro Mini
+* [Arduino Pro Mini](./ArduinoMiniPro初步.md)
 
 ![](img/ArduinoProMini/ArduinoProMini.jpg)
 
@@ -41,9 +41,11 @@ Arduino有很多类型开发版，本实验室使用其中的2种：`Auduino Uno
 
 ## 传感器实验
 
-* DHT11
+传感器实验使用Arduino Uno
 
-* 超声
+1. [DHT11实验](./Lab_DHT11.md)
+
+2.  超声
 
 * OneWire
 
