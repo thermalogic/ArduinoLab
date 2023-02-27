@@ -2,7 +2,7 @@
 
 ## Ultrasonic
 
-HC-SR04   
+* HC-SR04
 
 **测距失败**： 传感器坏了？？？
 
