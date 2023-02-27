@@ -15,8 +15,8 @@
 
  Module HR-SC04 (four pins)  attached to digital pins as follows:
  
- ---------------------    
- | HC-SC04 | Arduino |    
+  
+ | HC-SR04 | Arduino |    
  |---------|---------|   
  |   Vcc   |   5V    |   
  |   Trig  |   12    | 
