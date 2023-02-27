@@ -1,6 +1,8 @@
-#  Arduino实验室
+# Arduino实验室
 
 ## 开发版
+
+Arduino有很多类型开发版，本实验室使用其中的2种：`Auduino Uno`和 `Arduino Pro Mini`
 
 * Auduino Uno
 
@@ -10,26 +12,26 @@
 
 ![](img/ArduinoProMini/ArduinoProMini.jpg)
 
-## Install the Arduino Software
+## 1 Install the Arduino Software
 
-### IDE
+### 1.1 IDE
 
 安装新版:**IDE 2.***
 * Windows https://www.arduino.cc/en/Guide/Windows
 
 * Linux https://www.arduino.cc/en/Guide/Linux
 
-### 安装软件库
+### 1.2 安装软件库
 
 * https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-installing-a-library
 
-#### 安装在线库
+#### 1.2.1 安装在线库
 
 ![](img/DHT11/install_dht11_lib.jpg)
 
 ![](img/IDE2_lib.jpg)
 
-#### 安装本地库
+#### 1.2.2 安装本地库
 
 * Importing a .zip Library
 
