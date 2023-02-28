@@ -39,14 +39,22 @@ Arduino有很多类型开发版，本实验室使用其中的2种：`Auduino Uno
 
 ![](img/IDE2_lib_local.jpg)
 
-## 传感器实验
+## 实验
 
-传感器实验使用Arduino Uno
+实验使用Arduino Uno
 
-1. [DHT11实验](./Lab_DHT11.md)
+1. [LED](./Lab_LEDDHT11.md)
 
-2.  超声
+2. [DHT11实验](./Lab_DHT11.md)
+
+3. [土壤湿度](./Lab_Soil_Moisture.md)
+
+4.  超声 可能 传感器 坏了
 
 * OneWire
 
 * PID
+
+## 参考
+
+* https://arduinogetstarted.com/arduino-tutorials
