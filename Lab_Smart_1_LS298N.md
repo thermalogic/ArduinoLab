@@ -116,6 +116,35 @@ IN2   -> Arduino GND
 
 分别通过串口给arduino发0,1,2,3,4看看电机是不是按照预期那样转的。如果电机旋转与预期一样说明通过arduino控制电机就已经成功了。
 
+
+串口的方式，需要连线，车不能脱线独立运行不方便测试，可以采用定时改变运行方式的形式测试
+
+**定时运行状态改变测试**
+
+```c
+void setup() {
+    // put your setup code here, to run once:
+    Serial.begin(9600);
+    pinMode(IN1,OUTPUT);
+    pinMode(IN2,OUTPUT);
+    pinMode(IN3,OUTPUT);
+    pinMode(IN4,OUTPUT);
+    initCar();
+    delay(3000);  
+    go(); 
+    delay(2000);  
+    turnLeft(); 
+    delay(1000);  
+	turnRight();    
+    delay(1000);  
+    turnLeft();   
+    delay(1000); 
+    go(); 
+    delay(2000);  
+    initCar();
+}
+````
+
 **代码左右和连线不一样**
 
 ```c
@@ -219,28 +248,3 @@ void stopCar(){
 }
 ```
 
-#### 定时运行状态改变测试
-
-```c
-void setup() {
-    // put your setup code here, to run once:
-    Serial.begin(9600);
-    pinMode(IN1,OUTPUT);
-    pinMode(IN2,OUTPUT);
-    pinMode(IN3,OUTPUT);
-    pinMode(IN4,OUTPUT);
-    initCar();
-    delay(3000);  
-    go(); 
-    delay(2000);  
-    turnLeft(); 
-    delay(1000);  
-	  turnRight();    
-    delay(1000);  
-    turnLeft();   
-    delay(1000); 
-    go(); 
-    delay(2000);  
-    initCar();
-}
-````
