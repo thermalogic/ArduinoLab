@@ -130,7 +130,7 @@ void setup() {
     pinMode(IN3,OUTPUT);
     pinMode(IN4,OUTPUT);
     initCar();
-    delay(3000);  
+    delay(2000);  
     go(); 
     delay(2000);  
     turnLeft(); 
@@ -139,8 +139,10 @@ void setup() {
     delay(1000);  
     turnLeft();   
     delay(1000); 
-    go(); 
-    delay(2000);  
+    turnRight(); 
+    delay(1000); 
+    back();
+    delay(3000);  
     initCar();
 }
 ````
