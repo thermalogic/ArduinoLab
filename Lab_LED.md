@@ -1,6 +1,6 @@
 # LED
 
-`待补充：运行情况`
+
 
 ## 元件
 
@@ -11,9 +11,12 @@
 ![](./img/LED/led-layout.jpg)
 
 
-
 220Ω电阻1个， LED1个
 
+
+**实现了多个LED的分组，显示**
+
+`待补充：运行情况`
 ### LED
 
 发光二极管(LED)正负极
@@ -65,24 +68,20 @@ Each color has a number, as follows:
 ```c
 /*
   Blink
-  Turns on an LED on for one second, then off for one second, repeatedly.
-s */
- 
-#define LED_PIN 9
+*/
 
-void setup()
-{
-  pinMode(LED_PIN, OUTPUT);
-  pinMode(LED_BUILTIN, OUTPUT);
+int led = 9;         // the PWM pin the LED is attached to
+// the setup function runs once when you press reset or power the board
+void setup() {
+  // initialize digital pin LED_BUILTIN as an output.
+  pinMode(led, OUTPUT);
 }
 
-void loop()
-{
-  digitalWrite(LED_PIN, HIGH);
-  digitalWrite(LED_BUILTIN, HIGH);  // turn the LED on (HIGH is the voltage level)
+// the loop function runs over and over again forever
+void loop() {
+  digitalWrite(led, HIGH);  // turn the LED on (HIGH is the voltage level)
   delay(1000);                      // wait for a second
-  digitalWrite(LED_PIN, LOW);
-  digitalWrite(LED_BUILTIN, LOW);   // turn the LED off by making the voltage LOW
-  delay(1000);
+  digitalWrite(led, LOW);   // turn the LED off by making the voltage LOW
+  delay(1000);                      // wait for a second
 }
 ```
