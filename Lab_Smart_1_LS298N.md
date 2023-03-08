@@ -8,7 +8,7 @@
 
 ![](img/smart_car/wire.jpg)
 
-2. 给电焊接电源线
+2. 给电机焊接电源线
 
 ![](img/smart_car/motor_wired.jpg)
 
