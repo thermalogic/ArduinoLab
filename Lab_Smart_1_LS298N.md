@@ -1,5 +1,7 @@
 # 智能小车1- 使用Arduino加L298N控制智能小车直流电机
 
+用的XD-YK04无线模块
+
 ## A 准备电机和车架
 
 1. 准备线
@@ -112,141 +114,97 @@ IN2   -> Arduino GND
 
 #### 代码和调试
 
-使用arduino编译并把下边的代码编译通过然后烧录到arduino里面，烧录完以后可以用串口助手连接arduino。
+先分别测试左、右轮的前进和后退。然后，测试整车的前进、后退、左、右转
 
-分别通过串口给arduino发0,1,2,3,4看看电机是不是按照预期那样转的。如果电机旋转与预期一样说明通过arduino控制电机就已经成功了。
-
-
-串口的方式，需要连线，车不能脱线独立运行不方便测试，可以采用定时改变运行方式的形式测试
-
-**定时运行状态改变测试**
+整车测试代码：
 
 ```c
+/*
+ Motor Black -  High -> Forward
+ Motor Red +  High -> Back 
+*/
+
+#define LeftForward 4   // Motor Black -    LS298N IN1 -> Arduino Pin4 
+#define LeftBack 5      // Motor Red     +  LS298N IN2 -> Arduino Pin5 
+#define RightForward 6  // Motor Black -    LS298N IN3 -> Arduino Pin6 
+#define RightBack 7    // Motor Red     +   LS298N IN4 -> Arduino Pin7 
+
 void setup() {
-    // put your setup code here, to run once:
-    Serial.begin(9600);
-    pinMode(IN1,OUTPUT);
-    pinMode(IN2,OUTPUT);
-    pinMode(IN3,OUTPUT);
-    pinMode(IN4,OUTPUT);
+    pinMode(LeftForward,OUTPUT);
+    pinMode(LeftBack,OUTPUT);
+    pinMode(RightForward,OUTPUT);
+    pinMode(RightBack,OUTPUT);
     initCar();
-    delay(2000);  
+    delay(1000);  
     go(); 
-    delay(2000);  
-    turnLeft(); 
-    delay(1000);  
-	turnRight();    
-    delay(1000);  
-    turnLeft();   
     delay(1000); 
-    turnRight(); 
-    delay(1000); 
+    stopCar();
+    delay(1000);     
     back();
-    delay(3000);  
-    initCar();
-}
-````
-
-**代码左右和连线不一样**
-
-```c
-#define IN1 6 // 7 6 右轮
-#define IN2 7 
-#define IN3 4 // 5 4 左轮
-#define IN4 5 
-
-#define LEFT '3' //左转编码
-#define RIGHT '4'//右转编码
-#define GO '1'//前进编码
-#define BACK '2'//后退编码
-#define STOP '0'//停止编码
-
-void setup() {
-    // put your setup code here, to run once:
-    Serial.begin(9600);
-    pinMode(IN1,OUTPUT);
-    pinMode(IN2,OUTPUT);
-    pinMode(IN3,OUTPUT);
-    pinMode(IN4,OUTPUT);
-    initCar();
-}
+    delay(1000);  
+    turnLeft();
+    delay(1000);      
+    turnRight();
+    delay(1000); 
+    stopCar();
+ }
 
 void loop() {
-    // put your main code here, to run repeatedly:
-    if(Serial.available()>0){
-        char ch = Serial.read();
-		if(ch == GO){
-			//前进
-			go();
-		}else if(ch == BACK){
-			//后退
-			back();
-		}else if(ch == LEFT){
-			//左转
-			turnLeft();
-		}else if(ch == RIGHT){
-			//右转
-			turnRight();
-		}else if(ch=='0'){
-			//停车
-			stopCar();
-		}
-	}
+ 
 }
 
 void initCar(){
 	//默认全是低电平 停止状态
-	digitalWrite(IN1,LOW); 
-	digitalWrite(IN2,LOW);
-	digitalWrite(IN3,LOW); 
-	digitalWrite(IN4,LOW);
+  digitalWrite(LeftForward,LOW); 
+	digitalWrite(LeftBack,LOW);
+	digitalWrite(RightForward,LOW); 
+	digitalWrite(RightBack,LOW);
 }
 
-/**
-* 左转
-*/
-void turnLeft(){
-	digitalWrite(IN1,HIGH); 
-	digitalWrite(IN2,LOW); //右轮前进
-	digitalWrite(IN3,LOW); 
-	digitalWrite(IN4,LOW); //左轮不动
-}
-
-/**
-* 右转
-*/
-void turnRight(){
-	digitalWrite(IN1,LOW); 
-	digitalWrite(IN2,LOW); //右轮不动
-	digitalWrite(IN3,HIGH); 
-	digitalWrite(IN4,LOW); //左轮前进
-}
-
-/**
-* 前进
-*/
 void go(){
-	digitalWrite(IN1,HIGH); 
-	digitalWrite(IN2,LOW); //右轮前进
-	digitalWrite(IN3,HIGH); 
-	digitalWrite(IN4,LOW); //左轮前进
+  // 左轮前进
+  digitalWrite(LeftForward,HIGH); 
+	digitalWrite(LeftBack,LOW); 
+  // 右轮前进
+	digitalWrite(RightForward,HIGH); 
+	digitalWrite(RightBack,LOW); 
 }
 
-/**
-* 倒车
-*/
 void back(){
-	digitalWrite(IN1,LOW); 
-	digitalWrite(IN2,HIGH); //右轮后退
-	digitalWrite(IN3,LOW); 
-	digitalWrite(IN4,HIGH); //左轮后退
+  //左轮后退
+  digitalWrite(LeftForward,LOW); 
+	digitalWrite(LeftBack,HIGH); 
+  //右轮后退
+	digitalWrite(RightForward,LOW); 
+	digitalWrite(RightBack,HIGH); 
 }
 
-/**
-* 停车
-*/
+/* 左转 */
+void turnLeft(){
+  //左轮不动
+  digitalWrite(LeftForward,LOW); 
+	digitalWrite(LeftBack,LOW);
+  // 右轮前进
+	digitalWrite(RightForward,HIGH); 
+	digitalWrite(RightBack,LOW); 
+}
+
+/* 右转 */
+void turnRight(){
+  // 左轮前进
+  digitalWrite(LeftForward,HIGH); 
+	digitalWrite(LeftBack,LOW); 
+  // 右轮不动
+  digitalWrite(RightForward,LOW); 
+	digitalWrite(RightBack,LOW);
+}
+
 void stopCar(){
 	initCar();
 }
-```
+
+
+
+
+
 
