@@ -4,6 +4,8 @@
   
   可以让每个前进后退动作运行2秒后停止。以方便测试
 
+  * 用LED指示转向，3个LED使用了3个pins,板子的pins资源有限，如果还要连接其他传感器可以，除去LED,释放3个pin资源
+
 ## 添加红外遥控
 
 在实验的的Arduino板子上，加一个扩展版
@@ -40,6 +42,8 @@
 
 #include "PinDefinitionsAndMore.h" // Define macros for input and output pin etc.
 #include <IRremote.hpp>
+
+#define  IR_RECEIVE_PIN 11
 
 void setup() {
     pinMode(LED_Left, OUTPUT);

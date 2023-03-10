@@ -14,7 +14,7 @@
 
 * IRremote GND ->Arduino GND
 * IRremote VCC ->Arduino +5
-* IRremote out ->Arduino Pin2
+* IRremote out ->Arduino Pin11 //不用pin2 因为这个可以触发中断，给速度用
 
 * Led left -> Arduino pin8
 * Led Right -> Arduino pin9
@@ -39,6 +39,8 @@
 
 #include "PinDefinitionsAndMore.h" // Define macros for input and output pin etc.
 #include <IRremote.hpp>
+
+#define  IR_RECEIVE_PIN 11
 
 void setup() {
     pinMode(LED_Left, OUTPUT);
