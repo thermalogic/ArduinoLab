@@ -10,11 +10,11 @@
  */
 
 #define DECODE_NEC          // Includes Apple and Onkyo
-
+//led 指示灯
 #define LED_Left 8
 #define LED_Right 9
 #define LED_Back 10
-
+// 超声
 int trigPin = 12;    // Trigger
 int echoPin = 13;    // Echo
 long duration, cm, inches;
@@ -24,12 +24,26 @@ long duration, cm, inches;
 #define RightForward 6  // Motor Black -     LS298N IN3 -> Arduino Pin6 
 #define RightBack 7    // Motor Red     +     LS298N IN4 -> Arduino Pin7 
 
-#include <Arduino.h>
 
+// 测速 
+// left int1 pin3, 
+// right: int0 pin2
+int leftCounter = 0, rightCounter = 0;
+unsigned long time = 0, old_time = 0;  // 时间标记
+unsigned long time1 = 0;               // 时间标记
+float lv, rv;                          //左、右轮速度
+
+
+#include <Arduino.h>
 #include "PinDefinitionsAndMore.h" // Define macros for input and output pin etc.
 #include <IRremote.hpp>
 
 void setup() {
+    // 测速 
+    attachInterrupt(0, RightCount_CallBack, FALLING);
+    attachInterrupt(1, LeftCount_CallBack, FALLING);
+
+    //led 指示灯
     pinMode(LED_Left, OUTPUT);
     pinMode(LED_Right, OUTPUT);
     pinMode(LED_Back, OUTPUT);

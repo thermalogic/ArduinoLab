@@ -223,4 +223,11 @@ void stopCar() {
 
 ```
 
-  
+## 综合程序
+
+* 红外控制
+* ledf方向指示
+* 超声避撞
+* 编码轮测速
+
+文件： Lab_LS298N_IRremote_leds_ultrasonic_speed.ino
