@@ -18,8 +18,8 @@ unsigned long time1 = 0;               // 时间标记
 float lv, rv;                          //左、右轮速度
 // 调整速度
 bool speedLevel = 0;
-int leftPWM = 5;  //和现在的电机pin冲突，需要调整电机驱动的pins
-int rightPWM = 6;
+int leftPWM = 9;  //和led的pin冲突，需要减少led的pins
+int rightPWM = 10;
 
 void setup() {
   // 测速

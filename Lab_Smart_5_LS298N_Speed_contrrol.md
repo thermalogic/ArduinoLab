@@ -9,13 +9,15 @@ https://cloud.tencent.com/developer/article/2158369
 * https://www.makerguides.com/arduino-multiple-leds-with-different-delays/
 
 ## pins问题
-需要再使用2个Pin, 因为led使用了3个，Arduino不够用了，x需要改为一个pin控制多个led
-ENA”连接Arduino UNO开发板的“5”引脚，“ENB”连接“6”引脚和现在的电机pin冲突，需要调整电机驱动的pins
 
-* 目前，pins基本都使用了，调整电机驱动的pins，需要减掉led控制的pin
+如果加入调速需要使用2个Pin, 红外遥控 + led表示 + 超声 + 测速后，Arduino不够
 
-**暂时不烧录**速度控制代码
+* LS298N ENA -> Arduino UNO 9，“
+* LS298N ENB -> Arduino UNO 10
 
+和led的pin冲突，需要减少led的pins
+ 
+**`暂时保留led,不烧录调速代码，以后，可以删除led, 同时加入，红外遥控车速命令`**
 
 ##  PWM调速
 
@@ -40,15 +42,15 @@ val是0~255的整数值，对应电压从0到+5V。这种方式产生的方波�
 
 ![](img/speed/arduino_pwm_enable.jpg)
 
-如果想控制驱动的输出时，需要对驱动的“ENA”“ENB”进行控制，因此我们需要将图中被选中部分的两个跳线帽拔掉。并将“ENA”连接Arduino UNO开发板的“5”引脚，“ENB”连接“6”引脚。
+如果想控制驱动的输出时，需要对驱动的“ENA”“ENB”进行控制，因此我们需要将图中被选中部分的两个跳线帽拔掉。并将“ENA”连接Arduino UNO开发板的“9”引脚，“ENB”连接“10”引脚。
 
 
 要点
 ```c
 // 调整速度
 bool speedLevel = 0;
-int leftPWM = 5;  //和现在的电机pin冲突，需要调整电机驱动的pins
-int rightPWM = 6;
+int leftPWM = 9;  //和现在的电机pin冲突，需要调整电机驱动的pins
+int rightPWM = 10;
 
 void setup() {
   // 调整速度
@@ -100,8 +102,8 @@ unsigned long time1 = 0;               // 时间标记
 float lv, rv;                          //左、右轮速度
 // 调整速度
 bool speedLevel = 0;
-int leftPWM = 5;  //和现在的电机pin冲突，需要调整电机驱动的pins
-int rightPWM = 6;
+int leftPWM = 9;  //和led的pin冲突，需要减少led的pins
+int rightPWM = 10;
 
 void setup() {
   // 测速
