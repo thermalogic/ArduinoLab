@@ -70,12 +70,12 @@ FT232模块没有DTR，烧录程序时，需要在底部出现上传两字的时
 
 FTD232和Arduino的连接方式
 
-VCC10 --> 接mini的VCC
-GND --> 接mini的GND(BLK)
-TXD --> 接mini的RXD
-RXD --> 接mini的TXD
-RTS --> 接mini的DTR
-CTS --> 接mini的GND
+* VCC10 --> 接mini的VCC
+* GND --> 接mini的GND(BLK)
+* TXD --> 接mini的RXD
+* RXD --> 接mini的TXD
+* RTS --> 接mini的DTR
+* CTS --> 接mini的GND
 
 **异常处理**
 
