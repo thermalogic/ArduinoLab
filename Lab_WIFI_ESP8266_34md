@@ -1,39 +1,6 @@
 # WIFI ESP8266
 
-## ESP8266
 
-![](img/ESP8266.jpg)
-
-![](img/ESP8266/esp8266_pins.jpg)
-
-
-![](img/ESP8266/esp8266_pins_2.jpg)
-
-## ESP8266板子如何和Arduino板子
-
-ESP8266驱动是板子驱动，不是传感器，其本身是一个单片机系统
-
-
-ESP8266板子如何和Arduino板子协同工作？？？？
-
-* ESP8266和Arduino板子之间串口通信
-
-需要向ESP8266和Arduino板分别烧录代码，向ESP8266烧录代码需要USB-TTL模块（下载器）
-![](img/ESP8266/esp8266_pins_1.jpg)
-
-向ESP8266烧录代码时间可以将Arduino作为 USB-TTL下载器使用
-
-注意:如果线路正常,则下图的ESP8266会先是蓝灯闪烁,然后红灯**闪亮**,表示进入wifi搜索模式
-
-如果通电后,灯不亮,或者蓝灯以及红灯**一直亮等**,同时AT指令不生效,那么就要再次排查电路是否正确
-
-##  ESP的WIFI热点
-
-只要连接好VCC,GND和EN+10k上拉电阻,芯片就能产生WIFI热点：ESP-A55C7D，可以链接和pingt通
-
-![](img/ESP8266/wifispot_1.jpg)
-
-![](img/ESP8266/wifispot.jpg
 
 ## 将Arduino作为 USB-TTL模块使用的连线
 

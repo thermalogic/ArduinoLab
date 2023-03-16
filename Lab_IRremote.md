@@ -3,10 +3,11 @@
 
 ## 连线
 
+![](img/IRremote/irremote_reciver.jpg)
+
 ![](img/IRremote/IRremote_sensor_wired.jpg)
 
-
-## code
+## decode遥控器
 
 使用库： IRremote https://github.com/Arduino-IRremote/Arduino-IRremote
 
@@ -14,7 +15,74 @@
 
 * IRremote GND ->Arduino GND
 * IRremote VCC ->Arduino +5
-* IRremote out ->Arduino Pin11 //不用pin2 因为这个可以触发中断，给速度用
+* IRremote out ->Arduino Pin11 //不用<IRremote.hpp>定义的pin2
+
+
+
+白遥控器：
+* 2 - 0x18 
+* 4-  0x8
+* 6 - 0x5A 
+* 8 - 0x52 
+* 5 - 0x1C stop
+
+黑遥控器：
+* 2 - 0x11
+* 4 - 0x14 
+* 6 - 0x16
+* 8 - 0x19
+* 5 - 0x15 stop
+
+
+华为盒子 ^ -0xCA4  <- 0x99 -> 0xC1 back 0xD2 stop(ok) 0xCE
+
+**黑遥控器没有电了**
+
+
+```c
+#define DECODE_NEC          // Includes Apple and Onkyo
+#include <Arduino.h>
+
+#include "PinDefinitionsAndMore.h" // Define macros for input and output pin etc.
+#include <IRremote.hpp>
+
+#define IR_RECEIVE_PIN 11  // 不用<IRremote.hpp>定义的pin2
+
+void setup() {
+    Serial.begin(115200);
+    // Just to know which program is running on my Arduino
+    Serial.println(F("START " __FILE__ " from " __DATE__ "\r\nUsing library version " VERSION_IRREMOTE));
+
+    // Start the receiver and if not 3. parameter specified, take LED_BUILTIN pin from the internal boards definition as default feedback LED
+    IrReceiver.begin(IR_RECEIVE_PIN, ENABLE_LED_FEEDBACK);
+
+    Serial.print(F("Ready to receive IR signals of protocols: "));
+    printActiveIRProtocols(&Serial);
+    Serial.println(F("at pin " STR(IR_RECEIVE_PIN)));
+}
+
+void loop() {
+    if (IrReceiver.decode()) {
+
+        /*
+         * Print a short summary of received data
+         */
+        IrReceiver.printIRResultShort(&Serial);
+        IrReceiver.printIRSendUsage(&Serial);
+        if (IrReceiver.decodedIRData.protocol == UNKNOWN) {
+            Serial.println(F("Received noise or an unknown (or not yet enabled) protocol"));
+            // We have an unknown protocol here, print more info
+            IrReceiver.printIRResultRawFormatted(&Serial, true);
+        }
+        Serial.println();
+        IrReceiver.resume(); // Enable receiving of the next value
+    }
+}
+```
+
+## 遥控LED
+
+
 
 * Led left -> Arduino pin8
 * Led Right -> Arduino pin9
