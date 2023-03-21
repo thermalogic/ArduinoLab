@@ -48,22 +48,25 @@
 
 * **电源**：电池向LS298N供电; LS298N供电向Arduino供电
 
-* **Arduio端口资源使用**： 空余1,2,5,6还没有使用（`5,6是支持PWM功能的pin,可以后使用到速度控制`)
+* **Arduio端口资源使用**： 空余1,2还没有使用
 
 1. 电机、LN298和Arduino连线
 
 LN298N使用了Arduino： pin3,4和pin7,8
 
 ```c
+//正反转控制
 #define LeftForward 8   // Motor balck -  LS298N IN1-> Arduino Pin8 
 #define LeftBack 7      // Motor red +   LS298N IN2 -> Arduino Pin7 
 #define RightForward 3  // Motor Red +   LS298N IN4 -> Arduino Pin3 
 #define RightBack 4    // Motor  black - LS298N IN3 -> Arduino Pin4  
-/* 
-  左电机的前传，和右不一致。 右电机是Motor Red + 向前，目前用代码处理不一致，
-   以后，可以重新焊左电机电源线，交换红、黑电源线的位置
-*/
+// 速度控制
+#define leftPWM 6     //5,6支持PWM功能的pin，用于
+#define rightPWM 5
+int speed_level1= 125; // 转向时用，转速差，转向
+int speed_level2= 200; // 太低驱动不了，调试后200比较合适，不太快，也不慢
 ```
+*  左电机的前传，和右不一致。 右电机是Motor Red + 向前，目前用代码处理不一致， 以后，可以重新焊左电机电源线，交换红、黑电源线的位置
 
 
 2. 红外遥控
