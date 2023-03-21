@@ -36,13 +36,15 @@
 
 ### 代码
 
-单模块测试和合成，共有5个程序代码，如下：
+单模块测试和合成，共有6个程序代码，如下：
 
 1. 电机驱动L289N测试代码 ：Lab_2WD_1-LS298N_two_wheel.ino
 2. 红外遥控测试代码 : Lab_2WD_2-IRremote_leds.ino
 3. 超声测距代码: Lab_2WD_3-Ultrasonic.ino
 4. 红外遥控小车代码(1+2): Lab_2WD_4_Motor_IRremote_leds.ino
-5. 红外遥控 + 超声避障小车代码(4+3): Lab_2WD_4_Motor_IRremote_leds.ino
+5. 红外遥控 + 超声避障小车代码(4+3): Lab_2WD_5_Motor_IRremote_Ultrasonic.ino
+6. 电机速度控制: Lab_2WD_6_Motor_SpeedControl.ino
+7. 红外遥控 + 超声避障小车代码+速度控制(5+6):Lab_2WD_7_Motor_IR_Ultra_Speed.ino
 
 ### 模块和Arduino连线
 
@@ -52,8 +54,10 @@
 
 1. 电机、LN298和Arduino连线
 
-LN298N使用了Arduino： pin3,4和pin7,8
+LN298N使用了Arduino： pin3,4 ；pin7,8和pin5,6
 
+* pin3,4 ；pin7,8控制前后
+* pin5,6控制速度
 ```c
 //正反转控制
 #define LeftForward 8   // Motor balck -  LS298N IN1-> Arduino Pin8 
@@ -66,7 +70,8 @@ LN298N使用了Arduino： pin3,4和pin7,8
 int speed_level1= 125; // 转向时用，转速差，转向
 int speed_level2= 200; // 太低驱动不了，调试后200比较合适，不太快，也不慢
 ```
-*  左电机的前传，和右不一致。 右电机是Motor Red + 向前，目前用代码处理不一致， 以后，可以重新焊左电机电源线，交换红、黑电源线的位置
+
+*  左电机的向前和右不一致。 右电机是Motor Red + 向前，目前用代码处理不一致， 以后，可以重新焊左电机电源线，交换红、黑电源线的位置
 
 
 2. 红外遥控
