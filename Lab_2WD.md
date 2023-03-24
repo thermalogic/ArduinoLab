@@ -59,14 +59,15 @@ LN298N使用了Arduino： pin3,4 ；pin7,8和pin5,6
 * pin3,4 ；pin7,8控制前后
 * pin5,6控制速度
 ```c
-//正反转控制
-#define LeftForward 8   // Motor balck -  LS298N IN1-> Arduino Pin8 
-#define LeftBack 7      // Motor red +   LS298N IN2 -> Arduino Pin7 
-#define RightForward 3  // Motor Red +   LS298N IN4 -> Arduino Pin3 
-#define RightBack 4    // Motor  black - LS298N IN3 -> Arduino Pin4  
-// 速度控制
-#define leftPWM 6     //5,6支持PWM功能的pin，用于
-#define rightPWM 5
+
+#define LeftForward 3  // Motor Red +   LS298N IN4 -> Arduino Pin3
+#define LeftBack 4     // Motor  black - LS298N IN3 -> Arduino Pin4
+#define RightForward 8   // Motor balck -  LS298N IN1-> Arduino Pin8
+#define RightBack 7      // Motor red +   LS298N IN2 -> Arduino Pin7
+
+#define leftPWM 5
+#define rightPWM 6
+
 int speed_level1= 125; // 转向时用，转速差，转向
 int speed_level2= 200; // 太低驱动不了，调试后200比较合适，不太快，也不慢
 ```

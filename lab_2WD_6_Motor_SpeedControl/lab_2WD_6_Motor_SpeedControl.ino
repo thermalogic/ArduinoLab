@@ -5,13 +5,14 @@
  
 */
 //正反转控制
-#define LeftForward 8   // Motor balck -  LS298N IN1-> Arduino Pin8
-#define LeftBack 7      // Motor red +   LS298N IN2 -> Arduino Pin7
-#define RightForward 3  // Motor Red +   LS298N IN4 -> Arduino Pin3
-#define RightBack 4     // Motor  black - LS298N IN3 -> Arduino Pin4
+#define LeftForward 3  // Motor Red +   LS298N IN4 -> Arduino Pin3
+#define LeftBack 4     // Motor  black - LS298N IN3 -> Arduino Pin4
+#define RightForward 8   // Motor balck -  LS298N IN1-> Arduino Pin8
+#define RightBack 7      // Motor red +   LS298N IN2 -> Arduino Pin7
 // 速度控制
-#define leftPWM 6
-#define rightPWM 5
+#define leftPWM 5
+#define rightPWM 6
+
 #define SPEED_LEVEL_0 0  //stop
 #define SPEED_LEVEL_1 1
 #define SPEED_LEVEL_2 2  //max
