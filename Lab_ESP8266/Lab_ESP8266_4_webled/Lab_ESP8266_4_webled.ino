@@ -1,3 +1,9 @@
+/*
+5C-CF-7F-A5-5C-7D
+192.168.0.100
+
+*/
+
 #include <ESP8266WiFi.h>
  
 const char* ssid = "TP-LINK_3DB3";//type your ssid

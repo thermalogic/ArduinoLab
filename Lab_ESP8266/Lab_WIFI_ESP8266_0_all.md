@@ -18,12 +18,12 @@
 
 ![](img/ESP8266.jpg)
 
-![](img/ESP8266/esp8266_pins.jpg)
+![](img/esp8266_pins.jpg)
 
 
-![](img/ESP8266/esp8266_pins_2.jpg)
+![](img/esp8266_pins_2.jpg)
 
-## ESP8266板子如何和Arduino板子
+## ESP8266板子如何和Arduino板子协调工作
 
 ESP8266驱动是板子驱动，不是传感器，其本身是一个单片机系统
 
@@ -32,7 +32,7 @@ ESP8266板子如何和Arduino板子协同工作
 * ESP8266和Arduino板子之间串口通信
 
 需要向ESP8266和Arduino板分别烧录代码，向ESP8266烧录代码需要USB-TTL模块（下载器）
-![](img/ESP8266/esp8266_pins_1.jpg)
+![](img/esp8266_pins_1.jpg)
 
 
 
@@ -44,9 +44,9 @@ ESP8266板子如何和Arduino板子协同工作
 
 只要连接好VCC,GND和EN+10k上拉电阻,芯片就能产生芯片ID名的WIFI热点：ESP-A55C7D，可以链接和pingt通
 
-![](img/ESP8266/wifispot_1.jpg)
+![](img/wifispot_1.jpg)
 
-![](img/ESP8266/wifispot.jpg
+![](img/wifispot.jpg）
 
 
 ## 环境搭建：
@@ -86,7 +86,7 @@ http://arduino.esp8266.com/stable/package_esp8266com_index.json
 
 **硬件连线**
 
- ![](img/ESP8266/ESP8266_Arduino_Wired.jpg)
+ ![](img/ESP8266_Arduino_Wired.jpg)
 
 `说明一下`: 上述搭建的环境是用来编译和烧录ESP8266-01S程序的。写好的程序只会借道arduino的串口线写进ESP8266中去运行，并不会写进arduino。这也就是为什么arduino和8266之间的串口是直接TX接TX，RX接RX的原因。
 
@@ -96,7 +96,7 @@ http://arduino.esp8266.com/stable/package_esp8266com_index.json
 
 * 3.3V和GND的接线最好用面包板并联转接一下，方便后续操作。参考下图：红线和黑线分别是3.3V和GND。
 
- ![](img/ESP8266/ESP8266_Arduino_Wired_1.jpg)
+ ![](img/ESP8266_Arduino_Wired_1.jpg)
 
  **步骤2** 用Arduino IDE编译写好的程序。可以是毫无意义的空程序。只要能编译通过就可以，现在只是讲烧录步骤，能烧录成功即可。
 
@@ -108,9 +108,9 @@ http://arduino.esp8266.com/stable/package_esp8266com_index.json
 
 **步骤6** 等待烧录完成，IDE会有烧录进度提示。
 
-**步骤7**  烧录完成后再拔出IO0和3.3V。
+**步骤7**  烧录完成后再拔出`IO0`和`3.3V`。
 
-**步骤8** 再将3.3V插回原位（3.3V）。切记**不要再插回**IO0了。
+**步骤8** 再将`3.3V`插回原位（3.3V）。切记**不要再插回**`IO0`了。
 
 这么做的大致原因：
 * IO0接地时启动ESP8266-01S，8266会进入下载模式，即可以接受烧录。
@@ -183,7 +183,7 @@ void loop() {
 
 关于wifimanager库的更多操作请跳转去官方自行查阅。
 
-![](img/ESP8266/ESP8266_wifi_hotspot_on.jpg)
+![](img/ESP8266_wifi_hotspot_on.jpg)
 
 在其中配置wifi热点，可以，让rsp8266连接到热点中
 
@@ -191,12 +191,12 @@ void loop() {
 
 电脑登陆tp-link检查ip是192.169.0.101，可以ping通
 
-![](img/ESP8266/ESP8266_info.jpg）
+![](img/ESP8266_info.jpg)
 
 
 **ESP8266-WiFiManager-工作流程**
 
-![](img/ESP8266/WiFiManager-%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B-1024x229.jpg)
+![](img/WiFiManager-%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B-1024x229.jpg)
 
 
 ## 参考

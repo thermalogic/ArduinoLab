@@ -11,7 +11,7 @@
 #define leftPWM 5
 #define rightPWM 6
 
-int speed_level1= 125; // 转向时用，转速差，转向
+int speed_level1= 100; // 转向时用，转速差，转向
 int speed_level2= 200; // 太低驱动不了，调试后200，比较合适
 int speed_level3 = 250;
 
