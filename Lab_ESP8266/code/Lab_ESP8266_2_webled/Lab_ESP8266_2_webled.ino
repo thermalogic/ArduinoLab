@@ -96,7 +96,7 @@ void loop() {
   client.println("Click <a href=\"/LED=OFF\">here turn the LED on pin 2 OFF<br>");
   client.println("</html>");
  
-  delay(1);
+  delay(1); //只服务1秒
   Serial.println("Client disconnected");
   Serial.println("");
 }
