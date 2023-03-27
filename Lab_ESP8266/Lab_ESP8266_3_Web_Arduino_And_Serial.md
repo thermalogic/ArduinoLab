@@ -18,21 +18,14 @@
 
 4. 烧录Arduino UNO程序: Lab_ESP8266_3_2_Arduino_Serial
 
-**可以采用2个板子**，一个固定烧录空代码（`旧版`），用于给ESP8266烧代码，一个固定烧录Arduio 通信程序，这样少了Arduino的反复烧录过程
-
-只需要ESP8266插线到不同板子。这样在修改ESP8266的过程中。如果不需要测试Arduino就方便多了
+**可以采用2个板子**，一个固定烧录空代码（`旧版`），用于给ESP8266烧代码，一个固定烧录Arduio通信程序，这样少了在一个Arduino板子上反复烧录过程,
+只需将ESP8266插线到不同板子。这样修改过程，特别是只需要修改ESP8266的代码时，如果不需要测试在烧录Arduino，方便多了
 
 ## 问题
 
-服务会不响应，需要重新启动板子 
+服务会不响应，需要重新启动板子 ,很多人有这个问题
 
-很多人有这个问题
-
-`???`
-
-原因可能是
-
-This code in loop:
+原因可能是:This code in loop:
 
 ```c
   while(!client.available()){
@@ -40,9 +33,11 @@ This code in loop:
   }
 ```
 can cause a deadlock if you have a client that `drops or doesn't talk`. 
-修改为如下代码，不停止服务了
 
 **参考**：https://arduino.stackexchange.com/questions/75494/esp8266-not-responding-after-random-intervals-of-time
+
+修改为如下代码，不停止服务了
+
  
  ```c
  if(!client){
