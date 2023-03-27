@@ -1,5 +1,17 @@
 # Serial Communication Between Arduino and ESP-01
 
+**TODO**
+
+1. 现在的是同步web,改为异步web更好：
+
+ ESP8266 Asynchronous Web Server
+
+* 参考 https://randomnerdtutorials.com/esp8266-dht11dht22-temperature-and-humidity-web-server-with-arduino-ide/
+
+2. 现在是ESP8266连接到无线路由，也可以将ESP作为WIFI热点:we will use the ESP8266 as Access Point
+
+* https://www.survivingwithandroid.com/esp8266-web-server/
+
 ## 功能
 
 * ESP8266连接到本地无线路由，提供Web服务，将web指令通过串口发给Arduino UNO
