@@ -1,7 +1,6 @@
 /*
-5C-CF-7F-A5-5C-7D
-192.168.0.100
-
+5C-CF-7F-A5-5C-7D绑定192.168.0.100
+ESP8266板子上的IO2连接一个LED,测试web控制
 */
 
 #include <ESP8266WiFi.h>
@@ -9,7 +8,7 @@
 const char* ssid = "TP-LINK_3DB3";//type your ssid
 const char* password = "chengmaohua";//type your password
  
-int ledPin = 2; // GPIO2 of ESP8266
+int ledPin = 2; // GPIO2 of ESP8266 -板子上的 IO2
 WiFiServer server(80);//Service Port
  
 void setup() {
