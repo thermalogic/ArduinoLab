@@ -51,7 +51,7 @@ void loop() {
     return;
   }
    
-  // Wait until the client sends some data
+  // Wait until the client sends some data - may stopless  while loop!!!!!
   Serial.println("new client");
   while(!client.available()){
     delay(1);
@@ -96,7 +96,7 @@ void loop() {
   client.println("Click <a href=\"/LED=OFF\">here turn the LED on pin 2 OFF<br>");
   client.println("</html>");
  
-  delay(1); //只服务1秒
+  delay(1); 
   Serial.println("Client disconnected");
   Serial.println("");
 }
