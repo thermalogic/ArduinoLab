@@ -3,22 +3,40 @@ Arduino serial
 
 */
 
-char data;
+#define LED_PIN 13
+String go="G";
+String stop="S";
+String back="B";
+String left="L";
+String right="R";
 
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
-  pinMode(13, OUTPUT);
+  pinMode(LED_PIN, OUTPUT);
 }
 
 void loop(){
-
-  // put your main code here, to run repeatedly:
+  String inString="";
   while (Serial.available()) {
-    data = Serial.read();
-    Serial.println(data);
-    digitalWrite(13, HIGH);
-    delay(1000);
-    digitalWrite(13, LOW);
+    inString += char(Serial.read());
+    Serial.print(inString);
+  };
+  if (inString==go){
+     digitalWrite(LED_PIN, HIGH);
+  };
+  if (inString==stop){
+     digitalWrite(LED_PIN, LOW);
   }
+  if (inString==back){
+     digitalWrite(LED_PIN, LOW);
+  }
+  if (inString==left){
+     digitalWrite(LED_PIN, HIGH);
+  }
+  if (inString==right){
+     digitalWrite(LED_PIN, LOW);
+  }
+
+
 }
