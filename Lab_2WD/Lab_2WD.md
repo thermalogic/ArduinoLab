@@ -45,6 +45,7 @@
 5. 红外遥控 + 超声避障小车代码(4+3): Lab_2WD_5_Motor_IRremote_Ultrasonic.ino
 6. 电机速度控制: Lab_2WD_6_Motor_SpeedControl.ino
 7. 红外遥控 + 超声避障小车代码+速度控制(5+6):Lab_2WD_7_Motor_IR_Ultra_Speed.ino
+7. 红外遥控 + 超声避障小车代码 + 速度控制 + LED闪烁(7+LED闪烁):Lab_2WD_8_Motor_IR_Ultra_Speed_blinks.ino
 
 ### 模块和Arduino连线
 
@@ -77,13 +78,10 @@ int speed_level2= 200; // 太低驱动不了，调试后200比较合适，不太
 
 2. 红外遥控
 
-left led -> pin9
-right led -> pin10
+
 红外输出 -> 11
 
 ```c
-#define LED_Left 9
-#define LED_Right 10
 #define IR_RECEIVE_PIN 11 //IRremote.hpp  默认是pin2，小车使用pin11
 ```
 
@@ -96,3 +94,7 @@ echo -> pin13
 int trigPin = 12;    // Trigger
 int echoPin = 13;    // Echo
 ```
+4. LED
+
+left led -> pin9
+right led -> pin10
