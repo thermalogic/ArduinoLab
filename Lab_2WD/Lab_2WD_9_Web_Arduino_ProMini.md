@@ -20,6 +20,12 @@ Arduino端有多个串口时，需要使用`软串口`和ESP8266通信
 
 **注意**：红外库使用板载的pin13作为反馈信号灯，所以，`软串口`不使用pin13 
 
+ 使用如下代码，不使用pin13作为反馈信号灯，释放pin13和系统运行资源，不然，系统运行不稳定
+
+ ```c
+ IrReceiver.begin(IR_RECEIVE_PIN,  DISABLE_LED_FEEDBACK); //释放pin13
+```
+
 ## 连线
 
 ### 小面包板

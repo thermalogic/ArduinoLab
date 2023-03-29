@@ -159,8 +159,8 @@ public:
   };
 };
 
-Flasher led_left(LED_Left, 100, 100);
-Flasher led_right(LED_Right, 1000, 1000);
+Flasher led_left(LED_Left, 200, 200);
+Flasher led_right(LED_Right, 200,200);
 
 void motor_action(int motor_cmd) {
   switch (motor_cmd) {
@@ -183,8 +183,6 @@ void motor_action(int motor_cmd) {
       led_right.off();
       led_left.previousMillis = 0;
       led_right.previousMillis = 0;
-      led_left.update();
-      led_right.update();
      break;
     case MOTOR_LEFT:
       led_left.on();
@@ -224,7 +222,9 @@ void setup() {
   Serial.println(F("START " __FILE__ " from " __DATE__ "\r\nUsing library version " VERSION_IRREMOTE));
 
   // Start the receiver take LED_BUILTIN pin from the internal boards definition as default feedback LED
-  IrReceiver.begin(IR_RECEIVE_PIN, ENABLE_LED_FEEDBACK);
+  // IrReceiver.begin(IR_RECEIVE_PIN, ENABLE_LED_FEEDBACK);
+  IrReceiver.begin(IR_RECEIVE_PIN,  DISABLE_LED_FEEDBACK); //释放pin13
+  
   Serial.print(F("Ready to receive IR signals of protocols: "));
   printActiveIRProtocols(&Serial);
   Serial.println(F("at pin " STR(IR_RECEIVE_PIN)));
