@@ -66,11 +66,11 @@ FTD1232-1和Arduino的连接方式，如下图：
 
 FTD232和Arduino的连接方式
 
-* VCC10(红色) --> 接mini的VCC
-* GND(灰色) --> 接mini的GND
-* TXD(黄色) --> 接mini的RXD
-* RXD(白色) --> 接mini的TXD
-* RTS(橙色) --> 接mini的DTR
+* VCC10(红色) --> 接mini的VCC 左4
+* GND(灰色) --> 接mini的GND   `左5`
+* TXD(黄色) --> 接mini的RXD 左3
+* RXD(白色) --> 接mini的TXD 左2
+* RTS(橙色) --> 接mini的DTR 左1
 * CTS --> 不需要接
 
 ### 2.2 Arduino配置

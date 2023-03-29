@@ -6,11 +6,11 @@
 
 **TODO**
 
-可以集成为`WIFI`控制小车，但需要减少LED,端口不够
+可以集成为`WIFI`控制小车，但需要减少LED,或者不控制车速，因为端口不够
 
 ## 功能
 
-* Arduino Pro Mini和红外灯安装在一个小面包板上
+* Arduino Pro Mini和红外，LED等安装在一个小面包板上
 
 * ESP8266提供web服务，并将信息通过串口发送给Arduino Pro Mini
 
@@ -25,8 +25,8 @@ Arduino端有多个串口时，需要使用`软串口`和ESP8266通信
 ### 小面包板
 
 ```c
-#define LED_Left 9
 #define LED_Right 10
+#define LED_Left 9
 #define IR_RECEIVE_PIN 11
 ```
 
@@ -40,6 +40,6 @@ Arduino端有多个串口时，需要使用`软串口`和ESP8266通信
 
 
 ```c
-#define SS_RX 12  // 停超声 不能用13，红外作为反馈灯
+#define SS_RX 12  // 不能用13，红外库用作为反馈灯
 #define SS_TX 2
 ```
