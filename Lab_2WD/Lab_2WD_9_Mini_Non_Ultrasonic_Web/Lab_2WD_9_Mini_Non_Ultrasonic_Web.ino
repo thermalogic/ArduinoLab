@@ -133,7 +133,7 @@ public:
     OffTime = off_time;
     led_state = LOW;
     digitalWrite(ledPin, led_state);
- };
+  };
 
   void on() {
     led_state = HIGH;
@@ -160,7 +160,7 @@ public:
 };
 
 Flasher led_left(LED_Left, 200, 200);
-Flasher led_right(LED_Right, 200,200);
+Flasher led_right(LED_Right, 200, 200);
 
 void motor_action(int motor_cmd) {
   switch (motor_cmd) {
@@ -183,7 +183,7 @@ void motor_action(int motor_cmd) {
       led_right.off();
       led_left.previousMillis = 0;
       led_right.previousMillis = 0;
-     break;
+      break;
     case MOTOR_LEFT:
       led_left.on();
       led_right.off();
@@ -223,8 +223,8 @@ void setup() {
 
   // Start the receiver take LED_BUILTIN pin from the internal boards definition as default feedback LED
   // IrReceiver.begin(IR_RECEIVE_PIN, ENABLE_LED_FEEDBACK);
-  IrReceiver.begin(IR_RECEIVE_PIN,  DISABLE_LED_FEEDBACK); //释放pin13
-  
+  IrReceiver.begin(IR_RECEIVE_PIN, DISABLE_LED_FEEDBACK);  //释放pin13
+
   Serial.print(F("Ready to receive IR signals of protocols: "));
   printActiveIRProtocols(&Serial);
   Serial.println(F("at pin " STR(IR_RECEIVE_PIN)));
@@ -273,7 +273,7 @@ void loop() {
   if (IrReceiver.decode()) {
     // Print a short summary of received data
     IrReceiver.printIRResultShort(&Serial);
-    IrReceiver.printIRSendUsage(&Serial);
+    //IrReceiver.printIRSendUsage(&Serial);
     if (IrReceiver.decodedIRData.protocol == UNKNOWN) {
       Serial.println(F("Received noise or an unknown (or not yet enabled) protocol"));
       // We have an unknown protocol here, print more info
@@ -283,9 +283,8 @@ void loop() {
 
     //!!!Important!!! Enable receiving of the next value,
     IrReceiver.resume();  // Enable receiving of the next value
-
     // Finally, check the received data and perform actions according to the received command
-    if (IrReceiver.decodedIRData.command == 0x11 || IrReceiver.decodedIRData.command == 0x18|| IrReceiver.decodedIRData.command == 0xCA) {
+    if (IrReceiver.decodedIRData.command == 0x11 || IrReceiver.decodedIRData.command == 0x18 || IrReceiver.decodedIRData.command == 0xCA) {
       // forward - 2
       motor_cmd = MOTOR_GO;
       // }
@@ -295,16 +294,17 @@ void loop() {
     } else if (IrReceiver.decodedIRData.command == 0x16 || IrReceiver.decodedIRData.command == 0x5A || IrReceiver.decodedIRData.command == 0xC1) {
       // right - 6
       motor_cmd = MOTOR_RIGHT;
-    } else if (IrReceiver.decodedIRData.command == 0x19 || IrReceiver.decodedIRData.command == 0x52|| IrReceiver.decodedIRData.command == 0xD2) {
+    } else if (IrReceiver.decodedIRData.command == 0x19 || IrReceiver.decodedIRData.command == 0x52 || IrReceiver.decodedIRData.command == 0xD2) {
       // back - 8
       motor_cmd = MOTOR_BACK;
-    } else if (IrReceiver.decodedIRData.command == 0x15 || IrReceiver.decodedIRData.command == 0x1C|| IrReceiver.decodedIRData.command == 0xCE) {
+    } else if (IrReceiver.decodedIRData.command == 0x15 || IrReceiver.decodedIRData.command == 0x1C || IrReceiver.decodedIRData.command == 0xCE) {
       // stop - 5
       motor_cmd = MOTOR_STOP;
     };
   }
-  motor_action(motor_cmd);
-
+if (motor_cmd != motor_state) {
+    motor_action(motor_cmd);
+  };
   // from esp8266 serial
   String inString = "";
   while (mySerial.available()) {
@@ -323,5 +323,7 @@ void loop() {
   } else if (inString.indexOf(RIGHT) != -1) {
     motor_cmd = MOTOR_RIGHT;
   };
-  motor_action(motor_cmd);
+  if (motor_cmd != motor_state) {
+    motor_action(motor_cmd);
+  };
 }
