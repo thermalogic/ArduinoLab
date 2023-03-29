@@ -20,6 +20,26 @@ Arduino端有多个串口时，需要使用`软串口`和ESP8266通信
 
 **注意**：红外库使用板载的pin13作为反馈信号灯，所以，`软串口`不使用pin13 
 
+## 连线
+
+### 小面包板
+
+```c
+#define LED_Left 9
+#define LED_Right 10
+#define IR_RECEIVE_PIN 11
+```
+
+### ESP8266面包板
+
+* ESP8266面包板 GND(黑色) -> Pro Mini GND
+* ESP8266面包板 3.3V(红色) -> Pro Mini VCC
+
+* ESP8266 RX(蓝色)  -> Pro Mini VCC pin2
+* ESP8266 TX(黄色)  -> Pro Mini VCC pin12
 
 
-
+```c
+#define SS_RX 12  // 停超声 不能用13，红外作为反馈灯
+#define SS_TX 2
+```
