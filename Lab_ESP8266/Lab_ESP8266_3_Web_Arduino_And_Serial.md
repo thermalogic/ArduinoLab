@@ -1,5 +1,9 @@
 # Serial Communication Between Arduino and ESP-01
 
+Arduino端有多个串口时，需要使用`软串口`和ESP8266通信
+
+**注意**：有些库使用板载的pin13作为反馈信号灯，所以，`软串口`不使用pin13 
+
 **TODO**
 
 1. 现在的是同步web,改为异步web更好：
@@ -24,11 +28,10 @@
 
 1. 烧录空代码到Arduino UNO
 2. 烧录ESP8266程序: Lab_ESP8266_3_1_Web_Serial
-3. 交换RX和TX连线
 
    ![](img/Arduino_ESP8266.jpg)
 
-4. 烧录Arduino UNO程序: Lab_ESP8266_3_2_Arduino_Serial
+4. 烧录Arduino UNO程序: Lab_ESP8266_3_2_Arduino_Serial/ Lab_ESP8266_3_2_1_Arduino_softSerial
 
 **可以采用2个板子**，一个固定烧录空代码（`旧版`），用于给ESP8266烧代码，一个固定烧录Arduio通信程序，这样少了在一个Arduino板子上反复烧录过程,
 只需将ESP8266插线到不同板子。这样修改过程，特别是只需要修改ESP8266的代码时，如果不需要测试在烧录Arduino，方便多了

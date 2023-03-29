@@ -4,8 +4,8 @@
 
 Arduino Pro Mini 是基于ATmega328单片机的开发板，有两个版本:
 
-* VCC:5v / CPU:16MHz
-* VCC:3.3v / CPU:8MHz
+* VCC:5v / CPU:16MHz 
+* VCC:3.3v / CPU:8MHz  
 
 
 ![](img/ArduinoProMini/ArduinoProMini.jpg)
