@@ -1,8 +1,5 @@
 # 2WD小车制作
 
-**TODO**
-
-速度测试如果用中断，Arduino UNO只能用2，3，但是，现在只空余1和2，3已经被使用无法左右都测速，
 
 ## 制作步骤
 
@@ -49,7 +46,7 @@
 5. 红外遥控 + 超声避障小车代码(4+3): Lab_2WD_5_Motor_IRremote_Ultrasonic.ino
 6. 电机速度控制: Lab_2WD_6_Motor_SpeedControl.ino
 7. 红外遥控 + 超声避障小车代码+速度控制(5+6):Lab_2WD_7_Motor_IR_Ultra_Speed.ino
-7. 红外遥控 + 超声避障小车代码 + 速度控制 + LED闪烁(7+LED闪烁):Lab_2WD_8_Motor_IR_Ultra_Speed_blinks.ino
+8. 红外遥控 + 超声避障小车代码 + 速度控制 + LED闪烁(7+LED闪烁):Lab_2WD_8_Motor_IR_Ultra_Speed_blinks.ino
 
 ### 模块和Arduino连线
 
@@ -102,3 +99,15 @@ int echoPin = 13;    // Echo
 
 left led -> pin9
 right led -> pin10
+
+## 74HC595扩展端口
+
+速度测试如果用中断，Arduino UNO只能用2，3，但是，现在只空余1和2，3已经被使用无法左右都测速，
+
+* 使用74HC595输出控制：左右电机（IN1-IN4),2个LED，可以多出3个Pin
+
+* 电机的PWM不适宜使用74HC595，因为74HC595的OE控制了`所有`输出的PWM
+
+代码： Lab_2WD_10_74HC595.ino
+
+`进行中`
