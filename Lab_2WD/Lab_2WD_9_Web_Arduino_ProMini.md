@@ -4,7 +4,20 @@
 
 * Lab_2WD_9_Mini_Web.ino
 
-**功能**
+**TODO**
+
+目前，接收指令，不同的LED状态反映执行情况，可以进一步集成为`WIFI`控制小车
+* 加入超声
+* 加入电机控制
+
+但是端口不够，方法
+
+* 减少LED,或者不控制车速，
+
+* 使用 74HC595 扩展IO
+  * https://www.instructables.com/Add-More-Digital-Inputs-and-Outputs-to-Your-Arduin/
+
+## 功能
 
 * ESP8266提供web服务，并将信息通过串口发送给Arduino Pro Mini
 
@@ -20,11 +33,6 @@ Arduino端有多个串口时，需要使用`软串口`和ESP8266通信
  IrReceiver.begin(IR_RECEIVE_PIN,  DISABLE_LED_FEEDBACK); //释放pin13
 ```
 
-**TODO**
-
-目前，接收指令，不同的LED状态反映执行情况，可以进一步集成为`WIFI`控制小车，但需要减少LED,或者不控制车速，因为端口不够部：
-* 加入超声
-* 加入电机控制
 
 ## 硬件布置
 
