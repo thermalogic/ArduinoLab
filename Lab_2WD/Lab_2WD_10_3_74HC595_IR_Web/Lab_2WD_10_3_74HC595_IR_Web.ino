@@ -14,8 +14,8 @@ byte values = 0;  // Variable to hold the pattern of which LEDs are currently tu
 // 74hc595
 #define MOTOR_LEFT_FORWARD 4
 #define MOTOR_LEFT_BACK 3
-#define MOTOR_RIGHT_FORWARD 2
-#define MOTOR_RIGHT_BACK 1
+#define MOTOR_RIGHT_FORWARD 1
+#define MOTOR_RIGHT_BACK 2
 #define LED_LEFT 5
 #define LED_RIGHT 6
 //arduino
@@ -28,8 +28,8 @@ byte values = 0;  // Variable to hold the pattern of which LEDs are currently tu
 #define MOTOR_LEFT 3
 #define MOTOR_RIGHT 4
 
-int speed_level1 = 0;  // 转向时用，转速差，转向
-int speed_level2 = 200;  // 太低驱动不了，调试后200，比较合适
+int speed_level1 = 50;  // 转向时用，转速差，转向
+int speed_level2 = 125;  // 太低驱动不了，比较合适
 int speed_level3 = 255;
 
 int motor_state = MOTOR_STOP;
@@ -262,7 +262,8 @@ void loop() {
       bitSet(values, 7 - LED_LEFT);
       bitSet(values, 7 - LED_RIGHT);
       updateShiftRegister();
-    };
+   
+    }; 
   
   };
   ir_cmd();
