@@ -201,7 +201,7 @@ void motor_action(int motor_cmd)
   };
 };
 
-void ir_init()
+void irremote_init()
 {
   // Just to know which program is running on my Arduino
   Serial.println(F("START " __FILE__ " from " __DATE__ "\r\nUsing library version " VERSION_IRREMOTE));
@@ -215,7 +215,7 @@ void ir_init()
   Serial.println(F("at pin " STR(IR_RECEIVE_PIN)));
 };
 
-void ir_cmd()
+void irremote_cmd()
 {
   if (IrReceiver.decode())
   {
@@ -360,7 +360,6 @@ void distance_detection()
 
 void ultrasonic_init()
 {
-  //  ultrasonic - Define inputs and outputs
   pinMode(TRIG_PIN, OUTPUT);
   pinMode(ECHO_PIN, INPUT);
 }
@@ -391,7 +390,7 @@ void setup()
 
   shift_register_init();
   motor_init();
-  ir_init();
+  irremote_init();
   ultrasonic_init();
 
   mySerial.begin(9600);
@@ -413,6 +412,6 @@ void loop()
   {
     led_blink();
   };
-  ir_cmd();
+  irremote_cmd();
   softserial_cmd();
 }

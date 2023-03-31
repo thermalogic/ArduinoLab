@@ -151,7 +151,7 @@ void motor_action(int motor_cmd) {
   };
 };
 
-void ir_init() {
+void irremote_init() {
   // Just to know which program is running on my Arduino
   Serial.println(F("START " __FILE__ " from " __DATE__ "\r\nUsing library version " VERSION_IRREMOTE));
 
@@ -164,7 +164,7 @@ void ir_init() {
   Serial.println(F("at pin " STR(IR_RECEIVE_PIN)));
 };
 
-void ir_cmd() {
+void irremote_cmd() {
   if (IrReceiver.decode()) {
     // Print a short summary of received data
     IrReceiver.printIRResultShort(&Serial);
@@ -210,7 +210,7 @@ void setup() {
   pinMode(clockPin, OUTPUT);
   updateShiftRegister();
   motor_init();
-  ir_init();
+  irremote_init();
 };
 
 void loop() {
@@ -230,5 +230,5 @@ void loop() {
     };
   
   };
-  ir_cmd();
+  irremote_cmd();
 }
