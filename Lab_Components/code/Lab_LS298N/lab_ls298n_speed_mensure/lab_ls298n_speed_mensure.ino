@@ -75,6 +75,19 @@ void RightCount_CallBack() {
 void LeftCount_CallBack() {
   leftCounter++;
 }
+
+/* *右轮编码器中断服务函数
+ */
+void RightCount_CallBack() {
+  rightCounter++;
+}
+/*
+ * *左轮编码器中断服务函数
+ */
+void LeftCount_CallBack() {
+  leftCounter++;
+}
+
 /*
  * *小车运动控制函数
  */

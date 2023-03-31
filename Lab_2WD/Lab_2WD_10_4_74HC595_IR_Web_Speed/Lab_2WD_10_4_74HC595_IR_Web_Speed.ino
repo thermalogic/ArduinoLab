@@ -28,9 +28,12 @@ byte values = 0;  // Variable to hold the pattern of which LEDs are currently tu
 #define MOTOR_LEFT 3
 #define MOTOR_RIGHT 4
 
-int speed_level1 = 50;  // 转向时用，转速差，转向
-int speed_level2 = 125;  // 太低驱动不了，比较合适
-int speed_level3 = 255;
+int left_speed_level1 = 45;  // 转向时用，转速差，转向
+int right_speed_level1 = 50;  // 转向时用，转速差，转向
+int left_speed_level2 = 130;  // 太低驱动不了，比较合适 左右边，实际同样速度需要不同的数值，现在是同样数值right慢，车子会右转 ,所以，左边数值要小点
+int right_speed_level2 = 135;  // 太低驱动不了，比较合适
+int left_speed_level3 = 245;
+int right_speed_level3 = 255;
 
 int motor_state = MOTOR_STOP;
 int motor_cmd = MOTOR_STOP;
@@ -45,6 +48,11 @@ String RIGHT = "R";
 #define SS_RX 10  
 #define SS_TX 11
 SoftwareSerial mySerial(SS_RX, SS_TX);
+
+int leftCounter = 0, rightCounter = 0;
+unsigned long time = 0, old_time = 0;  // 时间标记
+unsigned long time1 = 0;               // 时间标记
+float lv, rv;                          //左、右轮速度
 
 void updateShiftRegister() {
   //
@@ -67,44 +75,44 @@ void motor_init() {
 
 void motor_go() {
   // 左轮前进
-  analogWrite(leftPWM, speed_level2);
+  analogWrite(leftPWM, left_speed_level2);
   bitSet(values, 7 - MOTOR_LEFT_FORWARD);
   bitClear(values, 7 - MOTOR_LEFT_BACK);
   // 右轮前进
-  analogWrite(rightPWM, speed_level2);
+  analogWrite(rightPWM,  right_speed_level2);
   bitSet(values, 7 - MOTOR_RIGHT_FORWARD);
   bitClear(values, 7 - MOTOR_RIGHT_BACK);
 }
 
 void motor_back() {
-  analogWrite(leftPWM, speed_level2);
+  analogWrite(leftPWM, left_speed_level2);
   // 左轮后退
   bitClear(values, 7 - MOTOR_LEFT_FORWARD);
   bitSet(values, 7 - MOTOR_LEFT_BACK);
   // 右轮后退;
-  analogWrite(rightPWM, speed_level2);
+  analogWrite(rightPWM,  right_speed_level2);
   bitClear(values, 7 - MOTOR_RIGHT_FORWARD);
   bitSet(values, 7 - MOTOR_RIGHT_BACK);
 }
 
 void motor_turn_left() {
   // 左轮低速
-  analogWrite(leftPWM, speed_level1);
+  analogWrite(leftPWM, left_speed_level1);
   bitSet(values, 7 - MOTOR_LEFT_FORWARD);
   bitClear(values, 7 - MOTOR_LEFT_BACK);
   // 右轮前进
-  analogWrite(rightPWM, speed_level2);
+  analogWrite(rightPWM, right_speed_level2);
   bitSet(values, 7 - MOTOR_RIGHT_FORWARD);
   bitClear(values, 7 - MOTOR_RIGHT_BACK);
 }
 
 void motor_turn_right() {
   // 左轮前进
-  analogWrite(leftPWM, speed_level2);
+  analogWrite(leftPWM, left_speed_level2);
   bitSet(values, 7 - MOTOR_LEFT_FORWARD);
   bitClear(values, 7 - MOTOR_LEFT_BACK);
   // 右轮低速
-  analogWrite(rightPWM, speed_level1);
+  analogWrite(rightPWM,  right_speed_level1);
   bitSet(values, 7 - MOTOR_RIGHT_FORWARD);
   bitClear(values, 7 - MOTOR_RIGHT_BACK);
 }
@@ -236,6 +244,41 @@ void softserial_cmd(){
   };
 }
 
+bool SpeedDetection() {
+  time = millis();                   //以毫秒为单位，计算当前时间
+  if (abs(time - old_time) >= 1000)  // 如果计时时间已达1秒
+  {
+    detachInterrupt(0);  // 关闭外部中断0
+    detachInterrupt(1);  // 关闭外部中断1
+    //把每一秒钟编码器码盘计得的脉冲数，换算为当前转速值
+    //转速单位是每分钟多少转，即r/min。这个编码器码盘为20个空洞。
+    lv = (float)leftCounter * 60 / 20;   //小车车轮电机转速
+    rv = (float)rightCounter * 60 / 20;  //小车车轮电机转速
+    Serial.print("left:");
+    Serial.print(lv);  //向上位计算机上传左车轮电机当前转速的高、低字节
+    Serial.print("     right:");
+    Serial.println(rv);  //向上位计算机上传左车轮电机当前转速的高、低字节
+    //恢复到编码器测速的初始状态
+    leftCounter = 0;  //把脉冲计数值清零，以便计算下一秒的脉冲计数
+    rightCounter = 0;
+    old_time = millis();                               // 记录每秒测速时的时间节点
+    attachInterrupt(0, RightCount_CallBack, FALLING);  // 重新开放外部中断0
+    attachInterrupt(1, LeftCount_CallBack, FALLING);   // 重新开放外部中断0
+    return 1;
+  } else
+    return 0;
+}
+
+// 右轮编码器中断服务函数
+void RightCount_CallBack() {
+  rightCounter++;
+}
+
+// 左轮编码器中断服务函数
+void LeftCount_CallBack() {
+  leftCounter++;
+}
+
 void setup() {
   Serial.begin(9600);
   // Set all the pins of 74HC595 as OUTPUT
@@ -249,7 +292,7 @@ void setup() {
 };
 
 void loop() {
-  
+   SpeedDetection();
   if (motor_state == MOTOR_BACK) {
     unsigned long currentMillis = millis();
     if ((bitRead(values, 7 - LED_LEFT) == 1) && (currentMillis - previousMillis >= 200)) {
