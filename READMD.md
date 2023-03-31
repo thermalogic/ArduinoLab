@@ -54,15 +54,15 @@ Arduino有很多类型开发版，本实验室使用其中的2种：`Auduino Uno
 
 ## 实验
 
-1. [LED](./Lab_LED.md)
+1. [LED](./Lab_Components/Lab_LED.md)
 
-2. [LM35](./Lab_LM35.md)
+2. [LM35](./Lab_Components/Lab_LM35.md)
 
-3. [DHT11实验](./Lab_DHT11.md)
+3. [DHT11实验](./Lab_Components/Lab_DHT11.md)
 
-4. [土壤湿度](./Lab_Soil_Moisture.md)
+4. [土壤湿度](./Lab_Components/Lab_Soil_Moisture.md)
 
-5.  超声 可能 传感器 坏了
+5.  [超声](./Lab_Components/Lab_TCRT5000%20IR%20Sensor.md)
 
 * OneWire
 
