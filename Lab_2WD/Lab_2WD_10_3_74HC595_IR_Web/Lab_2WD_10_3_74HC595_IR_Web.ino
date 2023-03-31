@@ -12,15 +12,15 @@ int dataPin = 2;   // Data pin of 74HC595 is connected to Digital pin 2
 byte values = 0;  // Variable to hold the pattern of which LEDs are currently turned on or off
 
 // 74hc595
-#define MOTOR_LEFT_FORWARD 1
-#define MOTOR_LEFT_BACK 2
-#define MOTOR_RIGHT_FORWARD 3
-#define MOTOR_RIGHT_BACK 4
+#define MOTOR_LEFT_FORWARD 4
+#define MOTOR_LEFT_BACK 3
+#define MOTOR_RIGHT_FORWARD 2
+#define MOTOR_RIGHT_BACK 1
 #define LED_LEFT 5
 #define LED_RIGHT 6
 //arduino
-#define leftPWM 5
-#define rightPWM 6
+#define leftPWM 6
+#define rightPWM 5
 
 #define MOTOR_GO 0
 #define MOTOR_BACK 1
@@ -28,7 +28,7 @@ byte values = 0;  // Variable to hold the pattern of which LEDs are currently tu
 #define MOTOR_LEFT 3
 #define MOTOR_RIGHT 4
 
-int speed_level1 = 100;  // 转向时用，转速差，转向
+int speed_level1 = 0;  // 转向时用，转速差，转向
 int speed_level2 = 200;  // 太低驱动不了，调试后200，比较合适
 int speed_level3 = 255;
 
