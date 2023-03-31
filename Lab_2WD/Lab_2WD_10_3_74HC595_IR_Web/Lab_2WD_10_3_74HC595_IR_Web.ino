@@ -1,3 +1,10 @@
+#include "PinDefinitionsAndMore.h"  // Define macros for input and output pin etc.
+#include <IRremote.hpp>
+#include <SoftwareSerial.h>
+
+#define DECODE_NEC  // Includes Apple and Onkyo
+#define IR_RECEIVE_PIN 7
+
 int latchPin = 3;  // Latch pin of 74HC595 is connected to Digital pin 3
 int clockPin = 4;  // Clock pin of 74HC595 is connected to Digital pin 4
 int dataPin = 2;   // Data pin of 74HC595 is connected to Digital pin 2
@@ -29,6 +36,15 @@ int motor_state = MOTOR_STOP;
 int motor_cmd = MOTOR_STOP;
 
 long previousMillis;
+
+String GO = "G";
+String STOP = "S";
+String BACK = "B";
+String LEFT = "L";
+String RIGHT = "R";
+#define SS_RX 10  
+#define SS_TX 11
+SoftwareSerial mySerial(SS_RX, SS_TX);
 
 void updateShiftRegister() {
   //
@@ -120,6 +136,8 @@ void motor_action(int motor_cmd) {
       break;
     case MOTOR_BACK:
       previousMillis = 0;
+      bitClear(values, 7 - LED_LEFT);
+      bitClear(values, 7 - LED_RIGHT);
       motor_back();
       updateShiftRegister();
       motor_state = motor_cmd;
@@ -143,6 +161,81 @@ void motor_action(int motor_cmd) {
   };
 };
 
+void ir_init() {
+  // Just to know which program is running on my Arduino
+  Serial.println(F("START " __FILE__ " from " __DATE__ "\r\nUsing library version " VERSION_IRREMOTE));
+
+  // Start the receiver take LED_BUILTIN pin from the internal boards definition as default feedback LED
+  // IrReceiver.begin(IR_RECEIVE_PIN, ENABLE_LED_FEEDBACK);
+  IrReceiver.begin(IR_RECEIVE_PIN, DISABLE_LED_FEEDBACK);  //释放pin13
+
+  Serial.print(F("Ready to receive IR signals of protocols: "));
+  printActiveIRProtocols(&Serial);
+  Serial.println(F("at pin " STR(IR_RECEIVE_PIN)));
+};
+
+void ir_cmd() {
+  if (IrReceiver.decode()) {
+    // Print a short summary of received data
+    IrReceiver.printIRResultShort(&Serial);
+    //IrReceiver.printIRSendUsage(&Serial);
+    if (IrReceiver.decodedIRData.protocol == UNKNOWN) {
+      Serial.println(F("Received noise or an unknown (or not yet enabled) protocol"));
+      // We have an unknown protocol here, print more info
+      IrReceiver.printIRResultRawFormatted(&Serial, true);
+    }
+    Serial.println();
+
+    //!!!Important!!! Enable receiving of the next value,
+    IrReceiver.resume();  // Enable receiving of the next value
+    // Finally, check the received data and perform actions according to the received command
+    if (IrReceiver.decodedIRData.command == 0x11 || IrReceiver.decodedIRData.command == 0x18 || IrReceiver.decodedIRData.command == 0xCA) {
+      // forward - 2
+      motor_cmd = MOTOR_GO;
+      // }
+    } else if (IrReceiver.decodedIRData.command == 0x14 || IrReceiver.decodedIRData.command == 0x8 || IrReceiver.decodedIRData.command == 0x99) {
+      // Left - 4
+      motor_cmd = MOTOR_LEFT;
+    } else if (IrReceiver.decodedIRData.command == 0x16 || IrReceiver.decodedIRData.command == 0x5A || IrReceiver.decodedIRData.command == 0xC1) {
+      // right - 6
+      motor_cmd = MOTOR_RIGHT;
+    } else if (IrReceiver.decodedIRData.command == 0x19 || IrReceiver.decodedIRData.command == 0x52 || IrReceiver.decodedIRData.command == 0xD2) {
+      // back - 8
+      motor_cmd = MOTOR_BACK;
+    } else if (IrReceiver.decodedIRData.command == 0x15 || IrReceiver.decodedIRData.command == 0x1C || IrReceiver.decodedIRData.command == 0xCE) {
+      // stop - 5
+      motor_cmd = MOTOR_STOP;
+    };
+  }
+  if (motor_cmd != motor_state) {
+    motor_action(motor_cmd);
+  };
+}
+
+void softserial_cmd(){
+// from esp8266 serial
+  String inString = "";
+  while (mySerial.available()) {
+    inString += char(mySerial.read());
+    Serial.print(inString);
+  };
+
+  if (inString.indexOf(GO) != -1) {
+    motor_cmd = MOTOR_GO;
+  } else if (inString.indexOf(STOP) != -1) {
+    motor_cmd = MOTOR_STOP;
+  } else if (inString.indexOf(BACK) != -1) {
+    motor_cmd = MOTOR_BACK;
+  } else if (inString.indexOf(LEFT) != -1) {
+    motor_cmd = MOTOR_LEFT;
+  } else if (inString.indexOf(RIGHT) != -1) {
+    motor_cmd = MOTOR_RIGHT;
+  };
+  if (motor_cmd != motor_state) {
+    motor_action(motor_cmd);
+  };
+}
+
 void setup() {
   Serial.begin(9600);
   // Set all the pins of 74HC595 as OUTPUT
@@ -151,35 +244,27 @@ void setup() {
   pinMode(clockPin, OUTPUT);
   updateShiftRegister();
   motor_init();
-}
+  ir_init();
+  mySerial.begin(9600);
+};
 
 void loop() {
-
+  
   if (motor_state == MOTOR_BACK) {
     unsigned long currentMillis = millis();
     if ((bitRead(values, 7 - LED_LEFT) == 1) && (currentMillis - previousMillis >= 200)) {
       previousMillis = currentMillis;  // Remember the time
       bitClear(values, 7 - LED_LEFT);
       bitClear(values, 7 - LED_RIGHT);
-      updateShiftRegister();
+        updateShiftRegister();
     } else if ((bitRead(values, 7 - LED_LEFT) == 0) && (currentMillis - previousMillis >= 200)) {
       previousMillis = currentMillis;  // Remember the time
       bitSet(values, 7 - LED_LEFT);
       bitSet(values, 7 - LED_RIGHT);
       updateShiftRegister();
     };
+  
   };
-  motor_cmd = MOTOR_BACK;
-  //motor_action(MOTOR_GO);
-  //delay(2000);
-  if (motor_cmd != motor_state) {
-    motor_action(MOTOR_BACK);
-  };
-  //delay(2000);
-  //motor_action(MOTOR_LEFT);
-  // delay(2000);
-  // motor_action(MOTOR_RIGHT);
-  // delay(2000);
-  //  motor_action(MOTOR_STOP);
-  // delay(2000);
+  ir_cmd();
+  softserial_cmd();
 }

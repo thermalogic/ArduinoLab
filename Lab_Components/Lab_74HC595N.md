@@ -33,9 +33,9 @@ Here is an example sketch that turns on each LED in turn until they are all on, 
 
  The three control pins of the 74HC595, namely the `latch, clock, and data pin`, 
 
-* latchPin： RCLK (Register Clock / Latch) (12) -> Arduino D5
-* clockPin: SRCLK (Shift Register Clock) (11)    -> Arduino D6
-* dataPin: SER (Serial Input)(14)  -> Arduino D4
+* latchPin： RCLK (Register Clock / Latch) (12) -> Arduino D3
+* clockPin: SRCLK (Shift Register Clock) (11)    -> Arduino D4
+* dataPin: SER (Serial Input)(14)  -> Arduino D2
 
 * GND(8) -> Arduino GND
 * VCC(16)  -> Arduino +5V
@@ -57,7 +57,7 @@ we manipulate the `OE` pin on the IC to control the brightness of the output LED
 ### 连线
 
 ```c
-int outputEnablePin = 3;    // OE pin of 74HC595 is connected to PWM pin 3
+int outputEnablePin = 5;    // OE pin of 74HC595 is connected to PWM pin 5
 ```
 
 * OE(13)  -> Arduino D3
