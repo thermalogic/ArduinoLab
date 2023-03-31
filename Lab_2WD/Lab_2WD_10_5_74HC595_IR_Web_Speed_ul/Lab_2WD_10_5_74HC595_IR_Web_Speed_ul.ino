@@ -11,14 +11,16 @@ int dataPin = 12;  // Data pin of 74HC595 is connected to Digital pin 12
 
 byte values = 0; // Variable to hold the pattern of which LEDs are currently turned on or off
 
-// 74hc595
+// 74hc595 - motor
 #define MOTOR_LEFT_FORWARD 4
 #define MOTOR_LEFT_BACK 3
 #define MOTOR_RIGHT_FORWARD 1
 #define MOTOR_RIGHT_BACK 2
+// 74hc595 - led
 #define LED_LEFT 5
 #define LED_RIGHT 6
-// arduino
+
+// LN298N - Arduino
 #define leftPWM 6
 #define rightPWM 5
 
@@ -49,7 +51,7 @@ String STOP = "S";
 String BACK = "B";
 String LEFT = "L";
 String RIGHT = "R";
-// softserial
+// softserial - Arduino
 #define SS_RX 10
 #define SS_TX 11
 SoftwareSerial mySerial(SS_RX, SS_TX);
@@ -60,7 +62,7 @@ unsigned long time = 0, old_time = 0; // 时间标记
 unsigned long time1 = 0;              // 时间标记
 float lv, rv;                         // 左、右轮速度
 
-// 超声
+// 超声 - Arduino
 #define TRIG_PIN 8 // Trigger
 #define ECHO_PIN 9 // Echo
 long duration, cm;
@@ -321,16 +323,16 @@ bool speed_detection()
     return 0;
 }
 
-// 右轮编码器中断服务函数
-void RightCount_CallBack()
-{
-  rightCounter++;
-}
-
 // 左轮编码器中断服务函数
 void LeftCount_CallBack()
 {
   leftCounter++;
+}
+
+// 右轮编码器中断服务函数
+void RightCount_CallBack()
+{
+  rightCounter++;
 }
 
 void distance_detection()
@@ -366,18 +368,19 @@ void ultrasonic_init()
 void led_blink()
 {
   unsigned long currentMillis = millis();
-  if ((bitRead(values, 7 - LED_LEFT) == 1) && (currentMillis - previousMillis >= 200))
+  if (currentMillis - previousMillis >= 200)
   {
     previousMillis = currentMillis; // Remember the time
-    bitClear(values, 7 - LED_LEFT);
-    bitClear(values, 7 - LED_RIGHT);
-    shift_register_update();
-  }
-  else if ((bitRead(values, 7 - LED_LEFT) == 0) && (currentMillis - previousMillis >= 200))
-  {
-    previousMillis = currentMillis; // Remember the time
-    bitSet(values, 7 - LED_LEFT);
-    bitSet(values, 7 - LED_RIGHT);
+    if (bitRead(values, 7 - LED_LEFT) == 1)
+    {
+      bitClear(values, 7 - LED_LEFT);
+      bitClear(values, 7 - LED_RIGHT);
+    }
+    else if ((bitRead(values, 7 - LED_LEFT) == 0))
+    {
+      bitSet(values, 7 - LED_LEFT);
+      bitSet(values, 7 - LED_RIGHT);
+    };
     shift_register_update();
   };
 }
@@ -408,7 +411,7 @@ void loop()
   }
   if (motor_state == MOTOR_BACK)
   {
-   led_blink();
+    led_blink();
   };
   ir_cmd();
   softserial_cmd();
