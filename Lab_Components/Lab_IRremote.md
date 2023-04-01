@@ -18,13 +18,14 @@
 * IRremote out ->Arduino Pin11 //不用<IRremote.hpp>定义的pin2
 
 
-
 白遥控器：
 * 2 - 0x18 
 * 4-  0x8
 * 6 - 0x5A 
 * 8 - 0x52 
 * 5 - 0x1C stop
+* + - 0X15
+* - - 0x7
 
 黑遥控器：
 * 2 - 0x11
@@ -32,11 +33,19 @@
 * 6 - 0x16
 * 8 - 0x19
 * 5 - 0x15 stop
+* vol+ 0X1
+* vol- 0x9
 
 
-华为盒子 ^ -0xCA4  <- 0x99 -> 0xC1 back 0xD2 stop(ok) 0xCE
+华为盒子 
 
-**黑遥控器没有电了**
+* ^ -0xCA
+* <- 0x99 
+* -> 0xC1
+* back 0xD2
+* stop(ok) 0xCE
+* +  0x80
+* - 0x81
 
 
 ```c

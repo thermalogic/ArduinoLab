@@ -2,67 +2,72 @@
 #include <IRremote.hpp>
 #include <SoftwareSerial.h>
 
+#define CONFIG_DISTANCE_DEBUG
+#define CONFIG_SPEED_DEBUG
+#define CONFIG_IRREMOTE_DEBUG
+#define CONFIG_SOFTSERIAL_DEBUG
+
 #define DECODE_NEC // Includes Apple and Onkyo
 #define IR_RECEIVE_PIN 7
 
-int latchPin = 13; // Latch pin of 74HC595 is connected to Digital pin 13
-int clockPin = 4;  // Clock pin of 74HC595 is connected to Digital pin 4
-int dataPin = 12;  // Data pin of 74HC595 is connected to Digital pin 12
+#define LATCH_PIN 13 // Latch pin of 74HC595 is connected to Digital pin 13
+#define CLOCK_PIN 4  // Clock pin of 74HC595 is connected to Digital pin 4
+#define DATA_PIN 12  // Data pin of 74HC595 is connected to Digital pin 12
 
 byte values = 0; // Variable to hold the pattern of which LEDs are currently turned on or off
 
 // 74hc595 - motor
-#define MOTOR_LEFT_FORWARD 4
-#define MOTOR_LEFT_BACK 3
-#define MOTOR_RIGHT_FORWARD 1
-#define MOTOR_RIGHT_BACK 2
+#define MOTOR_LEFT_FORWARD_PIN_SR 4
+#define MOTOR_LEFT_BACK_PIN_SR 3
+#define MOTOR_RIGHT_FORWARD_PIN_SR 1
+#define MOTOR_RIGHT_BACK_PIN_SR 2
 // 74hc595 - led
-#define LED_LEFT 5
-#define LED_RIGHT 6
+#define LED_LEFT_PIN_SR 5
+#define LED_RIGHT_PIN_SR 6
 
 // LN298N - Arduino
-#define leftPWM 6
-#define rightPWM 5
+#define LEFT_PWM_PIN 6
+#define RIGHT_PWM_PIN 5
 
 // motor state code
-#define MOTOR_GO 0
-#define MOTOR_BACK 1
-#define MOTOR_STOP 2
-#define MOTOR_LEFT 3
-#define MOTOR_RIGHT 4
+const int MOTOR_GO = 0;
+const int MOTOR_BACK = 1;
+const int MOTOR_STOP = 2;
+const int MOTOR_LEFT = 3;
+const int MOTOR_RIGHT = 4;
 
 int motor_state = MOTOR_STOP;
 int motor_cmd = MOTOR_STOP;
 
-// 电机速度PWM数值
-// 数值太小，电池电量不足，驱动不了，需要取适当的数值
-int left_speed_level1 = 45; // 转向时用，转速差，转向
-int right_speed_level1 = 50;
-int left_speed_level2 = 130; // 同样PWM数值,左右电机速度会有差别，车子会向慢的一边转,可以测试两边一样速度的各自PWM数值
-int right_speed_level2 = 135;
-int left_speed_level3 = 245;
-int right_speed_level3 = 255;
+#define SPEED_MAX 250
+#define SPEED_MIN 50
 
-long previousMillis; // leds闪烁用变量
+// PWM - speed
+int step_speed = 10;
+int left_speed = 130;
+int right_speed = 135;
+int turn_speed_diff = 30;
 
-// softserial 传递的控制电机运行状态的控制字符
-String GO = "G";
-String STOP = "S";
-String BACK = "B";
-String LEFT = "L";
-String RIGHT = "R";
+long previousMillis; // for led blink
+
+// char from softserial to control moto
+const String GO = "G";
+const String STOP = "S";
+const String BACK = "B";
+const String LEFT = "L";
+const String RIGHT = "R";
 // softserial - Arduino
-#define SS_RX 10
-#define SS_TX 11
-SoftwareSerial mySerial(SS_RX, SS_TX);
+#define SS_RX_PIN 10
+#define SS_TX_PIN 11
+SoftwareSerial espSerial(SS_RX_PIN, SS_TX_PIN);
 
-// 测速变量 -Arduino UNO/Pro Mini使用中断0，1 占用pin2,3
+// Arduino UNO/Pro Mini intercept0，1(pin2,3)
 int leftCounter = 0, rightCounter = 0;
-unsigned long time = 0, old_time = 0; // 时间标记
-unsigned long time1 = 0;              // 时间标记
-float lv, rv;                         // 左、右轮速度
+unsigned long time = 0, old_time = 0;
+unsigned long time1 = 0;
+float lv, rv;
 
-// 超声 - Arduino
+// ultrasonic - Arduino
 #define TRIG_PIN 8 // Trigger
 #define ECHO_PIN 9 // Echo
 long duration, cm;
@@ -71,80 +76,87 @@ long duration, cm;
 void shift_register_update()
 {
   //
-  digitalWrite(latchPin, LOW);
-  shiftOut(dataPin, clockPin, LSBFIRST, values);
-  digitalWrite(latchPin, HIGH);
+  digitalWrite(LATCH_PIN, LOW);
+  shiftOut(DATA_PIN, CLOCK_PIN, LSBFIRST, values);
+  digitalWrite(LATCH_PIN, HIGH);
 };
 
 void shift_register_init()
 {
 
   // Set all the pins of 74HC595 as OUTPUT
-  pinMode(latchPin, OUTPUT);
-  pinMode(dataPin, OUTPUT);
-  pinMode(clockPin, OUTPUT);
+  pinMode(LATCH_PIN, OUTPUT);
+  pinMode(DATA_PIN, OUTPUT);
+  pinMode(CLOCK_PIN, OUTPUT);
   shift_register_update();
 }
 
 void motor_init()
 {
-  // 默认停止状态
-  analogWrite(leftPWM, 0);
-  analogWrite(rightPWM, 0);
-  // 默认全是低电平 停止状态
-  bitClear(values, 7 - MOTOR_LEFT_FORWARD);
-  bitClear(values, 7 - MOTOR_LEFT_BACK);
-  bitClear(values, 7 - MOTOR_RIGHT_FORWARD);
-  bitClear(values, 7 - MOTOR_RIGHT_BACK);
+  analogWrite(LEFT_PWM_PIN, 0);
+  analogWrite(RIGHT_PWM_PIN, 0);
+
+  bitClear(values, 7 - MOTOR_LEFT_FORWARD_PIN_SR);
+  bitClear(values, 7 - MOTOR_LEFT_BACK_PIN_SR);
+  bitClear(values, 7 - MOTOR_RIGHT_FORWARD_PIN_SR);
+  bitClear(values, 7 - MOTOR_RIGHT_BACK_PIN_SR);
   shift_register_update();
 }
 
 void motor_go()
 {
-  // 左轮前进
-  analogWrite(leftPWM, left_speed_level2);
-  bitSet(values, 7 - MOTOR_LEFT_FORWARD);
-  bitClear(values, 7 - MOTOR_LEFT_BACK);
-  // 右轮前进
-  analogWrite(rightPWM, right_speed_level2);
-  bitSet(values, 7 - MOTOR_RIGHT_FORWARD);
-  bitClear(values, 7 - MOTOR_RIGHT_BACK);
+  // left forward
+  analogWrite(LEFT_PWM_PIN, left_speed);
+  bitSet(values, 7 - MOTOR_LEFT_FORWARD_PIN_SR);
+  bitClear(values, 7 - MOTOR_LEFT_BACK_PIN_SR);
+  // right forward
+  analogWrite(RIGHT_PWM_PIN, right_speed);
+  bitSet(values, 7 - MOTOR_RIGHT_FORWARD_PIN_SR);
+  bitClear(values, 7 - MOTOR_RIGHT_BACK_PIN_SR);
 }
 
 void motor_back()
 {
-  analogWrite(leftPWM, left_speed_level2);
-  // 左轮后退
-  bitClear(values, 7 - MOTOR_LEFT_FORWARD);
-  bitSet(values, 7 - MOTOR_LEFT_BACK);
-  // 右轮后退;
-  analogWrite(rightPWM, right_speed_level2);
-  bitClear(values, 7 - MOTOR_RIGHT_FORWARD);
-  bitSet(values, 7 - MOTOR_RIGHT_BACK);
+  analogWrite(LEFT_PWM_PIN, left_speed);
+  bitClear(values, 7 - MOTOR_LEFT_FORWARD_PIN_SR);
+  bitSet(values, 7 - MOTOR_LEFT_BACK_PIN_SR);
+
+  analogWrite(RIGHT_PWM_PIN, right_speed);
+  bitClear(values, 7 - MOTOR_RIGHT_FORWARD_PIN_SR);
+  bitSet(values, 7 - MOTOR_RIGHT_BACK_PIN_SR);
 }
 
 void motor_turn_left()
 {
-  // 左轮低速
-  analogWrite(leftPWM, left_speed_level1);
-  bitSet(values, 7 - MOTOR_LEFT_FORWARD);
-  bitClear(values, 7 - MOTOR_LEFT_BACK);
-  // 右轮前进
-  analogWrite(rightPWM, right_speed_level2);
-  bitSet(values, 7 - MOTOR_RIGHT_FORWARD);
-  bitClear(values, 7 - MOTOR_RIGHT_BACK);
+  // right speed>left speed
+  left_speed = right_speed - turn_speed_diff;
+  if (left_speed < SPEED_MIN)
+  {
+    left_speed = SPEED_MIN;
+  };
+  analogWrite(LEFT_PWM_PIN, left_speed);
+  bitSet(values, 7 - MOTOR_LEFT_FORWARD_PIN_SR);
+  bitClear(values, 7 - MOTOR_LEFT_BACK_PIN_SR);
+
+  analogWrite(RIGHT_PWM_PIN, right_speed);
+  bitSet(values, 7 - MOTOR_RIGHT_FORWARD_PIN_SR);
+  bitClear(values, 7 - MOTOR_RIGHT_BACK_PIN_SR);
 }
 
 void motor_turn_right()
 {
-  // 左轮前进
-  analogWrite(leftPWM, left_speed_level2);
-  bitSet(values, 7 - MOTOR_LEFT_FORWARD);
-  bitClear(values, 7 - MOTOR_LEFT_BACK);
-  // 右轮低速
-  analogWrite(rightPWM, right_speed_level1);
-  bitSet(values, 7 - MOTOR_RIGHT_FORWARD);
-  bitClear(values, 7 - MOTOR_RIGHT_BACK);
+  // left speed>right speed
+  analogWrite(LEFT_PWM_PIN, left_speed);
+  bitSet(values, 7 - MOTOR_LEFT_FORWARD_PIN_SR);
+  bitClear(values, 7 - MOTOR_LEFT_BACK_PIN_SR);
+  right_speed = left_speed - turn_speed_diff;
+  if (right_speed < SPEED_MIN)
+  {
+    right_speed = SPEED_MIN;
+  }
+  analogWrite(RIGHT_PWM_PIN, right_speed);
+  bitSet(values, 7 - MOTOR_RIGHT_FORWARD_PIN_SR);
+  bitClear(values, 7 - MOTOR_RIGHT_BACK_PIN_SR);
 }
 
 void motor_stop()
@@ -157,41 +169,37 @@ void motor_action(int motor_cmd)
   switch (motor_cmd)
   {
   case MOTOR_GO:
-    // led_left.on(values);
-    // led_right.on(values);
-    bitSet(values, 7 - LED_LEFT);
-    bitSet(values, 7 - LED_RIGHT);
+    bitSet(values, 7 - LED_LEFT_PIN_SR);
+    bitSet(values, 7 - LED_RIGHT_PIN_SR);
     motor_go();
     shift_register_update();
     motor_state = motor_cmd;
     break;
   case MOTOR_STOP:
-    // led_left.off(values);
-    // led_right.off(values);
-    bitClear(values, 7 - LED_LEFT);
-    bitClear(values, 7 - LED_RIGHT);
+    bitClear(values, 7 - LED_LEFT_PIN_SR);
+    bitClear(values, 7 - LED_RIGHT_PIN_SR);
     motor_stop();
     shift_register_update();
     motor_state = motor_cmd;
     break;
   case MOTOR_BACK:
     previousMillis = 0;
-    bitClear(values, 7 - LED_LEFT);
-    bitClear(values, 7 - LED_RIGHT);
+    bitClear(values, 7 - LED_LEFT_PIN_SR);
+    bitClear(values, 7 - LED_RIGHT_PIN_SR);
     motor_back();
     shift_register_update();
     motor_state = motor_cmd;
     break;
   case MOTOR_LEFT:
-    bitSet(values, 7 - LED_LEFT);
-    bitClear(values, 7 - LED_RIGHT);
+    bitSet(values, 7 - LED_LEFT_PIN_SR);
+    bitClear(values, 7 - LED_RIGHT_PIN_SR);
     motor_turn_left();
     shift_register_update();
     motor_state = motor_cmd;
     break;
   case MOTOR_RIGHT:
-    bitClear(values, 7 - LED_LEFT);
-    bitSet(values, 7 - LED_RIGHT);
+    bitClear(values, 7 - LED_LEFT_PIN_SR);
+    bitSet(values, 7 - LED_RIGHT_PIN_SR);
     motor_turn_right();
     shift_register_update();
     motor_state = motor_cmd;
@@ -201,59 +209,92 @@ void motor_action(int motor_cmd)
   };
 };
 
+void update_motor_speed(int step_speed_value)
+{
+  left_speed += step_speed_value;
+  right_speed += step_speed_value;
+
+  if (left_speed > SPEED_MAX)
+  {
+    left_speed = SPEED_MAX;
+  }
+  else if (left_speed < SPEED_MIN)
+  {
+    left_speed = SPEED_MIN;
+  };
+  //right_speed
+  if (right_speed > SPEED_MAX)
+  {
+    right_speed = SPEED_MAX;
+  }
+  else if (right_speed < SPEED_MIN)
+  {
+    right_speed = SPEED_MIN;
+  };
+
+  analogWrite(LEFT_PWM_PIN, left_speed);
+  analogWrite(RIGHT_PWM_PIN, right_speed);
+}
+
 void irremote_init()
 {
-  // Just to know which program is running on my Arduino
+#ifdef CONFIG_IRREMOTE_DEBUG
   Serial.println(F("START " __FILE__ " from " __DATE__ "\r\nUsing library version " VERSION_IRREMOTE));
-
-  // Start the receiver take LED_BUILTIN pin from the internal boards definition as default feedback LED
-  // IrReceiver.begin(IR_RECEIVE_PIN, ENABLE_LED_FEEDBACK);
-  IrReceiver.begin(IR_RECEIVE_PIN, DISABLE_LED_FEEDBACK); // 释放pin13
-
+#endif
+  IrReceiver.begin(IR_RECEIVE_PIN, DISABLE_LED_FEEDBACK);
+#ifdef CONFIG_IRREMOTE_DEBUG
   Serial.print(F("Ready to receive IR signals of protocols: "));
   printActiveIRProtocols(&Serial);
   Serial.println(F("at pin " STR(IR_RECEIVE_PIN)));
+#endif
 };
 
 void irremote_cmd()
 {
   if (IrReceiver.decode())
   {
+#ifdef CONFIG_IRREMOTE_DEBUG
     // Print a short summary of received data
     IrReceiver.printIRResultShort(&Serial);
-    // IrReceiver.printIRSendUsage(&Serial);
     if (IrReceiver.decodedIRData.protocol == UNKNOWN)
     {
       Serial.println(F("Received noise or an unknown (or not yet enabled) protocol"));
-      // We have an unknown protocol here, print more info
       IrReceiver.printIRResultRawFormatted(&Serial, true);
     }
     Serial.println();
-
+#endif
     //!!!Important!!! Enable receiving of the next value,
     IrReceiver.resume(); // Enable receiving of the next value
-    // Finally, check the received data and perform actions according to the received command
-    if (IrReceiver.decodedIRData.command == 0x11 || IrReceiver.decodedIRData.command == 0x18 || IrReceiver.decodedIRData.command == 0xCA)
+    if (IrReceiver.decodedIRData.command == 0x18 )
     {
       motor_cmd = MOTOR_GO;
     }
-    else if (IrReceiver.decodedIRData.command == 0x14 || IrReceiver.decodedIRData.command == 0x8 || IrReceiver.decodedIRData.command == 0x99)
+    else if (IrReceiver.decodedIRData.command == 0x8)
     {
       motor_cmd = MOTOR_LEFT;
     }
-    else if (IrReceiver.decodedIRData.command == 0x16 || IrReceiver.decodedIRData.command == 0x5A || IrReceiver.decodedIRData.command == 0xC1)
+    else if ( IrReceiver.decodedIRData.command == 0x5A)
     {
       motor_cmd = MOTOR_RIGHT;
     }
-    else if (IrReceiver.decodedIRData.command == 0x19 || IrReceiver.decodedIRData.command == 0x52 || IrReceiver.decodedIRData.command == 0xD2)
+    else if (IrReceiver.decodedIRData.command == 0x52)
     {
       motor_cmd = MOTOR_BACK;
     }
-    else if (IrReceiver.decodedIRData.command == 0x15 || IrReceiver.decodedIRData.command == 0x1C || IrReceiver.decodedIRData.command == 0xCE)
+    else if ( IrReceiver.decodedIRData.command == 0x1C)
     {
       motor_cmd = MOTOR_STOP;
+    }
+    else if (IrReceiver.decodedIRData.command == 0x15)
+    {
+      // + speed
+      update_motor_speed(step_speed);
+    }
+    else if (IrReceiver.decodedIRData.command == 0x7)
+    { // - speed
+      update_motor_speed(-step_speed);
     };
-  }
+  };
   if (motor_cmd != motor_state)
   {
     motor_action(motor_cmd);
@@ -264,10 +305,12 @@ void softserial_cmd()
 {
   // from esp8266 softserial
   String inString = "";
-  while (mySerial.available())
+  while (espSerial.available())
   {
-    inString += char(mySerial.read());
+    inString += char(espSerial.read());
+#ifdef CONFIG_SOFTSERIAL_DEBUG
     Serial.print(inString);
+#endif
   };
 
   if (inString.indexOf(GO) != -1)
@@ -298,24 +341,23 @@ void softserial_cmd()
 
 bool speed_detection()
 {
-  time = millis();                  // 以毫秒为单位，计算当前时间
-  if (abs(time - old_time) >= 1000) // 如果计时时间已达1秒
+  time = millis();
+  if (abs(time - old_time) >= 1000)
   {
     detachInterrupt(0); // 关闭外部中断
     detachInterrupt(1);
-    // 把每一秒钟编码器码盘计得的脉冲数，换算为当前转速值
-    // 转速单位是每分钟多少转，即r/min。这个编码器码盘为20个空洞。
-    lv = (float)leftCounter * 60 / 20; // 小车车轮电机转速
+    lv = (float)leftCounter * 60 / 20;
     rv = (float)rightCounter * 60 / 20;
+#ifdef CONFIG_SPEED_DEBUG
     Serial.print("left:");
-    Serial.print(lv); // 向上位计算机上传左车轮电机当前转速的高、低字节
+    Serial.print(lv);
     Serial.print("     right:");
-    Serial.println(rv); // 向上位计算机上传左车轮电机当前转速的高、低字节
-    // 恢复到编码器测速的初始状态,把脉冲计数值清零，以便计算下一秒的脉冲计数
+    Serial.println(rv);
+#endif
     leftCounter = 0;
     rightCounter = 0;
-    old_time = millis();                              // 记录每秒测速时的时间节点
-    attachInterrupt(0, RightCount_CallBack, FALLING); // 重新开放外部中断
+    old_time = millis();
+    attachInterrupt(0, RightCount_CallBack, FALLING);
     attachInterrupt(1, LeftCount_CallBack, FALLING);
     return 1;
   }
@@ -323,13 +365,11 @@ bool speed_detection()
     return 0;
 }
 
-// 左轮编码器中断服务函数
 void LeftCount_CallBack()
 {
   leftCounter++;
 }
 
-// 右轮编码器中断服务函数
 void RightCount_CallBack()
 {
   rightCounter++;
@@ -337,25 +377,20 @@ void RightCount_CallBack()
 
 void distance_detection()
 {
-  // The sensor is triggered by a HIGH pulse of 10 or more microseconds.
-  // Give a short LOW pulse beforehand to ensure a clean HIGH pulse:
   digitalWrite(TRIG_PIN, LOW);
   delayMicroseconds(5);
   digitalWrite(TRIG_PIN, HIGH);
   delayMicroseconds(10);
   digitalWrite(TRIG_PIN, LOW);
 
-  // Read the signal from the sensor: a HIGH pulse whose
-  // duration is the time (in microseconds) from the sending
-  // of the ping to the reception of its echo off of an object.
   pinMode(ECHO_PIN, INPUT);
   duration = pulseIn(ECHO_PIN, HIGH);
-
-  // Convert the time into a distance
-  cm = (duration / 2) / 29.1; // Divide by 29.1 or multiply by 0.0343
+  cm = (duration / 2) / 29.1;
+#ifdef CONFIG_DISTANCE_DEBUG
   Serial.print(cm);
   Serial.print("cm");
   Serial.println();
+#endif
 }
 
 void ultrasonic_init()
@@ -370,15 +405,15 @@ void led_blink()
   if (currentMillis - previousMillis >= 200)
   {
     previousMillis = currentMillis; // Remember the time
-    if (bitRead(values, 7 - LED_LEFT) == 1)
+    if (bitRead(values, 7 - LED_LEFT_PIN_SR) == 1)
     {
-      bitClear(values, 7 - LED_LEFT);
-      bitClear(values, 7 - LED_RIGHT);
+      bitClear(values, 7 - LED_LEFT_PIN_SR);
+      bitClear(values, 7 - LED_RIGHT_PIN_SR);
     }
-    else if ((bitRead(values, 7 - LED_LEFT) == 0))
+    else if ((bitRead(values, 7 - LED_LEFT_PIN_SR) == 0))
     {
-      bitSet(values, 7 - LED_LEFT);
-      bitSet(values, 7 - LED_RIGHT);
+      bitSet(values, 7 - LED_LEFT_PIN_SR);
+      bitSet(values, 7 - LED_RIGHT_PIN_SR);
     };
     shift_register_update();
   };
@@ -393,7 +428,7 @@ void setup()
   irremote_init();
   ultrasonic_init();
 
-  mySerial.begin(9600);
+  espSerial.begin(9600);
 };
 
 void loop()

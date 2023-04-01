@@ -14,7 +14,7 @@ int brightness = 0;  // how bright the LED is ,fade for back
 #include "PinDefinitionsAndMore.h"  // Define macros for input and output pin etc.
 #include <IRremote.hpp>
 
-#define IR_RECEIVE_PIN 11 //IRremote.hpp  默认是pin2，小车使用pin11
+#define IR_RECEIVE_PIN 7 //IRremote.hpp  默认是pin2，小车使用pin11
 
 void setup() {
   pinMode(LED_Left, OUTPUT);
