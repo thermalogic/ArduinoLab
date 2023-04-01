@@ -16,6 +16,8 @@ Arduino端有多个串口时，需要使用`软串口`和ESP8266通信
 
 * https://www.survivingwithandroid.com/esp8266-web-server/
 
+* https://randomnerdtutorials.com/esp8266-nodemcu-access-point-ap-web-server/
+
 ## 功能
 
 * ESP8266连接到本地无线路由，提供Web服务，将web指令通过串口发给Arduino UNO

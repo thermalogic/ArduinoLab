@@ -1,5 +1,5 @@
 /*
-5C-CF-7F-A5-5C-7D绑定192.168.0.100
+5C-CF-7F-A5-5C-7D绑定192.168.0.107
 */
 
 #include <ESP8266WiFi.h>
@@ -31,11 +31,12 @@ void loop()
   // Check if a client has connected
   WiFiClient client = server.available();
 
-  if(!client){
-    return; 
-  } ;  
-  delay(50); // 
-  if(client.available()) 
+  if (!client)
+  {
+    return;
+  };
+  delay(50); //
+  if (client.available())
   {
     // Return the response
     client.println(F("HTTP/1.1 200 OK"));
@@ -52,7 +53,7 @@ void loop()
     client.println(F("<a href=\"/MOTOR=LEFT\">Turn Left</a><br>"));
     client.println(F("<a href=\"/MOTOR=RIGHT\">Turn Right</a><br>"));
     client.println(F("</html>"));
-    
+
     String request = client.readStringUntil('\r');
     client.flush();
 
@@ -77,8 +78,5 @@ void loop()
     {
       Serial.println("R");
     }
-   
-    
-    
   }
 }
