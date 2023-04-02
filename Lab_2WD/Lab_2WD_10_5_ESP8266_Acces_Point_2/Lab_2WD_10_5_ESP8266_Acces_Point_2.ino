@@ -37,6 +37,11 @@ return  String("")+"<html>"+
 "<p><a href=\"/MOTOR=RIGHT\"><button class=\"button\">Turn Right</button></a></p>"+
 "<p><a href=\"/MOTOR=UP\"><button class=\"button\">Speed Up</button></a></p>"+
 "<p><a href=\"/MOTOR=DOWN\"><button class=\"button\">Speed Down</button></a></p>"+
+"<p>"+
+"    <span>Distance</span>"+ 
+"    <span id=\"distance\">%DISTANCE%</span>"+
+"    <sup >cm</sup>"+
+"</p>"+
 "</body>"+
 "</html>";
 }
@@ -75,9 +80,21 @@ void handleMotor_UP() {
     server.send(200, "text/html", index_html());
 }
 
+void handle_received_data() {
+    float distance=101.1;
+    float left_speed=134.2;
+    float right_speed=142.1;
+    
+    String json = "{";
+    json += "\"distance\":"+String(distance);
+    json += ", \"left_speed\":"+String(left_speed);
+    json += ", \"right_speed\":"+String(right_speed);
+    json += "}";
+    server.send(200, "text/json", json);
+}
+
 void handleMotor_DOWN() {
     Serial.println("D");
-    server.send(200, "text/html", index_html());
 }
 
 void setup() {
@@ -92,11 +109,11 @@ void setup() {
   Serial.print("AP IP address: ");
   Serial.println(myIP);
   server.on("/", handleRoot);
-  server.on("/MOTOR=GO", handleMotor_GO);
+  server.on("/MOTOR=GO",  handleMotor_GO);
   server.on("/MOTOR=STOP", handleMotor_STOP);
   server.on("/MOTOR=BACK", handleMotor_BACK);
   server.on("/MOTOR=LEFT", handleMotor_LEFT);
-  server.on("/MOTOR=RIGHT", handleMotor_RIGHT);
+  server.on("/MOTOR=RIGHT",handleMotor_RIGHT);
   server.on("/MOTOR=UP", handleMotor_UP);
   server.on("/MOTOR=DOWN", handleMotor_DOWN);
   server.begin();
@@ -105,4 +122,5 @@ void setup() {
 
 void loop() {
   server.handleClient();
+  //handle_received_data();
 }

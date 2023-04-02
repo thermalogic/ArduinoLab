@@ -1,5 +1,7 @@
 # ESP8266
 
+**问题** 
+
 ESP8266可以有2种方式提供web server
 
 * 连接到无线路由的机器，提供服务 Lab_2WD_10_5_ESP8266_web_softserial.ino 使用`WiFiServer` server(80); 
@@ -10,12 +12,29 @@ ESP8266可以有2种方式提供web server
 
 * 第一种方式，连接ESP8266的设备，还可以访问其他设备，但是，需要在共同无线路由的网络下，离开无线路由，就不能提供服务
 * 第二种方式，不需要无线路由就可以服务，但是，连接设备，这个时间，不能通过WIFI使用其他网络服务
+## 代码
 
+ESP8266和Arduino 中间数据通信采用json格式
+
+
+ * Lab_2WD_10_5_ESP8266_Acces_Point_3.ino 异步ajax
+ * Lab_2WD_10_5_Arduino_74HC595_IR_Web_speed_ul
+ 
+
+```c
+   inString = "{";
+  inString += "\"distance\":" + String(63.1);
+  inString += ", \"left_speed\":" +  String(138.1);
+  inString += ", \"right_speed\":" + String(141.2);
+  inString += "}";
+```
 ## 问题
 
 作为无线热点时，使用`WiFiServer`，不能提供服务
 
 `WiFiServer`和`ESP8266WebServer`库的差别很大
+
+Pro Mini烧录程序失败，2中烧录模块都失败-板子选择错误Arduino UNO,因为Pro Mini
 
 ## TODO
 
