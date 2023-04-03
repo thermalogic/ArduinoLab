@@ -1,5 +1,4 @@
 #include <ESP8266WiFi.h>
-#include <WiFiClient.h>
 #include <ESP8266WebServer.h>
 #include <ArduinoJson.h>
 
@@ -166,11 +165,5 @@ void loop() {
       json += ", \"right_speed\":" + String(102);
       json += "}";
     }
-  } else {
-    /*json = "{";
-    json += "\"distance\":" + String(200);
-    json += ", \"left_speed\":" + String(201);
-    json += ", \"right_speed\":" + String(202);
-    json += "}";*/
-  }
+  } 
 }

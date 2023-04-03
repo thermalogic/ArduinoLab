@@ -1,5 +1,6 @@
 # 智能小车4- L298N控制智能小车直流电机测速
 
+* https://dronebotworkshop.com/robot-car-with-speed-sensors/
 
 ## 编码器测速模块
 
@@ -231,3 +232,4 @@ void stopCar() {
 * 编码轮测速
 
 文件： Lab_LS298N_IRremote_leds_ultrasonic_speed.ino
+
