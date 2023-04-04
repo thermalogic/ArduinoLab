@@ -8,6 +8,7 @@
 
 
 ![](img/Pinout-74HC595-Shift-Register.png)
+![](img/74hc595-chinese.jpg)
 
 ## 问题
 
