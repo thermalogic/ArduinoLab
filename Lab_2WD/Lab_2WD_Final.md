@@ -29,3 +29,10 @@ ESP8266和Arduino间串口通讯通信数据采用json格式
 
 * ESP8266作为无线热点提供服务
 
+
+
+## esp8266-nodemcu-websocket-server-arduino/
+
+不使用websocket数据推送到客户端不稳定
+
+* https://randomnerdtutorials.com/esp8266-nodemcu-websocket-server-arduino/#:~:text=Using%20the%20WebSockets%20protocol%2C%20the,browser%20when%20a%20change%20occurs.
