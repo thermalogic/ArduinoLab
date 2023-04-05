@@ -10,11 +10,13 @@
 ![](img/Pinout-74HC595-Shift-Register.png)
 ![](img/74hc595-chinese.jpg)
 
+
+
 ## 问题
 
 芯片直接插在面包板上，不使用芯片座，芯片座在面包板，插不好接触不良。
 
-### 4HC595 Shift Register Pinout
+### 74HC595 Shift Register Pinout
 
 * SER (Serial Input) pin is used to `send data into the shift register` one bit at a time.
 
@@ -34,9 +36,9 @@ Here is an example sketch that turns on each LED in turn until they are all on, 
 
  The three control pins of the 74HC595, namely the `latch, clock, and data pin`, 
 
-* latchPin： RCLK (Register Clock / Latch) (12) -> Arduino D3
+* latchPin： RCLK (Register Clock / Latch) (12) -> Arduino D13
 * clockPin: SRCLK (Shift Register Clock) (11)    -> Arduino D4
-* dataPin: SER (Serial Input)(14)  -> Arduino D2
+* dataPin: SER (Serial Input)(14)  -> Arduino D12
 
 * GND(8) -> Arduino GND
 * VCC(16)  -> Arduino +5V
