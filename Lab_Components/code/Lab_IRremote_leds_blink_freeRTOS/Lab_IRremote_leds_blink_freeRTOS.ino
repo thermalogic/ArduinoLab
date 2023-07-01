@@ -2,7 +2,7 @@
 /*
 
 FreeRTOS: IRmote Red blink
-多任务后，红外信号解析不可靠
+多任务后，红外信号解析不可靠,IRremote库的原因？？？
 */
 #include <Arduino_FreeRTOS.h>
 #include <IRremote.hpp>
