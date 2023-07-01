@@ -5,7 +5,6 @@ FreeRTOS: IRmote Red blink
 
 */
 #include <Arduino_FreeRTOS.h>
-#include "event_groups.h"
 #include <IRremote.hpp>
 #include "PinDefinitionsAndMore.h"  // Define macros for input and output pin etc.
 
@@ -23,11 +22,6 @@ FreeRTOS: IRmote Red blink
 
 int brightness = 0;  // how bright the LED is ,fade for ACTION_STOP
 int cur_action = ACTION_STOP;
-
-/* Declare a variable to hold the created event group. */
-//EventGroupHandle_t xFlagsEventGroup;
-//#define BTN_PRESSED_Pos 0U
-//#define BTN_PRESSED_Msk (1UL << BTN_PRESSED_Pos)
 
 void TaskReadIR(void *pvParameters) {
   (void)pvParameters;
@@ -50,30 +44,33 @@ void TaskReadIR(void *pvParameters) {
       Serial.println();
 
       IrReceiver.resume();  // Enable receiving of the next value
-
-      if (IrReceiver.decodedIRData.command == ACTION_GO) {
-        cur_action = ACTION_GO;
-        digitalWrite(LED_LEFT_PIN, HIGH);
-        digitalWrite(LED_RIGHT_PIN, HIGH);
-
-      } else if (IrReceiver.decodedIRData.command == ACTION_LEFT) {
-        cur_action = ACTION_LEFT;
-        digitalWrite(LED_LEFT_PIN, HIGH);
-        digitalWrite(LED_RIGHT_PIN, LOW);
-      } else if (IrReceiver.decodedIRData.command == ACTION_RIGHT) {
-        cur_action = ACTION_RIGHT;
-        digitalWrite(LED_LEFT_PIN, LOW);
-        digitalWrite(LED_RIGHT_PIN, HIGH);
-      } else if (IrReceiver.decodedIRData.command == ACTION_BACK) {
-        cur_action = ACTION_BACK;
-      //  xEventGroupSetBits(xFlagsEventGroup, BTN_PRESSED_Msk);
-        digitalWrite(LED_LEFT_PIN, LOW);
-        digitalWrite(LED_RIGHT_PIN, LOW);
-      } else if (IrReceiver.decodedIRData.command == ACTION_STOP) {
-        cur_action = ACTION_STOP;
-        brightness = 20;
-        analogWrite(LED_LEFT_PIN, brightness);
-        analogWrite(LED_RIGHT_PIN, brightness);
+      if (IrReceiver.decodedIRData.command != cur_action) {
+        cur_action = IrReceiver.decodedIRData.command;
+        switch (cur_action) {
+          case ACTION_GO:
+            digitalWrite(LED_LEFT_PIN, HIGH);
+            digitalWrite(LED_RIGHT_PIN, HIGH);
+            break;
+          case ACTION_LEFT:
+            digitalWrite(LED_LEFT_PIN, HIGH);
+            digitalWrite(LED_RIGHT_PIN, LOW);
+            break;
+          case ACTION_RIGHT:
+            digitalWrite(LED_LEFT_PIN, LOW);
+            digitalWrite(LED_RIGHT_PIN, HIGH);
+            break;
+          case ACTION_BACK:
+            digitalWrite(LED_LEFT_PIN, LOW);
+            digitalWrite(LED_RIGHT_PIN, LOW);
+            break;
+          case ACTION_STOP:
+            brightness = 20;
+            analogWrite(LED_LEFT_PIN, brightness);
+            analogWrite(LED_RIGHT_PIN, brightness);
+            break;
+          default:
+            break;
+        }
       }
     }
   }
@@ -81,18 +78,17 @@ void TaskReadIR(void *pvParameters) {
 
 void TaskBlink(void *pvParameters)  // This is a task.
 {
- // EventBits_t event_bits;
   (void)pvParameters;
   for (;;) {
-    //event_bits = xEventGroupClearBits(xFlagsEventGroup, BTN_PRESSED_Msk);
-   // if (event_bits & BTN_PRESSED_Msk) {
-      digitalWrite(LED_LEFT_PIN, HIGH);
-      digitalWrite(LED_RIGHT_PIN, HIGH);
+    if (cur_action == ACTION_BACK) {
+     //   digitalWrite(LED_LEFT_PIN, HIGH);
+     //  digitalWrite(LED_RIGHT_PIN, HIGH);
+       vTaskDelay(1000 / portTICK_PERIOD_MS);  // wait for one second
+    //  digitalWrite(LED_LEFT_PIN, LOW);
+    //  digitalWrite(LED_RIGHT_PIN, LOW);
       vTaskDelay(1000 / portTICK_PERIOD_MS);  // wait for one second
-      digitalWrite(LED_LEFT_PIN, LOW);
-      digitalWrite(LED_RIGHT_PIN, LOW);
-      vTaskDelay(1000 / portTICK_PERIOD_MS);  // wait for one second
-  // };
+   
+    };
   }
 };
 
@@ -108,8 +104,6 @@ void setup() {
   analogWrite(LED_LEFT_PIN, brightness);
   analogWrite(LED_RIGHT_PIN, brightness);
 
-  //xFlagsEventGroup = xEventGroupCreate();
-
   xTaskCreate(
     TaskReadIR, "ReadIR",
     128  // Stack size
@@ -123,7 +117,7 @@ void setup() {
     ,
     128  // This stack size can be checked & adjusted by reading the Stack Highwater
     ,
-    NULL, 1  // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
+    NULL, 2  // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
     ,
     NULL);
 
