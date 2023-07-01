@@ -12,16 +12,16 @@
 #define LED_LEFT_PIN 5
 #define LED_RIGHT_PIN 6
 
-int led_brightness;         // how bright the LED is ,fade for ACTION_STOP
-long previousMillis_blink;  // for led blink
-const int interval_blink = 200;
-int led_left_cur_action, led_right_cur_action;  // led_cur_action used to set the LED
-
 #define ACTION_GO 0x47  // IR_Remoter: ZTE
 #define ACTION_LEFT 0x48
 #define ACTION_STOP 0x49
 #define ACTION_RIGHT 0x4A
 #define ACTION_BACK 0x4B
+
+int led_brightness;         // how bright the LED is ,fade for ACTION_STOP
+long previousMillis_blink;  // for led blink
+const int interval_blink = 200;
+int led_left_cur_action, led_right_cur_action;  // led_cur_action used to set the LED
 
 int dev_cur_action = ACTION_STOP;
 
@@ -75,7 +75,7 @@ void loop() {
     Serial.println();
 
     IrReceiver.resume();  // Enable receiving of the next value
-    if (IrReceiver.decodedIRData.command != dev_cur_action) {
+    if (IrReceiver.decodedIRData.protocol != UNKNOWN & IrReceiver.decodedIRData.command != dev_cur_action) {
       dev_cur_action = IrReceiver.decodedIRData.command;
       switch (dev_cur_action) {
         case ACTION_GO:
@@ -103,10 +103,8 @@ void loop() {
           analogWrite(LED_RIGHT_PIN, led_brightness);
           break;
         default:
-          // statements executed if expression does not equal
-          // any case constant_expression
           break;
-      } //switch
-    };  //if
+      }  //switch
+    };   //if
   };
 }

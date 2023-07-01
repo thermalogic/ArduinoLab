@@ -2,7 +2,7 @@
 /*
 
 FreeRTOS: IRmote Red blink
-
+多任务后，红外信号解析不可靠
 */
 #include <Arduino_FreeRTOS.h>
 #include <IRremote.hpp>
@@ -31,7 +31,7 @@ void TaskReadIR(void *pvParameters) {
   printActiveIRProtocols(&Serial);
   Serial.println(F("at pin " STR(ACTION_RECEIVE_PIN)));
 
-  for (;;)  // A Task shall never return or exit.
+  for (;;)  
   {
     if (IrReceiver.decode()) {
 
@@ -44,7 +44,7 @@ void TaskReadIR(void *pvParameters) {
       Serial.println();
 
       IrReceiver.resume();  // Enable receiving of the next value
-      if (IrReceiver.decodedIRData.command != cur_action) {
+      if (IrReceiver.decodedIRData.protocol != UNKNOWN & IrReceiver.decodedIRData.command != cur_action) {
         cur_action = IrReceiver.decodedIRData.command;
         switch (cur_action) {
           case ACTION_GO:
@@ -108,20 +108,20 @@ void setup() {
     TaskReadIR, "ReadIR",
     128  // Stack size
     ,
-    NULL, 2  // Priority
+    NULL, 3  // Priority
     ,
     NULL);
 
-  xTaskCreate(
+  /*xTaskCreate(
     TaskBlink, "Blink"  // A name just for humans
     ,
     128  // This stack size can be checked & adjusted by reading the Stack Highwater
     ,
-    NULL, 2  // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
+    NULL, 3  // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
     ,
     NULL);
-
-  vTaskStartScheduler();
+*/
+  
 }
 
 void loop() {
