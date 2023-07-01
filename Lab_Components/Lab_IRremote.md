@@ -47,6 +47,15 @@
 * +  0x80
 * - 0x81
 
+中兴电视机顶盒 
+```c
+#define ACTION_GO 0x47  // IR_Remoter: ZTE
+#define ACTION_LEFT 0x48
+#define ACTION_STOP 0x49
+#define ACTION_RIGHT 0x4A
+#define ACTION_BACK 0x4B
+```
+
 
 ```c
 #define DECODE_NEC          // Includes Apple and Onkyo

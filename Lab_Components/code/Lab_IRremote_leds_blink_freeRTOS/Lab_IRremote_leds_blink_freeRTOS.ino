@@ -5,6 +5,7 @@ FreeRTOS: IRmote Red blink
 
 */
 #include <Arduino_FreeRTOS.h>
+#include "event_groups.h"
 #include <IRremote.hpp>
 #include "PinDefinitionsAndMore.h"  // Define macros for input and output pin etc.
 
@@ -23,10 +24,15 @@ FreeRTOS: IRmote Red blink
 int brightness = 0;  // how bright the LED is ,fade for ACTION_STOP
 int cur_action = ACTION_STOP;
 
+/* Declare a variable to hold the created event group. */
+//EventGroupHandle_t xFlagsEventGroup;
+//#define BTN_PRESSED_Pos 0U
+//#define BTN_PRESSED_Msk (1UL << BTN_PRESSED_Pos)
+
 void TaskReadIR(void *pvParameters) {
   (void)pvParameters;
   Serial.println(F("START " __FILE__ " from " __DATE__ "\r\nUsing library version " VERSION_IRREMOTE));
-  IrReceiver.begin(ACTION_RECEIVE_PIN, DISABLE_LED_FEEDBACK);
+  IrReceiver.begin(IR_RECEIVE_PIN, DISABLE_LED_FEEDBACK);
   Serial.print(F("Ready to receive IR signals of protocols: "));
   printActiveIRProtocols(&Serial);
   Serial.println(F("at pin " STR(ACTION_RECEIVE_PIN)));
@@ -60,6 +66,7 @@ void TaskReadIR(void *pvParameters) {
         digitalWrite(LED_RIGHT_PIN, HIGH);
       } else if (IrReceiver.decodedIRData.command == ACTION_BACK) {
         cur_action = ACTION_BACK;
+      //  xEventGroupSetBits(xFlagsEventGroup, BTN_PRESSED_Msk);
         digitalWrite(LED_LEFT_PIN, LOW);
         digitalWrite(LED_RIGHT_PIN, LOW);
       } else if (IrReceiver.decodedIRData.command == ACTION_STOP) {
@@ -74,16 +81,18 @@ void TaskReadIR(void *pvParameters) {
 
 void TaskBlink(void *pvParameters)  // This is a task.
 {
+ // EventBits_t event_bits;
   (void)pvParameters;
   for (;;) {
-    if (cur_action == ACTION_BACK) {  // cur_action的改变没有体现在这个task ,cur_action需要修改为信号量？
+    //event_bits = xEventGroupClearBits(xFlagsEventGroup, BTN_PRESSED_Msk);
+   // if (event_bits & BTN_PRESSED_Msk) {
       digitalWrite(LED_LEFT_PIN, HIGH);
       digitalWrite(LED_RIGHT_PIN, HIGH);
       vTaskDelay(1000 / portTICK_PERIOD_MS);  // wait for one second
       digitalWrite(LED_LEFT_PIN, LOW);
       digitalWrite(LED_RIGHT_PIN, LOW);
       vTaskDelay(1000 / portTICK_PERIOD_MS);  // wait for one second
-    };
+  // };
   }
 };
 
@@ -99,6 +108,8 @@ void setup() {
   analogWrite(LED_LEFT_PIN, brightness);
   analogWrite(LED_RIGHT_PIN, brightness);
 
+  //xFlagsEventGroup = xEventGroupCreate();
+
   xTaskCreate(
     TaskReadIR, "ReadIR",
     128  // Stack size
@@ -112,9 +123,11 @@ void setup() {
     ,
     128  // This stack size can be checked & adjusted by reading the Stack Highwater
     ,
-    NULL, 2  // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
+    NULL, 1  // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
     ,
     NULL);
+
+  vTaskStartScheduler();
 }
 
 void loop() {

@@ -1,6 +1,6 @@
 
 /*
- IRmote Red blink
+ IR remoter Led blink
  */
 #include <Arduino.h>
 #include <IRremote.hpp>
@@ -12,12 +12,12 @@
 #define LED_LEFT_PIN 5
 #define LED_RIGHT_PIN 6
 
-int led_brightness = 0;         // how bright the LED is ,fade for DEV_STOP
+int led_brightness;     // how bright the LED is ,fade for ACTION_STOP
 long previousMillis_blink;  // for led blink
 const int interval_blink = 200;
 int led_left_cur_action, led_right_cur_action;  // led_cur_action used to set the LED
 
-#define ACTION_GO 0x47  //IR_Remoter: ZTE
+#define ACTION_GO 0x47  // IR_Remoter: ZTE
 #define ACTION_LEFT 0x48
 #define ACTION_STOP 0x49
 #define ACTION_RIGHT 0x4A
@@ -53,7 +53,7 @@ void setup() {
 
   Serial.begin(9600);
   Serial.println(F("START " __FILE__ " from " __DATE__ "\r\nUsing library version " VERSION_IRREMOTE));
-  IrReceiver.begin(ACTION_RECEIVE_PIN, DISABLE_LED_FEEDBACK);
+  IrReceiver.begin(IR_RECEIVE_PIN, DISABLE_LED_FEEDBACK);
   Serial.print(F("Ready to receive IR signals of protocols: "));
   printActiveIRProtocols(&Serial);
   Serial.println(F("at pin " STR(ACTION_RECEIVE_PIN)));
@@ -76,31 +76,40 @@ void loop() {
 
     IrReceiver.resume();  // Enable receiving of the next value
 
-    if (IrReceiver.decodedIRData.command == ACTION_GO) {
-      dev_cur_action = ACTION_GO;
-      digitalWrite(LED_LEFT_PIN, HIGH);
-      digitalWrite(LED_RIGHT_PIN, HIGH);
-
-    } else if (IrReceiver.decodedIRData.command == ACTION_LEFT) {
-      dev_cur_action = ACTION_LEFT;
-      digitalWrite(LED_LEFT_PIN, HIGH);
-      digitalWrite(LED_RIGHT_PIN, LOW);
-    } else if (IrReceiver.decodedIRData.command == ACTION_RIGHT) {
-      dev_cur_action = ACTION_RIGHT;
-      digitalWrite(LED_LEFT_PIN, LOW);
-      digitalWrite(LED_RIGHT_PIN, HIGH);
-    } else if (IrReceiver.decodedIRData.command == ACTION_BACK) {
-      dev_cur_action = ACTION_BACK;
-      previousMillis_blink = 0;
-      led_left_cur_action = LOW;
-      led_right_cur_action = LOW;
-      digitalWrite(LED_LEFT_PIN, led_left_cur_action);
-      digitalWrite(LED_RIGHT_PIN, led_right_cur_action);
-    } else if (IrReceiver.decodedIRData.command == ACTION_STOP) {
-      dev_cur_action = ACTION_STOP;
-      led_brightness = 20;
-      analogWrite(LED_LEFT_PIN, led_brightness);
-      analogWrite(LED_RIGHT_PIN, led_brightness);
+    switch (IrReceiver.decodedIRData.command) {
+      case ACTION_GO:
+        dev_cur_action = ACTION_GO;
+        digitalWrite(LED_LEFT_PIN, HIGH);
+        digitalWrite(LED_RIGHT_PIN, HIGH);
+        break;
+      case ACTION_LEFT:
+        dev_cur_action = ACTION_LEFT;
+        digitalWrite(LED_LEFT_PIN, HIGH);
+        digitalWrite(LED_RIGHT_PIN, LOW);
+        break;
+      case ACTION_RIGHT:
+        dev_cur_action = ACTION_RIGHT;
+        digitalWrite(LED_LEFT_PIN, LOW);
+        digitalWrite(LED_RIGHT_PIN, HIGH);
+        break;
+      case ACTION_BACK:
+        dev_cur_action = ACTION_BACK;
+        previousMillis_blink = 0;
+        led_left_cur_action = LOW;
+        led_right_cur_action = LOW;
+        digitalWrite(LED_LEFT_PIN, led_left_cur_action);
+        digitalWrite(LED_RIGHT_PIN, led_right_cur_action);
+        break;
+      case ACTION_STOP:
+        dev_cur_action = ACTION_STOP;
+        led_brightness = 20;
+        analogWrite(LED_LEFT_PIN, led_brightness);
+        analogWrite(LED_RIGHT_PIN, led_brightness);
+        break;
+      default:
+        // statements executed if expression does not equal
+        // any case constant_expression
+        break;
     }
-  }
+  };
 }
