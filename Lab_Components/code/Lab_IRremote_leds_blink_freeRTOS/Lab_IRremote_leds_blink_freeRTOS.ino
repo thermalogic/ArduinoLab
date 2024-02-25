@@ -108,19 +108,19 @@ void setup() {
     TaskReadIR, "ReadIR",
     128  // Stack size
     ,
-    NULL, 3  // Priority
+    NULL, 2  // Priority
     ,
     NULL);
 
-  /*xTaskCreate(
+ xTaskCreate(
     TaskBlink, "Blink"  // A name just for humans
     ,
     128  // This stack size can be checked & adjusted by reading the Stack Highwater
     ,
-    NULL, 3  // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
+    NULL, 1  // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
     ,
     NULL);
-*/
+
   
 }
 

@@ -1,6 +1,6 @@
 
 /*
- IR remoter Led blink
+ IR remote Led blink
  */
 #include <Arduino.h>
 #include <IRremote.hpp>
