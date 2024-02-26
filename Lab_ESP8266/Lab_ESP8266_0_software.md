@@ -50,12 +50,12 @@ ESP8266板子如何和Arduino板子协同工作
 
 如果通电后,灯不亮,或者蓝灯以及红灯**一直亮等**,同时AT指令不生效,那么就要再次排查电路是否正确
 
-##  ESP的WIFI热点
+## ESP的WIFI热点
 
 只要连接好VCC,GND和EN+10k上拉电阻,芯片就能产生芯片ID名的WIFI热点：ESP-A55C7D，可以链接和pingt通
 
 ![](img/wifispot_1.jpg)
 
-![](img/wifispot.jpg）
+![](img/wifispot.jpg)
 
 
