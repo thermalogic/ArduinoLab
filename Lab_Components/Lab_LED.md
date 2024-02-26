@@ -7,13 +7,6 @@
 * 220Ω电阻 1个
 * LED 1个
 
-## 电路图
-
-![](./img/LED/learn_arduino_fritzing.jpg)
-
-![](./img/LED/led-layout.jpg)
-
-
 ### LED
 
 发光二极管(LED)正负极
@@ -60,8 +53,21 @@ Each color has a number, as follows:
 
 ![](img/LED/learn_arduino_R-10k-level.jpg)
 
-### LED-Blink-code
+## LED 实例
 
+### 使用Arduino供电直接点亮LED电路图
+
+* Power Pin 5v -> red line
+* Pin gnd -> black line
+
+![](./img/LED/learn_arduino_fritzing.jpg)
+
+![](./img/LED/led-layout.jpg)
+
+### 使用PWM Pin使LED-Blink
+
+* PWM Pin 9 ->red line
+* Pin GND -> black line
 
 ```c
 /*
@@ -167,11 +173,6 @@ void loop() {
 
   // DO OTHER WORKS HERE
 }
-```
-
-
-
-
 ```
 
 ## 实现了多个LED的分组，显示
