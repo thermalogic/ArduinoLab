@@ -10,7 +10,6 @@
 
 ![](img/esp8266_pins.jpg)
 
-
 ![](img/esp8266_pins_2.jpg)
 
 ## 软件开发环境
@@ -27,7 +26,7 @@ http://arduino.esp8266.com/stable/package_esp8266com_index.json
 
 拷贝粘贴进去就好。顺便改一个IDE的参数，烧录时能看到烧录信息
 
-![](img/ESP8266/ESP8266_boards_manager.jpg)
+![](img/ESP8266_boards_manager.jpg)
 
 3. 重启arduino IDE,找到esp8266，安装板子开发包
 
