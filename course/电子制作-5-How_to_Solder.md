@@ -16,12 +16,12 @@ Soldering is one of many skills that will empower you to do just that.
 
 
 
-
-
 ## Reference
 
-1. https://www.instructables.com/How-to-solder/
-2. https://learn.sparkfun.com/tutorials/how-to-solder-through-hole-soldering
-3. https://www.wikihow.com/Solder
-4. https://www.makerspaces.com/we-love-maker-educators/ 
+* https://docs.arduino.cc/learn/electronics/soldering-basics/
+* https://www.instructables.com/How-to-solder/
+* https://learn.sparkfun.com/tutorials/how-to-solder-through-hole-soldering
+
+* https://www.wikihow.com/Solder
+* https://www.makerspaces.com/we-love-maker-educators/ 
 
