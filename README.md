@@ -71,6 +71,9 @@ Arduino有很多类型开发版，本实验室使用其中的2种：`Auduino Uno
 
 ## 参考
 
+
 * https://docs.arduino.cc/built-in-examples/
+
+* [Arduino Starter Kit - Video Tutorials by Massimo Banzi](https://www.youtube.com/playlist?list=PLT6rF_I5kknPf2qlVFlvH47qHvqvzkknd)
 
 * https://arduinogetstarted.com/arduino-tutorials
