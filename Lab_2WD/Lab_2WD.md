@@ -56,8 +56,9 @@
 
 LN298N使用了Arduino： pin3,4 ；pin7,8和pin5,6
 
-* pin3,4 ；pin7,8控制前后
+* pin3,4；pin7,8控制前后
 * pin5,6控制速度
+
 ```c
 
 #define LeftForward 3  // Motor Red +   LS298N IN4 -> Arduino Pin3
@@ -97,5 +98,4 @@ int echoPin = 13;    // Echo
 
 left led -> pin9
 right led -> pin10
-
 

@@ -70,7 +70,7 @@ L298N模块多数都是下边这个样子，这里要注意，L298N模块12v是�
 
 #### 连接LS298N驱动模块和Arduino
 
-##### 对Arduino供电**
+##### 对Arduino供电
 
 * LS298N  GND -> Arduino GND
 * LS298N  +5V -> Arduino Vin
@@ -206,9 +206,4 @@ void turnRight(){
 void stopCar(){
 	initCar();
 }
-
-
-
-
-
-
+```
