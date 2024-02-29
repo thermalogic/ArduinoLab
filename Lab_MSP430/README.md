@@ -43,8 +43,8 @@ This would only be used in specialized cases, and is mainly here for archival pu
 
 MSP430F5529LP板载LED
 
-* LED1,Pin1.0: P1_0 or  RED_LED 
-* LED2: Pin4.7: P4_7 or GREEN_LED (见上面的板子的Pin图)
+* LED1  Pin1.0: P1_0 or  RED_LED 
+* LED2  Pin4.7: P4_7 or GREEN_LED (见上面的板子的Pin图)
 
 ### 使用Arduino lib
 
