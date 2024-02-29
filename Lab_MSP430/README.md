@@ -27,11 +27,9 @@ MSP430系列单片机是美国德州仪器(TI)1996年开始推向市场的一种
 
 ## 安装Arduino的MSP430开发版支持环境
 
-参考改仓库
+参考仓库: https://github.com/Andy4495/TI_Platform_Cores_For_Arduino
 
-* https://github.com/Andy4495/TI_Platform_Cores_For_Arduino
-
-配置`Standard Energia URL`: https://energia.nu/packages/package_energia_index.json
+ 从`Standard Energia URL`: https://energia.nu/packages/package_energia_index.json 在Arduino IDE中配置支持的MSP430开发板的开发环境
 
 This is the official URL published by Energia, but specifies older board package versions.
 This would only be used in specialized cases, and is mainly here for archival purposes.
