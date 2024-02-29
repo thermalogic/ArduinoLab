@@ -40,7 +40,6 @@ This would only be used in specialized cases, and is mainly here for archival pu
 
 ## 实例-板载LED Blink
 
-
 MSP430F5529LP板载LED
 
 * LED1  Pin1.0: P1_0 or  RED_LED 
