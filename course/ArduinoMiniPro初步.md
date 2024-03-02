@@ -64,12 +64,16 @@ FTD1232-1和Arduino的连接方式，如下图：
 
 FTD232和Arduino的连接方式
 
-* VCC10(红色) --> 接mini的VCC 左4
-* GND(灰色) --> 接mini的GND   `左5`
-* TXD(黄色) --> 接mini的RXD 左3
-* RXD(白色) --> 接mini的TXD 左2
-* RTS(橙色) --> 接mini的DTR 左1
-* CTS --> 不需要接
+|FTD232       | Arduino Pro Mini |
+|-------------|------------------|
+| VCC10(红色) | VCC 左4           |
+| GND(灰色)   | GND   `左5`       |
+| TXD(黄色)   | RXD 左3           |
+| RXD(白色)   | TXD 左2           |
+| RTS(橙色)   | DTR 左1           |
+| CTS         | 空闲              |
+
+![](img/ArduinoProMini/FT232-Arduino.jpg)
 
 ### 2.2 Arduino配置
 
@@ -77,7 +81,7 @@ FTD232和Arduino的连接方式
 
 1. Board:Auduino Pro or Pro Mini
 2. Port:"COM4"
-3. Process:ATmega328P(3.3V,8Mhz)
+3. Process:ATmega328P(**3.3V**,8Mhz)
 
 ![](img/ArduinoProMini/ArduinoProMini_Type.jpg)
 
