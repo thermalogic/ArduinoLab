@@ -51,7 +51,7 @@ FTD1232-1和Arduino的连接方式，如下图：
 
 * RXD:接mini的TXD
 
-* DTR：接mini的DTR
+* DTR：接mini的GRN(DTR)
 
 ![](img/ArduinoProMini/usb_ttl_arduinopromini.png)
 
