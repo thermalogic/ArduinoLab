@@ -17,7 +17,7 @@ DHT11数字温湿度传感器是一款能够检测温湿度的复合传感器，
 
 传感器实物如图所示
 
-![](img/DHT11/dht11-4pin.jpg)
+![](img/components/DHT11/dht11-4pin.jpg)
 
 DHT11传感器带有4个引脚，其相关说明见下表
 
@@ -34,7 +34,7 @@ PIN（引脚）	名称	说明
 
 传感器模块把DHT11的VCC、GND和DATA引脚引出(3 pins break out shield version)， 
 
-![ht11-shield](img/DHT11/dht11-shield-3pin.jpg)
+![ht11-shield](img/components/DHT11/dht11-shield-3pin.jpg)
 
 其对应关系为：
 
@@ -60,13 +60,13 @@ PIN（引脚）	名称	说明
 2. Adafruit示例更全面
 3. Rob Tillaart示例类型都，可以自动检测传感器类型
 
-![](img/DHT11/install_dht11_lib-DFRobot.jpg)
+![](img/components/DHT11/install_dht11_lib-DFRobot.jpg)
 
-![](img/DHT11/install_dht11_lib-DFRobot-example.jpg)
+![](img/components/DHT11/install_dht11_lib-DFRobot-example.jpg)
 
 ## 3 运行
 
-![](img/DHT11/install_dht11_lib-DFRobot-example-code.jpg)
+![](img/components/DHT11/install_dht11_lib-DFRobot-example-code.jpg)
 
 ## 4 Mini不能使用DHT11
 
