@@ -1,4 +1,4 @@
-# How to Solder:Through-Hole Soldering
+# How to Solde
 
 ##  Introduction
 
@@ -8,13 +8,11 @@ The two go together like peas and carrots. And, although it is possible to learn
 
 Soldering is one of many skills that will empower you to do just that.
 
+##  Notes
 
+*  If you have a soldering station with an adjustable temp control, set it to `400′ C/ 752′ F`
 
-
-
-
-
-
+* Once the surface of the pad is completely coated, you can `stop` adding solder and `remove` the soldering `iron` (in that order)and let the solder cool down naturally
 
 ## Reference
 
