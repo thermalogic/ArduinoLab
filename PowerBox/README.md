@@ -160,4 +160,11 @@ $V_{rms}= $
 
 新连接方式的插头和接线板的线独立在板子两端更合理
 
+2接线柱版本
+
 ![](img/powerbox_layout_new.jpg)
+
+3接线柱版本
+
+
+![](img/powerbox_layout_new_1.jpg)
