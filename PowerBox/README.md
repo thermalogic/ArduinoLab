@@ -31,7 +31,7 @@ $Q=V_{rms}I_{rms}sin({\theta})$
 
 两者合在一起，有功功率和无功功率构成复合功率。它是电力公司提供的实际功率。可以表示成：
  
-$S=P+jQ 
+$S=P+jQ$ 
 
 复合功率的幅度称为视在功率$|S|$，单位为伏安($VA$)。
 功率因数$PF$，是效率的量度，定义为：
@@ -110,8 +110,8 @@ $V_{in}={\frac{0.512}{V_{ref}}}(V_{out}-{\frac{V_{ref}}{2}})$
 
 将等式上式与分压器和电流感应的计算公式合，得从输入单片机的电压水平，计算电流、电压算式如下：
 
-$V_{line}=2002*0.512*{\frac{(V_{out,voltage}-\frac{V_{ref}}{2})}{{V_{ref}}}}$
-$I_{line}=5*0.512*{\frac{(V_{out,voltage}-\frac{V_{ref}}{2})}{{V_{ref}}}}$
+$$V_{line}=2002*0.512*{\frac{(V_{out,voltage}-\frac{V_{ref}}{2})}{{V_{ref}}}}$$
+$$I_{line}=5*0.512*{\frac{(V_{out,voltage}-\frac{V_{ref}}{2})}{{V_{ref}}}}$$
 
 ### ADC采样
 
