@@ -286,6 +286,7 @@ void loop() {
 
  * https://forum.arduino.cc/t/lcd-128x64-st7920-using-u8glib/130825/9
 
+* https://forum.arduino.cc/t/st7920-lcd-display-problem/206750/6
 
 * 原因：看其PCB板，
 I can see why the contrast adjustment doesn't work. The `Vo` pin is not connected on your board because jumper `J1` is open (same as on mine), 
@@ -295,3 +296,12 @@ Similarly, the Vout pin is not connected - it goes to the resistor at position R
 
 The best suggestion I have is to source a pot of the correct size to fit at VR1, and remove the 0 ohm resistor R6 which is shorting it out.
 The pot on my board has a resistance of 18K end to end but is set at 2K. So a 10K pot (which is what the ST7920 datasheet shows) would be fine.
+
+**解决方案：**
+
+https://pic-microcontroller.com/using-digole-12864zw-lcd-with-pic18f/
+
+For contrast you can use V0 (pin 3) by connecting it to Vdd through a 10k variable resistor. However to get it to work you will need to enable jumper `J1` from the back of the module as in the figure
+
+![](img/components/12864/Using-Digole-12864ZW-LCD-with-PIC18F.jpg)
+
