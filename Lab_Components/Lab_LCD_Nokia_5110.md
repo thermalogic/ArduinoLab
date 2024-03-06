@@ -1,6 +1,5 @@
 # Monochrome Nokia 5110 LCD Displays
 
-![]Interfacing Arduino with Nokia 5110 LCD and DHT11 sensor
 
 * https://simple-circuit.com/arduino-nokia-5110-lcd-dht11-sensor/
 
@@ -18,7 +17,7 @@
 4) DIN – Serial Input           Pin6    
 5) CLK – Clock Input            Pin7
 6) VCC – 3.3V                 -3.3V 
-7) LIGHT – Backlight Control - +5V
+7) LIGHT – Backlight Control - +5V 
 8) GND – Ground               GND 
 
 layout
@@ -32,14 +31,39 @@ layout
 // pin 3 - LCD reset (RST)
 ```
 
+
+如下连接：
+ *  LIGHT – Backlight Control - +5V
+*   GND – Ground               GND 
+背光不亮
+
 ![](img/LCD5110/LCD5110_layout.jpg)
 
+## 驱动库
 
-* 使用Adafruit库测试在线安装时，部分从githua 下载会失败，可以下载器zip文件，然后，通过include库的方式加入库
+驱动库使用Adafruit的库
 
+在线安装时，部分从githua 下载会失败，可以下载器zip文件，然后，通过include库的方式加入库
 
 ## 5110+DHT11
 
 ![](img/LCD5110/LCD5110_DHT11_layout.jpg)
 
+##  背光的问题
 
+如下连接时：
+ *  LIGHT – Backlight Control - +5V
+*   GND – Ground               GND 
+背光不亮，显示完整
+
+如果需要背光亮，需要给但是，LIGHT加上电位器，调节亮度
+LIGHT – Backlight Control - 电位器out
+
+但亮度高时,有时正常，内容有时显示不完整，亮度低时情况较好，
+
+* 可能排针没有焊接好
+* pin3-7在背光使用电器器时间，应该使用电阻
+
+![](img/LCD5110/LCD5110_DHT11_backgight_layout.jpg)
+
+![](img/LCD5110/LCD5110_DHT11_backgight_demo.jpg)
