@@ -21,7 +21,6 @@
 7) LIGHT – Backlight Control - +5V
 8) GND – Ground               GND 
 
-
 layout
 
 ```c
@@ -32,9 +31,15 @@ layout
 // pin 4 - LCD chip select (CS)
 // pin 3 - LCD reset (RST)
 ```
-`如下图连接后，使用c测试不显示`  原因：没有连接电阻？？
+
 ![](img/LCD5110/LCD5110_layout.jpg)
 
 
 * 使用Adafruit库测试在线安装时，部分从githua 下载会失败，可以下载器zip文件，然后，通过include库的方式加入库
+
+
+## 5110+DHT11
+
+![](img/LCD5110/LCD5110_DHT11_layout.jpg)
+
 
