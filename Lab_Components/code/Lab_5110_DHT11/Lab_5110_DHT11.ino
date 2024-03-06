@@ -22,7 +22,7 @@ void setup()
   display.begin();
   // you can change the contrast around to adapt the display
   // for the best viewing!
-  display.setContrast(65);
+  display.setContrast(55);
   display.clearDisplay();   // clear the screen and buffer
   display.drawFastHLine(0, 23, display.width(), BLACK);
   display.setTextSize(1);
