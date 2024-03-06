@@ -1,6 +1,6 @@
 # Monochrome Nokia 5110 LCD Displays
 
-Interfacing Arduino with Nokia 5110 LCD and DHT11 sensor
+![]Interfacing Arduino with Nokia 5110 LCD and DHT11 sensor
 
 * https://simple-circuit.com/arduino-nokia-5110-lcd-dht11-sensor/
 
@@ -21,7 +21,8 @@ Interfacing Arduino with Nokia 5110 LCD and DHT11 sensor
 7) LIGHT – Backlight Control - +5V
 8) GND – Ground               GND 
 
-## layout
+
+layout
 
 ```c
 // Software SPI (slower updates, more flexible pin options):
@@ -31,16 +32,9 @@ Interfacing Arduino with Nokia 5110 LCD and DHT11 sensor
 // pin 4 - LCD chip select (CS)
 // pin 3 - LCD reset (RST)
 ```
-## 使用Adafruit库测试
+`如下图连接后，使用c测试不显示`  原因：没有连接电阻？？
+![](img/LCD5110/LCD5110_layout.jpg)
 
-在线安装时，部分从githua 下载会失败，可以下载器zip文件，然后，通过include库的方式加入库
 
-```c
-// Software SPI (slower updates, more flexible pin options):
-// pin 7 - Serial clock out (SCLK)
-// pin 6 - Serial data out (DIN)
-// pin 5 - Data/Command select (D/C)
-// pin 4 - LCD chip select (CS)
-// pin 3 - LCD reset (RST)
-Adafruit_PCD8544 display = Adafruit_PCD8544(7, 6, 5, 4, 3);
-```
+* 使用Adafruit库测试在线安装时，部分从githua 下载会失败，可以下载器zip文件，然后，通过include库的方式加入库
+
