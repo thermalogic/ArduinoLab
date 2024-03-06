@@ -278,18 +278,19 @@ void loop() {
 
 `电位器连接连接VO，但是，不能调对比度？`
 
--  原因是：12864ZW屏在硬件上做死的，没有驱动芯片的电路，是不好调整的
+现在的屏型号是：12864ZW, ZW - 带中文字库
 
-现在的屏型号是：12864ZW,
+* 128x64 with controller ST7920, (model 12864ZW).
 
- * 128x64 with controller ST7920, (model 12864ZW).
-
- * https://forum.arduino.cc/t/lcd-128x64-st7920-using-u8glib/130825/9
+* https://forum.arduino.cc/t/lcd-128x64-st7920-using-u8glib/130825/9
 
 * https://forum.arduino.cc/t/st7920-lcd-display-problem/206750/6
 
-* 原因：看其PCB板，
-I can see why the contrast adjustment doesn't work. The `Vo` pin is not connected on your board because jumper `J1` is open (same as on mine), 
+### 原因
+
+ L12864ZW屏在硬件上做死的，没有驱动芯片的电路，是不好调整的
+
+**PCB板:** I can see why the contrast adjustment doesn't work. The `Vo` pin is not connected on your board because jumper `J1` is open (same as on mine), 
 
 but unlike my board, yours does not have the 10K pot - although the pads have been tinned as though it should have been fitted.
 Similarly, the Vout pin is not connected - it goes to the resistor at position R12, which is not fitted.
@@ -301,7 +302,7 @@ The pot on my board has a resistance of 18K end to end but is set at 2K. So a 10
 
 https://pic-microcontroller.com/using-digole-12864zw-lcd-with-pic18f/
 
-For contrast you can use V0 (pin 3) by connecting it to Vdd through a 10k variable resistor. However to get it to work you will need to enable jumper `J1` from the back of the module as in the figure
+For contrast you can use V0 (pin 3) by connecting it to Vdd through a 10k variable resistor. However to get it to work you will need to **enable jumper `J1`** from the back of the module as in the figure
 
 ![](img/components/12864/Using-Digole-12864ZW-LCD-with-PIC18F.jpg)
 
