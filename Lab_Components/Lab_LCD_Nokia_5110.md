@@ -33,9 +33,11 @@ layout
 
 
 如下连接：
- *  LIGHT – Backlight Control - +5V
+
+*  LIGHT – Backlight Control - +5V
 *   GND – Ground               GND 
-背光不亮
+
+LIGHT最高电位，背光关闭 
 
 ![](img/LCD5110/LCD5110_layout.jpg)
 
@@ -49,15 +51,16 @@ layout
 
 ![](img/LCD5110/LCD5110_DHT11_layout.jpg)
 
-##  背光的问题
+##  背光
 
 如下连接时：
- *  LIGHT – Backlight Control - +5V
+ *  LIGHT – Backlight Control - +5V，LIGHT最高电位，背光关闭 
 *   GND – Ground               GND 
 背光不亮，显示完整
 
-如果需要背光亮，需要给但是，LIGHT加上电位器，调节亮度
-LIGHT – Backlight Control - 电位器out
+如果需要背光亮，需要给LIGHT加上电位器，调节给到LIGHT的电位，以调节亮度
+* LIGHT – Backlight Control - 电位器out，
+LIGHT的电位的电位越低，背光亮度最高。当LIGHT接地时，最低电位，背光亮度最高
 
 但亮度高时,有时正常，内容有时显示不完整，亮度低时情况较好，
 
