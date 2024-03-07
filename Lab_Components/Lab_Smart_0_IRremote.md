@@ -18,7 +18,7 @@
 * IRremote out ->Arduino Pin11 //不用<IRremote.hpp>定义的pin2
 
 
-白遥控器：
+21 Keys白遥控器：
 * 2 - 0x18 
 * 4-  0x8
 * 6 - 0x5A 
@@ -47,15 +47,15 @@
 * +  0x80
 * - 0x81
 
-中兴电视机顶盒 
-```c
-#define ACTION_GO 0x47  // IR_Remoter: ZTE
-#define ACTION_LEFT 0x48
-#define ACTION_STOP 0x49
-#define ACTION_RIGHT 0x4A
-#define ACTION_BACK 0x4B
-```
 
+中兴电视机顶盒 
+* ACTION_GO 0x47  // IR_Remoter: ZTE
+* ACTION_LEFT 0x48
+* ACTION_STOP 0x49
+* ACTION_RIGHT 0x4A
+* ACTION_BACK 0x4B
+* sound + 0xC
+* sound - 0x18
 
 ```c
 #define DECODE_NEC          // Includes Apple and Onkyo
