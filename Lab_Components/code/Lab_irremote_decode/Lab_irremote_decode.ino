@@ -5,7 +5,7 @@
 #include "PinDefinitionsAndMore.h" // Define macros for input and output pin etc.
 #include <IRremote.hpp>
 
-#define IR_RECEIVE_PIN 11  // 不用<IRremote.hpp>定义的pin2
+#define IR_RECEIVE_PIN 7  // 不用<IRremote.hpp>定义的pin2
 
 void setup() {
     Serial.begin(9600);
