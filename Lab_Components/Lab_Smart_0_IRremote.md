@@ -30,7 +30,15 @@ serializeJson(sensor_json, espSerial);
 
 目前看不是电路复杂问题，是Arduino向通过软串口向ESP8266发送数据的问题，原因不明！
 
-###  网上问答
+可能原因是：
+
+You're running into a well known and well documented incompatibility. 
+Both of those libraries want the same **hardware timer**. They can't both have it
+
+
+相关网上问答： https://forum.arduino.cc/t/irremote-an-softwareserial-together/534321/2
+
+###  网上问答-电路
 
 https://forum.arduino.cc/t/tsop4838-ir-decoder-random-noise/129185
 
