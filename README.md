@@ -63,7 +63,9 @@ Arduino有很多类型开发版，本实验室使用其中的2种：`Auduino Uno
 
 4. [土壤湿度](./Lab_Components/Lab_Soil_Moisture.md)
 
-5.  [超声](./Lab_Components/Lab_TCRT5000%20IR%20Sensor.md)
+5.  [超声](./Lab_Components/Lab_TCRT5000_IR_Sensor.md)
+
+6.  [PowerBox](./PowerBox/s)
 
 * OneWire
 
