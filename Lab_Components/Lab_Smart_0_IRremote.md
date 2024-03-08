@@ -1,6 +1,8 @@
 
 # 红外遥控
 
+* 和ESP8266同时使用时，红外接受器接受乱码，相关内容见本文档后部相关内容
+
 ## 红外接受器
 
 * VS1838B
@@ -11,57 +13,17 @@
 
 ![](img/IRremote/IRremote_sensor_wired.jpg)
 
-VS1838B的建议电路图
+* VS1838B的建议电路图
 
-建议的电路图，有解偶的电容和电阻，可以有效降低噪音信号，所以，买按照电路图制作好的模块，更好。
+建议的电路图，有解偶的电容和电阻，可以有效降低噪音信号，所以，买按照电路图制作好的模块更可靠，更稳定。
+
 ![](img/IRremote/vs1838b_circuit.jpg)
 
-## 红外接受器接受乱码
+## IR库
 
-独立使用IR receiver没有问题，但是小车接受遥控器的信号为噪声
+* IRremote https://github.com/Arduino-IRremote/Arduino-IRremote
 
-### 测试分析
-
-小车全功能代码中，代码中执行向软串口发送数据，红外就乱码，注释掉就正常。 `原因？`
-
-```c
-serializeJson(sensor_json, espSerial);
-```
-
-目前看不是电路复杂问题，是Arduino向通过软串口向ESP8266发送数据的问题，原因不明！
-
-可能原因是：
-
-You're running into a well known and well documented incompatibility. 
-Both of those libraries want the same **hardware timer**. They can't both have it
-
-
-相关网上问答： https://forum.arduino.cc/t/irremote-an-softwareserial-together/534321/2
-
-###  网上问答-电路
-
-https://forum.arduino.cc/t/tsop4838-ir-decoder-random-noise/129185
-
-* Sounds like a decoupling problem. You IR datasheet will suggest a cap and resistor on the IR receiver's lines to reduce noise.
-
-* https://electronics.stackexchange.com/questions/460042/why-does-my-ir-receiver-spit-out-random-codes-when-my-motor-is-on
-
-`Motors` are `noisy`, and they dump noise onto their power supply rails. You've done nothing to isolate the IR receiver from that noise.
-
-You should have `a capacitor from +5V to ground`. You probably want a "bulk" cap of 100uF or so, in parallel with a 100nF cap (and there's more than one way to do this "right", so don't be surprised at comments.
-
-
-You should isolate the IR receiver from that noise. If you're truly running the motor from a separate +5V supply, and intend to continue to do so, then power the IR receiver from the Arduino's +5V supply. Better, if the receiver is rated for 3.3V operation, power it from the Arduino's 3.3V supply for better isolation. Either way, put a 100nF cap in parallel with the receiver's power supply pins, right at the receiver package.
-
-----
-
-* How solid is your power supply? Those IR receivers are VERY FUSSY about power.
-  If your +5 is soft or a little low the Arduino won't care but the IR RXVR will!
-
-
-## decode遥控器
-
-**使用库**： IRremote https://github.com/Arduino-IRremote/Arduino-IRremote
+## Decode遥控器
 
 运行代码通过串口观察，每个按键的命令16进制的数值，编制按键对应的相应。示例中是控制左右3个LED灯的亮和灭
 
@@ -150,14 +112,11 @@ void loop() {
 
 ## 遥控LED
 
-
 * Led left -> Arduino pin8
 * Led Right -> Arduino pin9
 * Led back -> Arduino pin10
 
 ```c
-
-
 /*
  * Specify which protocol(s) should be used for decoding.
  * If no protocol is defined, all protocols (except Bang&Olufsen) are active.
@@ -257,6 +216,38 @@ void loop() {
 }
 
 ```
+
+## 红外接受器接受乱码
+
+独立使用IR receiver没有问题，但是WIFI小车接受遥控器的信号为噪声
+
+### 测试分析
+
+WIFI小车全功能代码中，代码中执行向软串口发送数据，红外就乱码，注释掉就正常。 `原因？
+
+```c
+serializeJson(sensor_json, espSerial);
+```
+
+目前看不是电路复杂问题，是Arduino向通过软串口向ESP8266发送数据的问题，原因不明！
+
+可能原因：IRremote库和SoftwareSerial库使用了同样的**hardware timer**，形成了冲突
+
+### 解决方法
+
+1. IR和WIFI控制，Arduino不执行向软串口的`写`操作命令：`serializeJson(sensor_json, espSerial);`,此时，web客户端不显示：障碍物距离和小车速度
+2. 只使用WIFI控制，Arduino执行向软串口的`写`操作命令,Web客户端显示：障碍物距离和小车速度
+3. 使用Arduio MEGA2650,ESP8266和MEGA2650通讯使用：`硬串口`
+
+### 相关网上问答：
+
+*  https://forum.arduino.cc/t/irremote-an-softwareserial-together/534321/2
+   * You're running into a well known and well documented incompatibility. 
+   Both of those libraries want the same **hardware timer**. They can't both have it
+
+* https://www.eevblog.com/forum/microcontrollers/arduino-using-irremote-h-with-softwareserial-h/
+   *The only thing that I see that might be a problem is that the `SoftwareSerial::write() method turns off interrupts` when it transmits:
+
 
 ## 参考
 
