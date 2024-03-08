@@ -5,7 +5,7 @@
 
 TODO:  
 
-目前看不是电路复杂问题，是Arduino向通过软串口向ESP8266发送数据的问题，原因不明！
+目前看不是电路复杂问题，是Arduino向通过软串口向ESP8266发送数据的问题，原因可能是IR库和软串口库使用了同样的Timer
 
 详见 `Lab_Smart_0_IRremote.md`
 

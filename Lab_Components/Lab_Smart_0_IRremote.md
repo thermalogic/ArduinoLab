@@ -1,7 +1,7 @@
 
 # 红外遥控
 
-* 和ESP8266同时使用时，红外接受器接受乱码，相关内容见本文档后部相关内容
+* 和ESP8266同时使用时，红外接受器接受`乱码`，相关内容见本文档`后部`相关内容
 
 ## 红外接受器
 
@@ -236,7 +236,9 @@ serializeJson(sensor_json, espSerial);
 ### 解决方法
 
 1. IR和WIFI控制，Arduino不执行向软串口的`写`操作命令：`serializeJson(sensor_json, espSerial);`,此时，web客户端不显示：障碍物距离和小车速度
+   * `SmallCar_Arduino.ino`
 2. 只使用WIFI控制，Arduino执行向软串口的`写`操作命令,Web客户端显示：障碍物距离和小车速度
+   * `SmallCar_Arduino_WIFI.ino`
 3. 使用Arduio MEGA2650,ESP8266和MEGA2650通讯使用：`硬串口`
 
 ### 相关网上问答：
