@@ -12,6 +12,14 @@ TODO:
 * How solid is your power supply? Those IR receivers are VERY FUSSY about power.
   If your +5 is soft or a little low the Arduino won't care but the IR RXVR will!
 
+https://forum.arduino.cc/t/tsop4838-ir-decoder-random-noise/129185
+
+* Sounds like a decoupling problem. You IR datasheet will suggest a cap and resistor on the IR receiver's lines to reduce noise.
+
+* https://electronics.stackexchange.com/questions/460042/why-does-my-ir-receiver-spit-out-random-codes-when-my-motor-is-on
+
+you should isolate the IR receiver from that noise. If you're truly running the motor from a separate +5V supply, and intend to continue to do so, then power the IR receiver from the Arduino's +5V supply. Better, if the receiver is rated for 3.3V operation, power it from the Arduino's 3.3V supply for better isolation. Either way, put a 100nF cap in parallel with the receiver's power supply pins, right at the receiver package.
+
 ## 制作步骤
 
 1. 小车初步安装
