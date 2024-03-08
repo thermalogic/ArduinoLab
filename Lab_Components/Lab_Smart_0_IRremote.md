@@ -7,10 +7,14 @@
 
 ![](img/IRremote/irremote_reciver.jpg)
 
-* 连线
+* 简单连线
 
 ![](img/IRremote/IRremote_sensor_wired.jpg)
 
+VS1838B的建议电路图
+
+建议的电路图，有解偶的电容和电阻，可以有效降低噪音信号，所以，买按照电路图制作好的模块，更好。
+![](img/IRremote/vs1838b_circuit.jpg)
 
 ## 红外接受器接受噪声
 
