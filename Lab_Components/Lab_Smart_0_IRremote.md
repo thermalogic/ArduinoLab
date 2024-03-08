@@ -1,5 +1,16 @@
 
-# 红外
+# 红外遥控
+
+## 红外接受器
+
+* VS1838B
+
+![](img/IRremote/irremote_reciver.jpg)
+
+* 连线
+
+![](img/IRremote/IRremote_sensor_wired.jpg)
+
 
 ## 红外接受器接受噪声
 
@@ -8,9 +19,6 @@
 * 用74CH595的元件多,电路复杂的方案，其 红外接受器，接受遥控器的信号不稳定，多为噪声，原因不明。
 
 提问的很多，目前，还没有解决问题
-
-* How solid is your power supply? Those IR receivers are VERY FUSSY about power.
-  If your +5 is soft or a little low the Arduino won't care but the IR RXVR will!
 
 https://forum.arduino.cc/t/tsop4838-ir-decoder-random-noise/129185
 
@@ -25,11 +33,11 @@ You should have `a capacitor from +5V to ground`. You probably want a "bulk" cap
 
 You should isolate the IR receiver from that noise. If you're truly running the motor from a separate +5V supply, and intend to continue to do so, then power the IR receiver from the Arduino's +5V supply. Better, if the receiver is rated for 3.3V operation, power it from the Arduino's 3.3V supply for better isolation. Either way, put a 100nF cap in parallel with the receiver's power supply pins, right at the receiver package.
 
-## 连线
+----
 
-![](img/IRremote/irremote_reciver.jpg)
+* How solid is your power supply? Those IR receivers are VERY FUSSY about power.
+  If your +5 is soft or a little low the Arduino won't care but the IR RXVR will!
 
-![](img/IRremote/IRremote_sensor_wired.jpg)
 
 ## decode遥控器
 
