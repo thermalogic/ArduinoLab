@@ -1,8 +1,16 @@
 # 2WD小车制作
 
+
+## 问题：红外接受器接受噪声
+
 TODO:
 
 * 用74CH595的元件多,电路复杂的方案，其 红外接受器，接受遥控器的信号不稳定，多为噪声，原因不明。
+
+提问的很多，目前，还没有解决问题
+
+* How solid is your power supply? Those IR receivers are VERY FUSSY about power.
+  If your +5 is soft or a little low the Arduino won't care but the IR RXVR will!
 
 ## 制作步骤
 
