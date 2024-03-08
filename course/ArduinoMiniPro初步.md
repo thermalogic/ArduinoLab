@@ -77,13 +77,18 @@ FTD232和Arduino的连接方式
 
 ### 2.2 Arduino配置
 
-设定开发板的类型和同学端口
+设定开发板的类型和串口
 
 1. Board:Auduino Pro or Pro Mini
 2. Port:"COM4"
-3. Process:ATmega328P(**3.3V**,8Mhz)
+3. **芯片**： Process:ATmega328P(**5V**,8Mhz)
+   or 
+   Process:ATmega328P(**3.3V**,8Mhz)
+
+**注意**： 如果芯片选择错误，代码运行异常
 
 ![](img/ArduinoProMini/ArduinoProMini_Type.jpg)
+
 
 ### 2.3 测试烧录程序
 
