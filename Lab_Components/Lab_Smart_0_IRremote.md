@@ -1,6 +1,30 @@
 
 # 红外
 
+## 红外接受器接受噪声
+
+独立使用IR receiver没有问题，但是
+
+* 用74CH595的元件多,电路复杂的方案，其 红外接受器，接受遥控器的信号不稳定，多为噪声，原因不明。
+
+提问的很多，目前，还没有解决问题
+
+* How solid is your power supply? Those IR receivers are VERY FUSSY about power.
+  If your +5 is soft or a little low the Arduino won't care but the IR RXVR will!
+
+https://forum.arduino.cc/t/tsop4838-ir-decoder-random-noise/129185
+
+* Sounds like a decoupling problem. You IR datasheet will suggest a cap and resistor on the IR receiver's lines to reduce noise.
+
+* https://electronics.stackexchange.com/questions/460042/why-does-my-ir-receiver-spit-out-random-codes-when-my-motor-is-on
+
+`Motors` are `noisy`, and they dump noise onto their power supply rails. You've done nothing to isolate the IR receiver from that noise.
+
+You should have `a capacitor from +5V to ground`. You probably want a "bulk" cap of 100uF or so, in parallel with a 100nF cap (and there's more than one way to do this "right", so don't be surprised at comments.
+
+
+You should isolate the IR receiver from that noise. If you're truly running the motor from a separate +5V supply, and intend to continue to do so, then power the IR receiver from the Arduino's +5V supply. Better, if the receiver is rated for 3.3V operation, power it from the Arduino's 3.3V supply for better isolation. Either way, put a 100nF cap in parallel with the receiver's power supply pins, right at the receiver package.
+
 ## 连线
 
 ![](img/IRremote/irremote_reciver.jpg)
@@ -9,14 +33,13 @@
 
 ## decode遥控器
 
-使用库： IRremote https://github.com/Arduino-IRremote/Arduino-IRremote
+**使用库**： IRremote https://github.com/Arduino-IRremote/Arduino-IRremote
 
 运行代码通过串口观察，每个按键的命令16进制的数值，编制按键对应的相应。示例中是控制左右3个LED灯的亮和灭
 
 * IRremote GND ->Arduino GND
 * IRremote VCC ->Arduino +5
-* IRremote out ->Arduino Pin11 //不用<IRremote.hpp>定义的pin2
-
+* IRremote out ->Arduino Pin11 // <IRremote.hpp>示例默认是pin2
 
 21 Keys白遥控器：
 * 2 - 0x18 
@@ -35,7 +58,6 @@
 * 5 - 0x15 stop
 * vol+ 0X1
 * vol- 0x9
-
 
 华为盒子 
 
@@ -99,7 +121,6 @@ void loop() {
 ```
 
 ## 遥控LED
-
 
 
 * Led left -> Arduino pin8
