@@ -2,8 +2,8 @@
  out1
 */
 
-#define forward 9
-#define back 10
+#define forward 5
+#define back 6
 
 int speed_level = 250;
 
