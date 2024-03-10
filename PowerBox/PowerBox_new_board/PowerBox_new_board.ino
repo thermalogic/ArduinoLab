@@ -110,8 +110,7 @@ void powervalue()
       powerFactor = rPower / aPower;
       kWh += rPower / 3600000.0;
       numberOfSampled = 0;
-      ;
-
+      
       relayonoffbyVI();
 
       if (numberOfAnaed >= numberOfAna)
