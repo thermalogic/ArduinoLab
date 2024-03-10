@@ -22,7 +22,7 @@ LCD模块种类超多，大小通常以“行数x字符”数来表示，比如2
 
 下面是16个针脚对应的Arduino的针脚以及它们的作用：
 
-![](img/components/1602A/lcd_1602a_pins.jpg)
+![](img/components/1602A/1602-LCD-pinout.jpg)
 
 | 编号 | 名称	  | 说明      |
 |------|--------|-----------|
