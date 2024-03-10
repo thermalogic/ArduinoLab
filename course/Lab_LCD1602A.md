@@ -135,5 +135,7 @@ void loop(){
 
 ![](img/components/1602A/1602a_dht11_demo.jpg)
 
+## Reference
 
+* https://dronebotworkshop.com/ir-remotes/
 
