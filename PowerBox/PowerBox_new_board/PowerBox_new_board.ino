@@ -75,7 +75,7 @@ void powervalue()
 
       VVout = scaler5 * VVout;          //    0-5v: 0-1023
       VVin = rate * (VVout - Vref / 2); // Eq 3
-      sampleV = -1931.111 * VVin;
+      sampleV = 1931.111*VVin;
       sqV = sampleV * sampleV;
       sumV += sqV;
 
@@ -128,7 +128,7 @@ void powervalue()
 
 void relayonoffbyVI()
 {
-   if ((relayonoff == 1) && ((Vrms > 300) || (Irms > 3)))
+   if ((relayonoff == 1) && ((Vrms > 380) || (Irms > 3)))
    {
       digitalWrite(Relay, LOW);
       relayonoff = 0;
