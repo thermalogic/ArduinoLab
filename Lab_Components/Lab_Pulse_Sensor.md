@@ -9,7 +9,9 @@
 
 本产品尺寸小巧，接线简单，接在Arduino`模拟口`上使用，
 
+![](img/pulsesensor_parts.png)
 
+## 电路
 ![](img/pulsesersor_pinout.jpg)
 
 ![](img/pulsesensor_layout.png)

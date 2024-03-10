@@ -168,3 +168,35 @@ $V_{rms}= $
 
 
 ![](img/powerbox_layout_new_1.jpg)
+
+## 焊接的新电路板
+
+新电路板上有: 220V到5V的电源用于给单片机供电
+
+### 新电路板测试代码
+
+* `PowerBox_new_board.ino`
+
+### 电流和电压信号连接
+
+* I -> A1
+* U -> A0
+
+### LCD连接
+
+* 原芯片代码执行时不显示：原因是代码中定义的LCD和Mini芯片不一致
+
+新电路板LCD的D4,D5,D6,D7和Pro Mini的连接和LCD库例程不一样
+
+D4,D5,D6,D7连接的是P4,P5,P6,P7
+
+```c
+const int rs = 12, en = 11, d4 = 4, d5 = 5, d6 =6, d7 = 7;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+```
+### 继电器连接
+
+P3 -> Mini P8
+
+**问题**：新和原芯片中代码，测试中继电器都一直是断开的，P8为HIGH是也不能开通
+
