@@ -1,5 +1,9 @@
 /*
   Stepper Motor and  Solar tracing
+int in1Pin = 8;
+int in2Pin = 9;
+int in3Pin = 10;
+int in4Pin = 11;
 
 */
 
@@ -11,15 +15,15 @@ int Left_sensorValue;
 int Right_sensorValue;
 int diff_sensorValue;
 
-int turn_left_on=0; 
-int turn_right_on=0; 
+int turn_left_on = 0;
+int turn_right_on = 0;
 
-int turn_step_angle=10; 
+int turn_step_angle = 5;
+int turn_left_total_angle = 0;
+int turn_right_total_angle = 0;
+int turn_max_angle = 100;
 
-int in1Pin = 8;
-int in2Pin = 9;
-int in3Pin = 10;
-int in4Pin = 11;
+
 
 void clockwise(int num) {
   for (int count = 0; count < num; count++) {
@@ -57,28 +61,42 @@ void setup() {
   diff_sensorValue = Left_sensorValue - Right_sensorValue;
   Serial.print("diff sensorValue: ");
   Serial.println(diff_sensorValue);
+  turn_left_total_angle = 0;
+  turn_right_total_angle = 0;
+  delay(2000);
 }
 
 void loop() {
-  if (Left_sensorValue > (Right_sensorValue + 30)) {
+  if (Left_sensorValue > (Right_sensorValue + 40))  {
     anticlockwise(turn_step_angle);  //turn Left
     Serial.println("Turning Left: ");
-    turn_left_on=1;
-    turn_right_on=0;
-  } else if (Left_sensorValue < (Right_sensorValue - 30)) {
+    turn_left_total_angle += turn_step_angle;
+    turn_left_on = 1;
+    turn_right_on = 0;
+  } else if (Left_sensorValue < (Right_sensorValue - 40)) {
     clockwise(turn_step_angle);
     Serial.println("Turning Right: ");
-    turn_left_on=0;
-    turn_right_on=1;
-   };
-   Left_sensorValue = analogRead(Left_PhotoResistor);
-   Right_sensorValue = analogRead(Right_PhotoResistor);
-   Serial.print("Left sensorValue: ");
-   Serial.println(Left_sensorValue);
-   Serial.print("Right sensorValue: ");
-   Serial.println(Right_sensorValue);
-   diff_sensorValue = Left_sensorValue - Right_sensorValue;
-   Serial.print("diff sensorValue: ");
-   Serial.println(diff_sensorValue);
-   delay(1000);  
+    turn_right_total_angle += turn_step_angle;
+    turn_left_on = 0;
+    turn_right_on = 1;
+  };
+  Left_sensorValue = analogRead(Left_PhotoResistor);
+  Right_sensorValue = analogRead(Right_PhotoResistor);
+  Serial.print("Left sensorValue: ");
+  Serial.println(Left_sensorValue);
+  Serial.print("Right sensorValue: ");
+  Serial.println(Right_sensorValue);
+  diff_sensorValue = Left_sensorValue - Right_sensorValue;
+  Serial.print("diff sensorValue: ");
+  Serial.println(diff_sensorValue);
+  if (turn_left_on ==1)
+  {Serial.print("turn_left_total_angle: ");
+  Serial.println(turn_left_total_angle);
+  }
+  else if (turn_right_on ==1)
+  {
+    Serial.print("turn_right_total_angle: ");
+    Serial.println(turn_right_total_angle);
+  }
+  delay(2000);
 }
