@@ -56,6 +56,21 @@
 
 ![](img/stepper_motor_solar_tracer_multiboard_1.jpg)
 
+## 软件
+
+### 不使用库
+
+* `Lab_Stepper_Motor_Solar_Tracker.ino`
+
+### 使用AccelStepper库
+
+* https://www.airspayce.com/mikem/arduino/AccelStepper/
+
+* `Lab_Stepper_Motor_Solar_Tracker_new.ino`
+
+不熟悉其使用。都向一个方向转
+
+
 ##  参考
 
 * https://www.circuitbasics.com/how-to-control-stepper-motors-with-uln2003-and-arduino-uno/
