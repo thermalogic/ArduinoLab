@@ -51,31 +51,30 @@ void setup() {
 void turn_left(int steps) {
   currentPosition=stepper.currentPosition();
   int newPosition=steps+ currentPosition;
-  while (stepper.currentPosition() != newPosition) // Full speed up to 300
-        stepper.run();
-  stepper.runToPosition();
+  stepper.moveTo(newPosition);
+   stepper.runToPosition();
  }
 
 void turn_right(int steps) {
  currentPosition=stepper.currentPosition();
   int newPosition=-steps+ currentPosition;
-  while (stepper.currentPosition() != newPosition) // Full speed up to 300
-        stepper.run();
+  
+  stepper.moveTo(newPosition);
   stepper.runToPosition();  
 }
 
 void loop() {
-  if (Left_sensorValue - 30 > Right_sensorValue) {
+  if (Left_sensorValue  > Right_sensorValue) {
     Serial.println("Turning Left: ");
-    turn_left(10);
-    
-  }
-  if (Right_sensorValue - 30 > Left_sensorValue) {
+    turn_left(100);
+  };
+  if (Right_sensorValue  > Left_sensorValue) {
     Serial.println("Turning Right: ");
-    turn_right(10);
+    turn_right(100);
   };
   Left_sensorValue = analogRead(Left_PhotoResistor);
   Right_sensorValue = analogRead(Right_PhotoResistor);
+  Serial.println(" ");
   Serial.print("Left sensorValue: ");
   Serial.println(Left_sensorValue);
   Serial.print("Right sensorValue: ");
@@ -86,5 +85,5 @@ void loop() {
   currentPosition = stepper.currentPosition();
   Serial.print("---currentPosition:");
   Serial.println(currentPosition);
-  delay(500);
+  delay(2000);
 }

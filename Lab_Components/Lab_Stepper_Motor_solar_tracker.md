@@ -67,7 +67,9 @@
 
 * `Lab_Stepper_Motor_Solar_Tracker_new.ino`
 
-不熟悉AccelStepper库使用。都向一个方向转
+不熟悉AccelStepper库使用，
+
+**问题：** 不能改变方向，都向一个方向转
 
 * https://www.airspayce.com/mikem/arduino/AccelStepper/
 
