@@ -7,7 +7,7 @@
 
 // Creates an instance
 // Pins entered in sequence IN1-IN3-IN2-IN4 for proper step sequence
-AccelStepper stepper(AccelStepper::FULL4WIRE, 8, 9, 10, 11);
+AccelStepper stepper(AccelStepper::HALF4WIRE, 8, 10, 9, 11);
 
 void setup()
 {  

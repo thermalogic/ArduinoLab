@@ -69,10 +69,29 @@
 
 * `Lab_Stepper_Motor_Solar_Tracker_new.ino`
 
+
 **问题：** 不能改变方向，都向一个方向转! 原因不明？？？？
 * https://www.airspayce.com/mikem/arduino/AccelStepper/
 
-* Bonezegei_ULN2003_Stepper 正常
+原因是使用的是28byj-48电机 其 motors连线的问题：
+
+byj - `pins 2 and 3` swapped !!!
+
+* Pins entered in sequence IN1-`IN3`-IN2-IN4 for proper step sequence
+* use HALF4WIRE for half stepping
+
+如果：
+
+arduino pin: ULN2003A IN pin out pin color code on the byj stepper
+8 in4 D blue
+9 in3 C pink
+10 in2 B yellow
+11 in1 A orange
+
+那么代码如下：
+```c
+AccelStepper byj(AccelStepper::HALF4WIRE, 8, 10, 9, 11); // byj - pins 2 and 3 swapped !!!
+```
 
 ##  参考
 

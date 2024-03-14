@@ -5,12 +5,9 @@
 // Include the AccelStepper Library
 #include <AccelStepper.h>
 
-// Define step constant
-#define FULLSTEP 4
-
 // Creates an instance
 // Pins entered in sequence IN1-IN3-IN2-IN4 for proper step sequence
-AccelStepper stepper(FULLSTEP, 8, 9, 10, 11);
+AccelStepper stepper(AccelStepper::HALF4WIRE, 8, 10, 9, 11);
 
 int currentPosition;
 const int Left_PhotoResistor = A0;
