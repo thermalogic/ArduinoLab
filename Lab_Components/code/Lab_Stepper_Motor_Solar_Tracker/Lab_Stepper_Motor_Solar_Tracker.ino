@@ -67,13 +67,13 @@ void setup() {
 }
 
 void loop() {
-  if (Left_sensorValue > (Right_sensorValue + 40))  {
+  if (Left_sensorValue > (Right_sensorValue + 30))  {
     anticlockwise(turn_step_angle);  //turn Left
     Serial.println("Turning Left: ");
     turn_left_total_angle += turn_step_angle;
     turn_left_on = 1;
     turn_right_on = 0;
-  } else if (Left_sensorValue < (Right_sensorValue - 40)) {
+  } else if (Left_sensorValue < (Right_sensorValue - 30)) {
     clockwise(turn_step_angle);
     Serial.println("Turning Right: ");
     turn_right_total_angle += turn_step_angle;
@@ -98,5 +98,5 @@ void loop() {
     Serial.print("turn_right_total_angle: ");
     Serial.println(turn_right_total_angle);
   }
-  delay(2000);
+  delay(500);
 }
