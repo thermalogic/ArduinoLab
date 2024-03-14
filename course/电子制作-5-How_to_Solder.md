@@ -12,7 +12,7 @@ Soldering is one of many skills that will empower you to do just that.
 
 *  If you have a soldering station with an adjustable temp control, set it to `400′ C/ 752′ F`
 
-* Once the surface of the pad is completely coated, you can `stop` adding solder and `remove` the soldering `iron` (in that order)and let the solder cool down naturally
+先移除焊锡，然后，在移除焊枪
 
 ## Reference
 
