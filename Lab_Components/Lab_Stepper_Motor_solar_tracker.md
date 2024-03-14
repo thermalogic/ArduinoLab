@@ -64,12 +64,11 @@
 
 ### 使用AccelStepper库
 
-* https://www.airspayce.com/mikem/arduino/AccelStepper/
-
 * `Lab_Stepper_Motor_Solar_Tracker_new.ino`
 
-不熟悉其使用。都向一个方向转
+不熟悉AccelStepper库使用。都向一个方向转
 
+* https://www.airspayce.com/mikem/arduino/AccelStepper/
 
 ##  参考
 
