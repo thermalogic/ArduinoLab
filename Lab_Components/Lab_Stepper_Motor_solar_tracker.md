@@ -63,15 +63,16 @@
 * `Lab_Stepper_Motor_Solar_Tracker_simple.ino` 
 * `Lab_Stepper_Motor_Solar_Tracker.ino` 有较多判断，但是，还是没有处理好：越转2边光线强度差别越大问题
 
-### 使用AccelStepper库
+### 使用第三方库
+
+* Arduino Stepper和AccelStepper库
 
 * `Lab_Stepper_Motor_Solar_Tracker_new.ino`
 
-不熟悉AccelStepper库使用，
-
-**问题：** 不能改变方向，都向一个方向转
-
+**问题：** 不能改变方向，都向一个方向转! 原因不明？？？？
 * https://www.airspayce.com/mikem/arduino/AccelStepper/
+
+* Bonezegei_ULN2003_Stepper 正常
 
 ##  参考
 
