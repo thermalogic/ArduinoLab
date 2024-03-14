@@ -1,7 +1,7 @@
 /*
   The new board with power supply and Arduino Pro Mini
     控制Relay的数字IO脚: 8
-    电路信号：A
+    电路信号：A1
     电压信号：A0
 */
 #include "TimerOne.h"
