@@ -60,7 +60,8 @@
 
 ### 不使用库
 
-* `Lab_Stepper_Motor_Solar_Tracker.ino`
+* `Lab_Stepper_Motor_Solar_Tracker_simple.ino` 
+* `Lab_Stepper_Motor_Solar_Tracker.ino` 有较多判断，但是，还是没有处理好：越转2边光线强度差别越大问题
 
 ### 使用AccelStepper库
 
