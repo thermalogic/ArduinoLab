@@ -1,9 +1,5 @@
 /*
-  Stepper Motor and  Solar tracing
-int in1Pin = 8;
-int in2Pin = 9;
-int in3Pin = 10;
-int in4Pin = 11;
+   Stepper Motor and  Solar tracing
 */
 
 // Include the AccelStepper Library
@@ -14,7 +10,7 @@ int in4Pin = 11;
 
 // Creates an instance
 // Pins entered in sequence IN1-IN3-IN2-IN4 for proper step sequence
-AccelStepper myStepper(FULLSTEP, 8, 9, 10, 11);
+AccelStepper stepper(FULLSTEP, 8, 9, 10, 11);
 
 int currentPosition;
 const int Left_PhotoResistor = A0;
@@ -31,14 +27,14 @@ void setup() {
   // put your setup code here, to run once:
   // set the maximum speed, acceleration factor,
   // initial speed and the target position
-  myStepper.setMaxSpeed(1000.0);
-  myStepper.setAcceleration(50.0);
-  myStepper.setSpeed(200);
+  stepper.setMaxSpeed(1000.0);
+  stepper.setAcceleration(50.0);
+  stepper.setSpeed(200);
 
-  currentPosition =  myStepper.currentPosition();
-  Serial.print("currentPosition:");
+  currentPosition = stepper.currentPosition();
+  Serial.print("---currentPosition:");
   Serial.println(currentPosition);
-  
+
   Left_sensorValue = analogRead(Left_PhotoResistor);
   Right_sensorValue = analogRead(Right_PhotoResistor);
 
@@ -53,16 +49,20 @@ void setup() {
 }
 
 void turn_left(int steps) {
-  currentPosition =  myStepper.currentPosition();
-  myStepper.moveTo(currentPosition-steps);
-  myStepper.runToPosition();
+  currentPosition=stepper.currentPosition();
+  int newPosition=steps+ currentPosition;
+  while (stepper.currentPosition() != newPosition) // Full speed up to 300
+        stepper.run();
+  stepper.runToPosition();
  }
 
 void turn_right(int steps) {
-   currentPosition =  myStepper.currentPosition();
-   myStepper.moveTo(currentPosition-steps);
-   myStepper.runToPosition();
- }
+ currentPosition=stepper.currentPosition();
+  int newPosition=-steps+ currentPosition;
+  while (stepper.currentPosition() != newPosition) // Full speed up to 300
+        stepper.run();
+  stepper.runToPosition();  
+}
 
 void loop() {
   if (Left_sensorValue - 30 > Right_sensorValue) {
@@ -83,9 +83,8 @@ void loop() {
   diff_sensorValue = Left_sensorValue - Right_sensorValue;
   Serial.print("diff sensorValue: ");
   Serial.println(diff_sensorValue);
-  currentPosition = myStepper.currentPosition();
+  currentPosition = stepper.currentPosition();
   Serial.print("---currentPosition:");
   Serial.println(currentPosition);
-  
-  delay(2000);
+  delay(500);
 }

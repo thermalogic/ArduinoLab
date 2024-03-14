@@ -64,14 +64,13 @@ void loop() {
       Serial.println("Turning Left: ");
       turn_left_on = 1;
       turn_right_on = 0;
-    }
+    };
       if (Right_sensorValue - 30 > Left_sensorValue) {
         clockwise(turn_step_angle);
         Serial.println("Turning Right: ");
         turn_left_on = 0;
         turn_right_on = 1;
       };
-    };
     Left_sensorValue = analogRead(Left_PhotoResistor);
     Right_sensorValue = analogRead(Right_PhotoResistor);
     Serial.print("Left sensorValue: ");
@@ -82,5 +81,4 @@ void loop() {
     Serial.print("diff sensorValue: ");
     Serial.println(diff_sensorValue);
     delay(500);
-}
-7
+};
