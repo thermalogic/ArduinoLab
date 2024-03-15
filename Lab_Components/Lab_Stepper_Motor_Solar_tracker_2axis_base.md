@@ -25,6 +25,28 @@
 
 ## 参考实现平台
 
+### DIY Solar Tracking System Inspired by NASA (Parker Solar Probe)
+
+这个2轴最好，和实际更相近。其他都是常规多自由度机械臂的做法，但是，现在需要转动的是一个大的板子，多自由度机械臂的方案不算好。
+
+* 光伏板使用一个单臂支架支撑
+
+电机通过皮带带动圆盘转动
+
+* https://www.youtube.com/watch?v=wL9PcGu_xrA
+
+![](img/solar_tracer/D_2axis_platform.jpg)
+
+![](img/solar_tracer/D_2axis_platform_2.jpg)
+
+![](img/solar_tracer/D_2axis_platform_3.jpg)
+
+电机通过皮带带动圆盘转动
+![](img/solar_tracer/D_2axis_platform_4.jpg)
+
+![](img/solar_tracer/D_2axis_platform_5.jpg)
+
+
 ### DIY Solar Tracking System Arduino Get More FREE ENERGY
 * https://www.youtube.com/watch?v=wIzwv6LcriA
 
