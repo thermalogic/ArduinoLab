@@ -1,10 +1,10 @@
-# 单轴步进电机太阳跟踪
+# 单轴步进电机光强(太阳)跟踪
 
 * 光敏电阻检测光强，跟踪-使用AccelStepper步机电机库
 
 * `TODO：`, RTC时间跟踪
 
-##  光敏电阻检测光强跟踪元件
+##  元件
 
 * 步进电机: 五线四相28BYJ-48 x1
 * 步进电机驱动：ULN2003 
@@ -34,17 +34,19 @@
 * 驱动板上IN1、IN2、IN3、IN4分别连接UNO开发板的数字引脚8，9，10，11；
 * 驱动板电源输入+、-引脚分别连接UNO开发板的5V、GND。
 
-## 光敏电阻检测光强跟踪测试
+##  测试方案
 
-### 面包板测试
+### 面包板
+
+简单的面包板测试
 
 ![](img/stepper_motor_solar_tracer.jpg)
 
 面包板上光敏电阻，发送的信号，那边光强，电机就带动其上连接的纸板向那个方向转
 
-### 洞洞板测试
+### 洞洞板
 
-硬件布置：
+洞洞板测试的原件布置：
 * 光敏电阻焊接在洞洞板上。
  *  洞洞板上布置2个接线柱
      * 一个用于接电源
@@ -83,16 +85,14 @@
 
 原因是`28byj-48`电机的motors连线特别
 
-**byj - `pins 2 and 3` swapped !!!**
+* **byj - `pins 2 and 3` swapped !!!**
 
 所以，使用时需要
 
-* Pins entered in sequence IN1-`IN3`-IN2-IN4 for proper step sequence
+* Pins entered in sequence IN1-**`IN3`**-IN2-IN4 for proper step sequence
 * use HALF4WIRE for half stepping
 
-如果：
-
-Arduino pin: ULN2003A IN pin out pin color code on the byj stepper
+如Arduino pin: ULN2003A IN pin out pin color code on the byj stepper
 
 * 8 in1 
 * 9 in2 
@@ -101,7 +101,8 @@ Arduino pin: ULN2003A IN pin out pin color code on the byj stepper
 
 那么代码如下：
 ```c
-AccelStepper byj(AccelStepper::HALF4WIRE, 8, 10, 9, 11); // byj - pins 2 and 3 swapped !!!
+// byj - pins 2 and 3 swapped !!!
+AccelStepper byj(AccelStepper::HALF4WIRE, 8, 10, 9, 11); 
 ```
 
 ##  参考
