@@ -10,11 +10,18 @@
    * 一侧使用花卉的支撑铁条，焊接到步进电机轴上
    * 另一侧插入是带孔支架的孔中
 
+
+![](img/solar_tracer/my_2axis_base_1.jpg)
+
 * `TODO`:
     * 为焊接牢固，铁条焊接到步进电机轴上边上，转动轨迹是小圆圈，不是同心点
+    * 焊在中间也很难把轴焊正中
     * 可以买步进电机的连轴器和轴，避免了焊接， 转动轨迹也会更好
 
-![](img/solar_tracer/my_2axis_base.jpg)
+![](img/solar_tracer/my_2axis_base_2.jpg)
+
+    28BYJ-48 的轴径是5mm
+![](img/solar_tracer/28byj-48-machine-value.jpg)
 
 ## 参考实现平台
 
