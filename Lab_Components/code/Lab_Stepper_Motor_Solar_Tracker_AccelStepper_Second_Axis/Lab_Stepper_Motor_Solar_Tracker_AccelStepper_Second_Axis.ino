@@ -1,5 +1,5 @@
 /*
-   第2轴有限幅度的上小杨姣调整
+   第2轴有限幅度的上下仰角调整
    
    28byj-48 Stepper Motor and  Solar tracing
 
@@ -30,7 +30,7 @@ void setup() {
   // initial speed and the target position
   stepper.setMaxSpeed(1000.0);
   stepper.setAcceleration(50.0);
-  stepper.setSpeed(200);
+  stepper.setSpeed(500);
 
   currentPosition = stepper.currentPosition();
   Serial.print("---currentPosition:");
@@ -43,7 +43,7 @@ void turn_up(int steps) {
     Serial.print("---currentPosition:");
   Serial.println(currentPosition);
   if (abs(currentPosition)<max_steps)
-  {  stepper.move(-steps);   // relative position 
+  {  stepper.move(steps);   // relative position 
      stepper.runToPosition();
   }
   currentPosition = stepper.currentPosition();
@@ -56,8 +56,11 @@ void turn_up(int steps) {
 
 void turn_down(int steps) {
   currentPosition = stepper.currentPosition();
+    Serial.print("---currentPosition:");
+  Serial.println(currentPosition);
+ 
   if (abs(currentPosition)<max_steps)
-  {  stepper.move(steps);   // relative position 
+  {  stepper.move(-steps);   // relative position 
      stepper.runToPosition();
   };
   currentPosition = stepper.currentPosition();
@@ -72,12 +75,18 @@ void loop() {
      for(int i=0;i<20;i++)
      {
       turn_up(50);
-      delay(100);
-     }
-    stepper.setCurrentPosition(0);  
-    for(int i=0;i<20;i++)
+      delay(10);
+    };
+    if (abs(currentPosition)>=max_steps)
+    { 
+      stepper.setCurrentPosition(0); 
+    };
+       for(int i=0;i<20;i++)
     {
       turn_down(50);
-      delay(100);
+      delay(10);
     }
+     if (abs(currentPosition)>=max_steps)
+    {  stepper.setCurrentPosition(0);  }
+   
 }
