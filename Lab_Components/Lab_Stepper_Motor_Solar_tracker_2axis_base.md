@@ -25,7 +25,7 @@
 
 ## 参考实现平台
 
-DIY Solar Tracking System Arduino Get More FREE ENERGY
+### DIY Solar Tracking System Arduino Get More FREE ENERGY
 * https://www.youtube.com/watch?v=wIzwv6LcriA
 
 * 第一自由度电机平台
@@ -40,7 +40,7 @@ DIY Solar Tracking System Arduino Get More FREE ENERGY
 
 ![](img/solar_tracer/3_pandel_base.jpg)
 
-## 平台连接
+#### 平台连接
 
 ![](img/solar_tracer/4_2axis_base-1axis_motor.jpg)
 
@@ -50,4 +50,25 @@ DIY Solar Tracking System Arduino Get More FREE ENERGY
 
 ![](img/solar_tracer/7_2axis_base-motor.jpg)
 
+### How to Make Solar Tracker with Arduino Uno R3
 
+* https://www.youtube.com/watch?v=dP6gO19t2pk
+
+![](img/solar_tracer/B_2axis_platform_total.jpg)
+
+![](img/solar_tracer/B_2axis_platform.jpg)
+
+![](img/solar_tracer/B_2axis_platform_all.jpg)
+### How to Make Dual Axis Solar Tracker
+
+*  Dual Axis Sun Tracker Solar Panel without Arduino Part:1
+
+  *  https://www.youtube.com/watch?v=Okvyq91Q-0k&list=PLB4JWIkdh7W_NSY-WDA3zAWO8FAZC_3hc&index=2
+
+### Dual Axis Sun Tracker Solar Panel without Arduino Part:2
+
+* https://www.youtube.com/watch?v=bG2sAwm-4gY&list=PLB4JWIkdh7W_NSY-WDA3zAWO8FAZC_3hc&index=3
+
+![](img/solar_tracer/C_2axis_base.jpg)
+
+![](img/solar_tracer/C_2axis_platform.jpg)
