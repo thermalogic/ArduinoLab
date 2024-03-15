@@ -1,9 +1,21 @@
 # 自做2自由度平台
 
+* `TODO`:暂时没有不集成为2自由度系统，以后在实现
+
+## 自做2自由度平台的第二自由度
+
+* 瓶盖和一自由度电机轴连接，成为2自由度平台
+* 步进电机安装在瓶盖上
+* 转动轴：
+   * 一侧使用花卉的支撑铁条，焊接到步进电机轴上
+   * 另一侧插入是带孔支架的孔中
+
+![](img/solar_tracer/my_2axis_base.jpg)
+
+## 参考实现平台
+
 DIY Solar Tracking System Arduino Get More FREE ENERGY
 * https://www.youtube.com/watch?v=wIzwv6LcriA
-
-## 平台
 
 * 第一自由度电机平台
 
@@ -26,4 +38,5 @@ DIY Solar Tracking System Arduino Get More FREE ENERGY
 ![](img/solar_tracer/6_2axis_base-panel_axis.jpg)
 
 ![](img/solar_tracer/7_2axis_base-motor.jpg)
+
 
