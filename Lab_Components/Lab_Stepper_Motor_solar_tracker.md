@@ -57,6 +57,8 @@
 
 ![](img/stepper_motor_solar_tracer_multiboard_1.jpg)
 
+![](img/stepper_motor_solar_tracer_multiboard_2.jpg)
+
 ## 软件
 
 ### 不使用库
@@ -88,10 +90,10 @@
 
 Arduino pin: ULN2003A IN pin out pin color code on the byj stepper
 
-* 8 in4 
-* 9 in3 
-* 10 in2
-* 11 in1
+* 8 in1 
+* 9 in2 
+* 10 in3
+* 11 in4
 
 那么代码如下：
 ```c

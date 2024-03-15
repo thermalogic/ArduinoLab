@@ -1,10 +1,10 @@
 /*
    28byj-48 Stepper Motor and  Solar tracing
    Arduino pin: ULN2003A IN pin out pin color code on the byj stepper
-    * 8 in4 
-    * 9 in3 
-    * 10 in2
-    * 11 in1
+    * 8 in1 
+    * 9 in2 
+    * 10 in3
+    * 11 in4
 
     AccelStepper byj(AccelStepper::HALF4WIRE, 8, 10, 9, 11); // byj - pins 2 and 3 swapped !!!
 */
