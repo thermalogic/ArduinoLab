@@ -1,5 +1,12 @@
 /*
-   Stepper Motor and  Solar tracing
+   28byj-48 Stepper Motor and  Solar tracing
+   Arduino pin: ULN2003A IN pin out pin color code on the byj stepper
+    * 8 in4 
+    * 9 in3 
+    * 10 in2
+    * 11 in1
+
+    AccelStepper byj(AccelStepper::HALF4WIRE, 8, 10, 9, 11); // byj - pins 2 and 3 swapped !!!
 */
 
 // Include the AccelStepper Library
@@ -17,7 +24,7 @@ const int Right_PhotoResistor = A1;
 int Left_sensorValue;
 int Right_sensorValue;
 int diff_sensorValue;
-
+int turn_steps=50;
 
 void setup() {
   Serial.begin(9600);
@@ -46,29 +53,26 @@ void setup() {
 }
 
 void turn_left(int steps) {
-  currentPosition=stepper.currentPosition();
-  int newPosition=steps+ currentPosition;
-  stepper.moveTo(newPosition);
-   stepper.runToPosition();
- }
+  stepper.move(-steps);   // relative position 
+  stepper.runToPosition();
+}
 
 void turn_right(int steps) {
- currentPosition=stepper.currentPosition();
-  int newPosition=-steps+ currentPosition;
-  
-  stepper.moveTo(newPosition);
-  stepper.runToPosition();  
+  stepper.move(steps);
+  stepper.runToPosition();
 }
 
 void loop() {
-  if (Left_sensorValue  > Right_sensorValue) {
-    Serial.println("Turning Left: ");
-    turn_left(100);
-  };
-  if (Right_sensorValue  > Left_sensorValue) {
-    Serial.println("Turning Right: ");
-    turn_right(100);
-  };
+  if (abs(diff_sensorValue) >= 30) {
+    if (Left_sensorValue > Right_sensorValue) {
+      Serial.println("Turning Left: ");
+      turn_left(100);
+    };
+    if (Right_sensorValue > Left_sensorValue) {
+      Serial.println("Turning Right: ");
+      turn_right(100);
+    };
+  }
   Left_sensorValue = analogRead(Left_PhotoResistor);
   Right_sensorValue = analogRead(Right_PhotoResistor);
   Serial.println(" ");
@@ -82,5 +86,5 @@ void loop() {
   currentPosition = stepper.currentPosition();
   Serial.print("---currentPosition:");
   Serial.println(currentPosition);
-  delay(2000);
+  delay(500);
 }

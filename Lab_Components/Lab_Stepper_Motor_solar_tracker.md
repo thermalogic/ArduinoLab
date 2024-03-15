@@ -1,6 +1,7 @@
-# 步进电机太阳跟踪
+# 单轴步进电机太阳跟踪
 
-* 光敏电阻检测光强，跟踪
+* 光敏电阻检测光强，跟踪-使用AccelStepper步机电机库
+
 * `TODO：`, RTC时间跟踪
 
 ##  光敏电阻检测光强跟踪元件
@@ -67,15 +68,18 @@
 
 * AccelStepper库
 
-* `Lab_Stepper_Motor_Solar_Tracker_new.ino`
+* `Lab_Stepper_Motor_Solar_Tracker_AccelStepper.ino` -  刷机用代码
 
-**问题：** 不能改变方向，都向一个方向转! 原因不明？？？？
+### 解决问题
+
+使用AccelStepper库不能改变方向，都向一个方向转! 
 * https://www.airspayce.com/mikem/arduino/AccelStepper/
 
-原因是`28byj-48`电机 其motors连线特别
+原因是`28byj-48`电机的motors连线特别
 
 **byj - `pins 2 and 3` swapped !!!**
-所有，使用时，需要
+
+所以，使用时需要
 
 * Pins entered in sequence IN1-`IN3`-IN2-IN4 for proper step sequence
 * use HALF4WIRE for half stepping
