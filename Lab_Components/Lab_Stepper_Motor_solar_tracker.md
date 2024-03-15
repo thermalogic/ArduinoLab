@@ -2,7 +2,9 @@
 
 * 光敏电阻检测光强，跟踪-使用AccelStepper步机电机库
 
-* `TODO：`, RTC时间跟踪
+* `TODO：`
+  *  RTC时间跟踪
+  * 自做双自由度平台，参考文档： `Lab_Stepper_Motor_Solar_tracker_2axis_base.md`
 
 ##  元件
 
