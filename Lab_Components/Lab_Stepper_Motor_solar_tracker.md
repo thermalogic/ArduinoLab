@@ -3,8 +3,10 @@
 * 光敏电阻检测光强，跟踪-使用AccelStepper步机电机库
 
 * `TODO：`
-  *  RTC时间跟踪
+  * RTC时间跟踪
   * 自做双自由度平台，参考文档： `Lab_Stepper_Motor_Solar_tracker_2axis_base.md`
+  * Lab_Dual_Axies_Stepper_Motor_Solar_Tracker_AccelStepper.ino OK！
+
 
 ##  元件
 
@@ -106,6 +108,10 @@
 // byj - pins 2 and 3 swapped !!!
 AccelStepper byj(AccelStepper::HALF4WIRE, 8, 10, 9, 11); 
 ```
+
+## 双轴电机
+
+* Lab_Dual_Axies_Stepper_Motor_Solar_Tracker_AccelStepper.ino OK！
 
 ##  参考
 
