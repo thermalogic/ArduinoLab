@@ -119,7 +119,11 @@ AccelStepper byj(AccelStepper::HALF4WIRE, 8, 10, 9, 11);
 
 **测试代码：**  * 
 
+* Lab_Simple_Dual_Axie.ino OK！
+
 * Lab_Dual_Axies_Stepper_Motor_Solar_Tracker_AccelStepper.ino OK！
+
+![](img/solar_tracer/my_dual_axie.jpg)
 
 ##  参考
 
