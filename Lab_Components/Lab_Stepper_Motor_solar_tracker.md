@@ -2,11 +2,13 @@
 
 * 光敏电阻检测光强，跟踪-使用AccelStepper步机电机库
 
+* 步进电机是`开环控制`，舵机是闭环，所以，`单纯步进电机不能控制其初始位置`，因为没有位置信息反馈，需要配上霍尔编码器构成简单闭环
+  所有，如果单纯用步进电机做光跟踪器，需要`人工`调整电机到初始位置,后面的转动相对于这个位置进行
+
 * `TODO：`
   * RTC时间跟踪
   * 自做双自由度平台，参考文档： `Lab_Stepper_Motor_Solar_tracker_2axis_base.md`
   * Lab_Dual_Axies_Stepper_Motor_Solar_Tracker_AccelStepper.ino OK！
-
 
 ##  元件
 
