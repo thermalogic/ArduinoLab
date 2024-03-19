@@ -109,7 +109,15 @@
 AccelStepper byj(AccelStepper::HALF4WIRE, 8, 10, 9, 11); 
 ```
 
-## 双轴电机
+## Dual-Axis Gimbal 双轴云台
+
+**自做双轴云台结构**
+
+* 垂直步进电机安装在瓶盖上 - 1 轴自由度
+* 水平电机通过瓶盖连接垂直步进电机轴上- 2 轴自由度
+   * 水平电机安装连轴器，多个M3铜柱通过连轴器的M3紧固空连接构成平板支
+
+**测试代码：**  * 
 
 * Lab_Dual_Axies_Stepper_Motor_Solar_Tracker_AccelStepper.ino OK！
 

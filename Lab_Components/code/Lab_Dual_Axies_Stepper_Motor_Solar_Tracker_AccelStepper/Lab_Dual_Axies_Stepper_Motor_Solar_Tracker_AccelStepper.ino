@@ -1,7 +1,7 @@
 /*
-   双轴测试
-      28byj-48 Stepper Motor
-   Arduino pin: ULN2003A IN pin out pin color code on the byj stepper
+   Dual-Axis Gimbal with 28BYJ-48 Stepper Motors with ULN2003A 
+   
+   Arduino -> ULN2003A pin: 
 
    vertical stepper motor
     * 8 in1 
@@ -19,7 +19,8 @@
 #include <AccelStepper.h>
 
 // Creates an instance
-// Pins entered in sequence IN1-IN3-IN2-IN4 for proper step sequence
+
+// Pins entered in sequence IN1-`IN3`-IN2-IN4 for proper step sequence
 // vertical stepper motor
 AccelStepper vertical_stepper(AccelStepper::HALF4WIRE, 8, 10, 9, 11);
 AccelStepper horizontal_stepper(AccelStepper::HALF4WIRE, 4, 6, 5, 7);
@@ -94,24 +95,17 @@ void setup() {
   Serial.print("---horizontal currentPosition:");
   Serial.println(horizontal_currentPosition);
   delay(1000);
-  // vertical 
- turn_left(300);
- delay(1000);
- turn_right(300);
- delay(2000);
- 
+  // vertical
+  turn_left(300);
+  delay(1000);
+  turn_right(300);
+  delay(1000);
+
   // horizontal
-  for (int i = 0; i < 20; i++) {
-    turn_up(50);
-    delay(10);
-  };
-  if (abs(horizontal_currentPosition) >= max_steps) {
-    horizontal_stepper.setCurrentPosition(0);
-  };
-  for (int i = 0; i < 20; i++) {
-    turn_down(50);
-    delay(10);
-  }
+  turn_up(100);
+  delay(1000);
+  turn_down(100);
+  delay(1000);
 }
 
 
