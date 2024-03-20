@@ -1,7 +1,7 @@
 /*
   The Simple Dual-Axis Gimbal with 28BYJ-48 Stepper Motors and ULN2003A 
    
-   Arduino -> ULN2003A: 
+   Arduino -> ULN2003A
 
    vertical stepper motor
     * 8 in1 
@@ -23,7 +23,7 @@
 #include "PinDefinitionsAndMore.h"  // Define macros for input and output pin etc.
 #include <IRremote.hpp>
 #define DECODE_NEC  // Includes Apple and Onkyo
-#define IR_RECEIVE_PIN 12
+#define IR_RECEIVE_PIN 2
 
 // IR Remoter: ZTE
 #define ACTION_LEFT 0x48
@@ -32,7 +32,7 @@
 #define ACTION_DOWN 0x4B
 #define ACTION_AUTO_TRACKING_SWITCH 0x49
 
-#define LED_AUTO_TRACKING_PIN 2
+#define LED_AUTO_TRACKING_PIN 12
 
 // Pins entered in sequence IN1-`IN3`-IN2-IN4 for proper step sequence
 AccelStepper vertical_stepper(AccelStepper::HALF4WIRE, 8, 10, 9, 11);
@@ -69,19 +69,18 @@ void turn_down(int steps) {
   horizontal_stepper.runToPosition();
 }
 
-
 void auto_tracking() {
   // vertical
   turn_left(300);
-  delay(1000);
+  delay(100);
   turn_right(300);
-  delay(1000);
+  delay(100);
 
   // horizontal
   turn_up(100);
-  delay(1000);
+  delay(100);
   turn_down(100);
-  delay(1000);
+  delay(100);
 }
 
 void setup_irremote() {
@@ -115,6 +114,7 @@ void irremote_control_cmd() {
       case ACTION_AUTO_TRACKING_SWITCH:
         auto_tracking_on = 1;
         digitalWrite(LED_AUTO_TRACKING_PIN, HIGH);
+        auto_tracking();  // 这个过程如何成为一个线程？
         break;
       default:
         break;
@@ -152,8 +152,5 @@ void setup() {
 };
 
 void loop() {
-  if (auto_tracking_on == 1) {
-    auto_tracking();
-  };
   irremote_control();
 }
