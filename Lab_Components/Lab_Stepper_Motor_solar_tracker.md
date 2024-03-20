@@ -129,6 +129,12 @@ AccelStepper byj(AccelStepper::HALF4WIRE, 8, 10, 9, 11);
 
 ![](img/solar_tracer/my_dual_axie.jpg)
 
+**红外遥控**
+
+* Lab_Simple_Dual_Axie_Gimbal_IRremote.ino
+
+可以红外遥控，但是，在红外遥控加进入自动转动后，`自动转动这个时间中，不能接受红外信号，所以，接受红外的过程，必须改成使用中断或者多线程`
+
 ##  参考
 
 * https://www.circuitbasics.com/how-to-control-stepper-motors-with-uln2003-and-arduino-uno/
