@@ -30,14 +30,14 @@
 #define ACTION_RIGHT 0x4A
 #define ACTION_UP 0x47
 #define ACTION_DOWN 0x4B
-#define ACTION_AUTO_TRACKING_SWITCH 0x49
+#define ACTION_MULTI_STEPS_SWITCH 0x49
 
-#define LED_AUTO_TRACKING_PIN 12
+#define LED_MULTI_STEPS_PIN 12
 
 // Pins entered in sequence IN1-`IN3`-IN2-IN4 for proper step sequence
 AccelStepper vertical_stepper(AccelStepper::HALF4WIRE, 8, 10, 9, 11);
 AccelStepper horizontal_stepper(AccelStepper::HALF4WIRE, 4, 6, 5, 7);
-int auto_tracking_on = 0;
+int multi_steps_on = 0;
 
 void setup_stepper_motor() {
   vertical_stepper.setMaxSpeed(1000.0);
@@ -69,19 +69,15 @@ void turn_down(int steps) {
   horizontal_stepper.runToPosition();
 }
 
-void auto_tracking() {
+void multi_steps() {
   // vertical
   turn_left(300);
-  delay(100);
   turn_right(300);
-  delay(100);
-
+  
   // horizontal
   turn_up(100);
-  delay(100);
   turn_down(100);
-  delay(100);
-}
+  }
 
 void setup_irremote() {
   Serial.begin(9600);
@@ -97,7 +93,7 @@ void setup_irremote() {
 }
 
 void irremote_control_cmd() {
-  if (auto_tracking_on == 0) {
+  if (multi_steps_on == 0) {
     switch (IrReceiver.decodedIRData.command) {
       case ACTION_LEFT:
         turn_left(50);
@@ -111,17 +107,17 @@ void irremote_control_cmd() {
       case ACTION_DOWN:
         turn_down(50);
         break;
-      case ACTION_AUTO_TRACKING_SWITCH:
-        auto_tracking_on = 1;
-        digitalWrite(LED_AUTO_TRACKING_PIN, HIGH);
-        auto_tracking();  // 这个过程如何成为一个线程？
+      case ACTION_MULTI_STEPS_SWITCH:
+        multi_steps_on = 1;
+        digitalWrite(LED_MULTI_STEPS_PIN, HIGH);
+        multi_steps();  // 这个过程如何成为一个线程？
         break;
       default:
         break;
     }
-  } else if (auto_tracking_on == 1) {
-    auto_tracking_on = 0;
-    digitalWrite(LED_AUTO_TRACKING_PIN, LOW);
+  } else if (multi_steps_on == 1) {
+    multi_steps_on = 0;
+    digitalWrite(LED_MULTI_STEPS_PIN, LOW);
   };
 };
 
@@ -145,9 +141,9 @@ void irremote_control() {
 void setup() {
   setup_stepper_motor();
   setup_irremote();
-  pinMode(LED_AUTO_TRACKING_PIN, OUTPUT);
-  digitalWrite(LED_AUTO_TRACKING_PIN, LOW);
-  auto_tracking_on = 0;
+  pinMode(LED_MULTI_STEPS_PIN, OUTPUT);
+  digitalWrite(LED_MULTI_STEPS_PIN, LOW);
+  multi_steps_on = 0;
   delay(1000);
 };
 
