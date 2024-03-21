@@ -134,7 +134,7 @@ AccelStepper byj(AccelStepper::HALF4WIRE, 8, 10, 9, 11);
 * Lab_Simple_Dual_Axie_Gimbal_IRremote.ino
 
 `步进电机接受到一个旋转医德角度的命令后，执行需要时间，如果可以在其旋转中，可以接受红外遥控中间停止转动？`
-用：`Lab_Simple_Dual_Axie_Gimbal_IRremote_nonlib`  不使用库，只控制一个电机运行的代码测试 **TODO**
+用：`Lab_Simple_Dual_Axie_Gimbal_IRremote_interrupt_test`  不使用库，只控制一个电机运行的代码测试 **TODO**
 
 ## Mobatool库
 

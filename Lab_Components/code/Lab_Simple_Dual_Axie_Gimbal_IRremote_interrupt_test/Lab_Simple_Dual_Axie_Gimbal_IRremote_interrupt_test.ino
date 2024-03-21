@@ -1,20 +1,14 @@
 /*
   The Simple Dual-Axis Gimbal with 28BYJ-48 Stepper Motors and ULN2003A 
    
-   Arduino -> ULN2003A
+   Interrupt
 
-   vertical stepper motor
+s   vertical stepper motor
     * 8 in1 
     * 9 in2 
     * 10 in3
     * 11 in4
-  
-  horizontal_stepper
-    * 4 in1 
-    * 5 in2 
-    * 6 in3
-    * 7 in4
-*/
+  */
 
 // Include the IRremote Library
 #include "PinDefinitionsAndMore.h"  // Define macros for input and output pin etc.
@@ -44,10 +38,7 @@ void setup_stepper_motor() {
   for (int i = 8; i < 12; i++) {
     pinMode(i, OUTPUT);
   }
-  //  horizontal_stepper
-  for (int i = 4; i < 8; i++) {
-    pinMode(i, OUTPUT);
-  }
+  
 }
 
 void vertical_stepper_clockwise(int num) {
