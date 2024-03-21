@@ -133,9 +133,12 @@ AccelStepper byj(AccelStepper::HALF4WIRE, 8, 10, 9, 11);
 
 * Lab_Simple_Dual_Axie_Gimbal_IRremote.ino
 
-可以红外遥控，但是，在红外遥控加进入多个连续转动后，`多个连续这个时间中，不能接受红外信号，所以，接受红外的过程，必须改成使用中断或者多线程`
-* `问题IRremote库已经使用了中断？？` 目前，没有解决这个问题
+`步进电机接受到一个旋转医德角度的命令后，执行需要时间，如果可以在其旋转中，可以接受红外遥控中间停止转动？`
+用：`Lab_Simple_Dual_Axie_Gimbal_IRremote_nonlib`  不使用库，只控制一个电机运行的代码测试 **TODO**
 
+## Mobatool库
+
+* 该库的Example的Stepper-02对应28byj-48电机
 
 ##  参考
 
