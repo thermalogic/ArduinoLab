@@ -129,12 +129,20 @@ AccelStepper byj(AccelStepper::HALF4WIRE, 8, 10, 9, 11);
 
 ![](img/solar_tracer/my_dual_axie.jpg)
 
-**红外遥控**
+## 红外遥控
 
+### 步进电机步进方式运行
 * Lab_Simple_Dual_Axie_Gimbal_IRremote.ino
 
-`步进电机接受到一个旋转医德角度的命令后，执行需要时间，如果可以在其旋转中，可以接受红外遥控中间停止转动？`
-用：`Lab_Simple_Dual_Axie_Gimbal_IRremote_interrupt_test`  不使用库，只控制一个电机运行的代码测试 **TODO**
+`TODO：` ：步进电机步进方式运行时，接受到一个旋转角度的命令后，执行需要时间，难以在其旋转中，接受红外遥控中间停止转动？`
+用：`Lab_Simple_Dual_Axie_Gimbal_IRremote_interrupt_test`  不使用库，只控制一个电机运行的代码测试 
+
+
+### 步进电机使用通用电机运动模式
+
+* Lab_Simple_Dual_Axie_Gimbal_IRremote_general_motor_model.ino
+
+步进电机使用通用电机运动模式-不给运动步长，一直转动到接受到停止命令
 
 ## Mobatool库
 

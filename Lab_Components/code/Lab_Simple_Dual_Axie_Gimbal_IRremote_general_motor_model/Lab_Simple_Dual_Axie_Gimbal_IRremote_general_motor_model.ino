@@ -1,7 +1,7 @@
 /*
   The Simple Dual-Axis Gimbal with 28BYJ-48 Stepper Motors and ULN2003A 
    
-   
+   通用电机运动模式-不给运动步长，一直转动到接受到停止命令
 
 s   vertical stepper motor
     * 8 in1 
@@ -55,20 +55,6 @@ void vertical_stepper_anticlockwise() {
     digitalWrite(i, LOW);
   }
 }
-
-void vertical_stepper_clockwise_steps(int steps) {
-  for (int count = 0; count < steps; count++) {
-    vertical_stepper_clockwise();
-  }
-}
-
-
-void vertical_stepper_anticlockwise_steps(int steps) {
-  for (int count = 0; count < steps; count++) {
-    vertical_stepper_anticlockwise();
-  }
-}
-
 
 void stepper_motor_action() {
   switch (current_cmd) {
