@@ -7,6 +7,7 @@
 * LCD 1602A
 * DHT11
 * 电位器/电阻
+* I2C
 
 ## LCD 1602A
 
@@ -134,6 +135,40 @@ void loop(){
 ```
 
 ![](img/components/1602A/1602a_dht11_demo.jpg)
+
+## I2C
+
+https://arduino.nxez.com/2020/10/08/arduino-drives-lcd1602-screen-through-i2c.html
+
+IIC 转接板的 VCC、GND 分别连接开发板 5V、GND，转接板的 SDA、SCL 连接开发板 A4、A5。
+
+使用LiquidCrystal库：https://www.arduino.cc/reference/en/libraries/liquidcrystal/
+模块的LCD地址是0x3F
+
+```c
+/*
+ * LCD1602 IIC驱动
+ */
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+ 
+LiquidCrystal_I2C lcd(0x3F,16,2);  //配置LCD地址及行列
+ 
+void setup(){
+  lcd.init(); //初始化LCD
+  lcd.backlight(); //打开背光
+}
+ 
+void loop()
+{
+  lcd.setCursor(0,0);//设置显示位置
+  lcd.print("  HELLO WORLD!");//显示字符数据
+  lcd.setCursor(0,1);//设置显示位置
+  lcd.print("ARDUINO.NXEZ.COM");//显示字符数据
+}
+
+```
+
 
 ## Reference
 
