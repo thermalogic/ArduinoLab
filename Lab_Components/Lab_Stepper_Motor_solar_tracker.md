@@ -21,6 +21,7 @@
 * 洞洞板 x1
 * 小面包板 x1
 * Arduino UNO x1
+* LCD: 1602A, I2C
 
 ## 光敏电阻连线
 
@@ -147,6 +148,10 @@ AccelStepper byj(AccelStepper::HALF4WIRE, 8, 10, 9, 11);
 ## Mobatool库
 
 * 该库的Example的Stepper-02对应28byj-48电机
+
+## 使用1602A I2C显示信息
+
+* `Lab_Simple_Dual_Axie_Gimbal_IRremote_1602A_I2C.ino`
 
 ##  参考
 
