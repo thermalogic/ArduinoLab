@@ -143,7 +143,7 @@ https://arduino.nxez.com/2020/10/08/arduino-drives-lcd1602-screen-through-i2c.ht
 IIC 转接板的 VCC、GND 分别连接开发板 5V、GND，转接板的 SDA、SCL 连接开发板 A4、A5。
 
 使用LiquidCrystal库：https://www.arduino.cc/reference/en/libraries/liquidcrystal/
-模块的LCD地址是0x3F
+模块的LCD地址是0x27 其他，还可能03F,020
 
 ```c
 /*
@@ -152,7 +152,7 @@ IIC 转接板的 VCC、GND 分别连接开发板 5V、GND，转接板的 SDA、S
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
  
-LiquidCrystal_I2C lcd(0x3F,16,2);  //配置LCD地址及行列
+LiquidCrystal_I2C lcd(0x27,16,2);  //配置LCD地址及行列
  
 void setup(){
   lcd.init(); //初始化LCD
