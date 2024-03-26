@@ -28,7 +28,7 @@ const int Down_PhotoResistor = A3;
 //variable to hold sensor value
 int Left_sensorValue;
 int Right_sensorValue;
-int diff_sensorValue;
+int diff_left_right_sensorValue;
 
 //variable to hold sensor value
 int Up_sensorValue;
@@ -143,17 +143,17 @@ void irremote_control() {
 void init_photoresistor() {
   Left_sensorValue = analogRead(Left_PhotoResistor);
   Right_sensorValue = analogRead(Right_PhotoResistor);
-  diff_sensorValue = Left_sensorValue - Right_sensorValue;
+  diff_left_right_sensorValue = Left_sensorValue - Right_sensorValue;
 
   Up_sensorValue = analogRead(Up_PhotoResistor);
   Down_sensorValue = analogRead(Down_PhotoResistor) + Down_sensorValue_add;
   diff_up_down_sensorValue = Up_sensorValue - Down_sensorValue;
 }
 
-void tracking_light_Left_Right() {
+void tracking_light_left_right() {
   if (auto_on == 1) {
 
-    if (abs(diff_sensorValue) >= 50) {
+    if (abs(diff_left_right_sensorValue) >= 50) {
       if (Left_sensorValue > Right_sensorValue) {
         Serial.println("Turning Left: ");
         turn_left(100);
@@ -166,14 +166,14 @@ void tracking_light_Left_Right() {
   }
   Left_sensorValue = analogRead(Left_PhotoResistor);
   Right_sensorValue = analogRead(Right_PhotoResistor);
-  diff_sensorValue = Left_sensorValue - Right_sensorValue;
+  diff_left_right_sensorValue = Left_sensorValue - Right_sensorValue;
   Serial.println(" ");
   Serial.print("Left sensorValue: ");
   Serial.println(Left_sensorValue);
   Serial.print("Right sensorValue: ");
   Serial.println(Right_sensorValue);
   Serial.print("diff sensorValue: ");
-  Serial.println(diff_sensorValue);
+  Serial.println(diff_left_right_sensorValue);
 }
 
 void tracking_light_up_down() {
@@ -220,7 +220,7 @@ void setup() {
 
 void loop() {
   irremote_control();
-  tracking_light_Left_Right();
+  tracking_light_left_right();
   tracking_light_up_down();
  
   lcd.clear();
