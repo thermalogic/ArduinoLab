@@ -159,6 +159,26 @@ AccelStepper byj(AccelStepper::HALF4WIRE, 8, 10, 9, 11);
 
 * Lab_Simple_Dual_Axie_Light_Tracker_IRremote_Display.ino
 
+### 功能
+* 显示4个光敏电阻的数据
+* 转动跟踪强光
+  * 红外人工遥控
+  * 自动转动
+* 红外遥控切换自动和人工转动方式
+
+### 红外遥控按键
+
+*  上、下、左、右键遥控向相应方向转动
+*  OK键在自动和人工转动方式之间转换
+
+### 问题
+
+`下`光敏电阻数据，偏小。
+
+原因不明：其他几个型号不同？还是接地电阻大小问题？
+
+* **解决**：现根据其他光敏电阻的数据，给其补偿350
+
 ##  参考
 
 * https://www.circuitbasics.com/how-to-control-stepper-motors-with-uln2003-and-arduino-uno/

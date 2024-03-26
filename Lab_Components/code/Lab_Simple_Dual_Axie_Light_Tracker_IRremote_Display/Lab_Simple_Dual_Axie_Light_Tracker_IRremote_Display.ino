@@ -3,7 +3,7 @@
     - 28BYJ-48 Stepper Motors and ULN2003A 
     - IR remote control   
     - 1602A I2C Display
-    - 5516 photoresistor
+    - Photoresistor
   
    vertical stepper motor
     * 8 in1 
@@ -22,20 +22,28 @@
 
 const int Left_PhotoResistor = A0;
 const int Right_PhotoResistor = A1;
+const int Up_PhotoResistor = A2;
+const int Down_PhotoResistor = A3;
 
 //variable to hold sensor value
 int Left_sensorValue;
 int Right_sensorValue;
 int diff_sensorValue;
 
+//variable to hold sensor value
+int Up_sensorValue;
+int Down_sensorValue;
+int diff_up_down_sensorValue;
+int Down_sensorValue_add = 300;
+
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
-LiquidCrystal_I2C lcd(0x27,16,2);  //配置LCD地址及行列
+LiquidCrystal_I2C lcd(0x27, 16, 2);  //配置LCD地址及行列
 
 
-#include "PinDefinitionsAndMore.h"  
+#include "PinDefinitionsAndMore.h"
 #include <IRremote.hpp>
-#define DECODE_NEC  
+#define DECODE_NEC
 #define IR_RECEIVE_PIN 2
 
 // IR Remoter: ZTE
@@ -43,6 +51,8 @@ LiquidCrystal_I2C lcd(0x27,16,2);  //配置LCD地址及行列
 #define ACTION_RIGHT 0x4A
 #define ACTION_UP 0x47
 #define ACTION_DOWN 0x4B
+#define AUTO_ON 0x49
+int auto_on = 0;
 
 // Pins entered in sequence IN1-`IN3`-IN2-IN4 for proper step sequence
 AccelStepper vertical_stepper(AccelStepper::HALF4WIRE, 8, 10, 9, 11);
@@ -104,6 +114,12 @@ void irremote_control_cmd() {
     case ACTION_DOWN:
       turn_down(50);
       break;
+    case AUTO_ON:
+      if (auto_on == 0) {
+        auto_on = 1;
+      } else {
+        auto_on = 0;
+      }
       break;
     default:
       break;
@@ -119,67 +135,109 @@ void irremote_control() {
       IrReceiver.printIRResultRawFormatted(&Serial, true);
     }
     Serial.println();
-    IrReceiver.resume();  
+    IrReceiver.resume();
     irremote_control_cmd();
   };
 };
 
-void init_photoresistor()
-{
+void init_photoresistor() {
   Left_sensorValue = analogRead(Left_PhotoResistor);
   Right_sensorValue = analogRead(Right_PhotoResistor);
   diff_sensorValue = Left_sensorValue - Right_sensorValue;
+
+  Up_sensorValue = analogRead(Up_PhotoResistor);
+  Down_sensorValue = analogRead(Down_PhotoResistor) + Down_sensorValue_add;
+  diff_up_down_sensorValue = Up_sensorValue - Down_sensorValue;
 }
 
+void tracking_light_Left_Right() {
+  if (auto_on == 1) {
 
-void tracking_light()
-{
-   if (abs(diff_sensorValue) >= 30) {
-    if (Left_sensorValue > Right_sensorValue) {
-      Serial.println("Turning Left: ");
-      turn_left(100);
-    };
-    if (Right_sensorValue > Left_sensorValue) {
-      Serial.println("Turning Right: ");
-      turn_right(100);
-    };
+    if (abs(diff_sensorValue) >= 50) {
+      if (Left_sensorValue > Right_sensorValue) {
+        Serial.println("Turning Left: ");
+        turn_left(100);
+      };
+      if (Right_sensorValue > Left_sensorValue) {
+        Serial.println("Turning Right: ");
+        turn_right(100);
+      };
+    }
   }
   Left_sensorValue = analogRead(Left_PhotoResistor);
   Right_sensorValue = analogRead(Right_PhotoResistor);
-  
+  diff_sensorValue = Left_sensorValue - Right_sensorValue;
   Serial.println(" ");
   Serial.print("Left sensorValue: ");
   Serial.println(Left_sensorValue);
   Serial.print("Right sensorValue: ");
   Serial.println(Right_sensorValue);
-  diff_sensorValue = Left_sensorValue - Right_sensorValue;
   Serial.print("diff sensorValue: ");
-  Serial.println(diff_sensorValue); 
+  Serial.println(diff_sensorValue);
+}
+
+void tracking_light_up_down() {
+  if (auto_on == 1) {
+
+    if (abs(diff_up_down_sensorValue) >= 50) {
+      if (Up_sensorValue > Down_sensorValue) {
+        Serial.println("Turning Up: ");
+        turn_up(30);
+      };
+      if (Down_sensorValue > Up_sensorValue) {
+        Serial.println("Turning Down: ");
+        turn_down(30);
+      };
+    }
+  }
+  Up_sensorValue = analogRead(Up_PhotoResistor);
+  Down_sensorValue = analogRead(Down_PhotoResistor) + Down_sensorValue_add;
+  diff_up_down_sensorValue = Up_sensorValue - Down_sensorValue;
+  Serial.println(" ");
+  Serial.print("Up sensorValue: ");
+  Serial.println(Up_sensorValue);
+  Serial.print("Down sensorValue: ");
+  Serial.println(Down_sensorValue);
+  diff_up_down_sensorValue = Up_sensorValue - Down_sensorValue;
+  Serial.print("diff up down sensorValue: ");
+  Serial.println(diff_up_down_sensorValue);
 }
 
 void setup() {
-   lcd.init(); //初始化LCD
-   lcd.backlight(); //打开背光
-   lcd.setCursor(0,0);//设置显示位置
-   lcd.print("Dual-Axis Gimbal");
-   lcd.setCursor(0,1);//设置显示位置
-   lcd.print(" Tracking Light");
-  
+  lcd.init();
+  lcd.backlight();
+  lcd.setCursor(0, 0);
+  lcd.print("Dual-Axis Gimbal");
+  lcd.setCursor(0, 1);
+  lcd.print(" Tracking Light");
+
   setup_stepper_motor();
   setup_irremote();
   init_photoresistor();
-  delay(1000);
+  delay(2000);
+  lcd.clear();
 };
 
 void loop() {
-   irremote_control();
-   tracking_light();
-   lcd.clear();
-   lcd.setCursor(0,0);//设置显示位置
-   lcd.print("L ");
-   lcd.print(Left_sensorValue); 
-   lcd.setCursor(0,1);//设置显示位置
-   lcd.print("R ");
-   lcd.print(Right_sensorValue);
-   delay(200);    
+  irremote_control();
+  tracking_light_Left_Right();
+  tracking_light_up_down();
+ 
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("L ");
+  lcd.print(Left_sensorValue);
+  lcd.print(" U ");
+  lcd.print(Up_sensorValue);
+  if (auto_on == 1) {
+    lcd.print(" AUTO");
+  } else {
+    lcd.print("  IR ");
+  };
+  lcd.setCursor(0, 1);
+  lcd.print("R ");
+  lcd.print(Right_sensorValue);
+  lcd.print(" D ");
+  lcd.print(Down_sensorValue);
+  delay(500);
 }
