@@ -1,6 +1,7 @@
 /*
   The Simple Dual-Axis Gimbal with 28BYJ-48 Stepper Motors and ULN2003A 
    -  IR remote control   
+   -  LED
   
    vertical stepper motor
     * 8 in1 
@@ -28,6 +29,8 @@
 #define ACTION_RIGHT 0x4A
 #define ACTION_UP 0x47
 #define ACTION_DOWN 0x4B
+
+#define LED_MOVING_PIN 12
 
 // Pins entered in sequence IN1-`IN3`-IN2-IN4 for proper step sequence
 AccelStepper vertical_stepper(AccelStepper::HALF4WIRE, 8, 10, 9, 11);
@@ -77,17 +80,25 @@ void setup_irremote() {
 void irremote_control_cmd() {
   switch (IrReceiver.decodedIRData.command) {
     case ACTION_LEFT:
+      digitalWrite(LED_MOVING_PIN, HIGH);
       turn_left(50);
+      digitalWrite(LED_MOVING_PIN, LOW);
       break;
     case ACTION_RIGHT:
+      digitalWrite(LED_MOVING_PIN, HIGH);
       turn_right(50);
+      digitalWrite(LED_MOVING_PIN, LOW);
       break;
     case ACTION_UP:
+      digitalWrite(LED_MOVING_PIN, HIGH);
       turn_up(50);
+      digitalWrite(LED_MOVING_PIN, LOW);
       break;
     case ACTION_DOWN:
+      digitalWrite(LED_MOVING_PIN, HIGH);
       turn_down(50);
       break;
+      digitalWrite(LED_MOVING_PIN, LOW);
       break;
     default:
       break;
@@ -112,6 +123,8 @@ void irremote_control() {
 void setup() {
   setup_stepper_motor();
   setup_irremote();
+  pinMode(LED_MOVING_PIN, OUTPUT);
+  digitalWrite(LED_MOVING_PIN, LOW);
 };
 
 void loop() {

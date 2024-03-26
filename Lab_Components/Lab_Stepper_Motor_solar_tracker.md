@@ -155,6 +155,10 @@ AccelStepper byj(AccelStepper::HALF4WIRE, 8, 10, 9, 11);
 
 电机转动时间，LCD显示闪动，可能是电机运行影响对LCD的供电？ 怎样改进？ 电源处加电容？？？
 
+## 实现
+
+* Lab_Simple_Dual_Axie_Light_Tracker_IRremote_Display.ino
+
 ##  参考
 
 * https://www.circuitbasics.com/how-to-control-stepper-motors-with-uln2003-and-arduino-uno/
