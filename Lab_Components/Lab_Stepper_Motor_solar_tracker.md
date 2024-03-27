@@ -167,7 +167,7 @@ AccelStepper byj(AccelStepper::HALF4WIRE, 8, 10, 9, 11);
 * Lab_Simple_Dual_Axie_Gimbal_IRremote.ino
 
 `TODO：` ：步进电机步进方式运行时，接受到一个旋转角度（步长）的命令后，在其执行需要时间，不能接受红外遥控命令中间停止
-用：`Lab_Simple_Dual_Axie_Gimbal_IRremote_interrupt_test`  不使用库，只控制一个电机运行的代码测试 
+   另建立独立的`Lab_freeRTOS` ，尝试解决方法
 
 ### 步进电机使用通用电机运动模式
 

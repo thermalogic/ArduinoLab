@@ -1,7 +1,7 @@
 /*
   The Simple Dual-Axis Gimbal with 28BYJ-48 Stepper Motors and ULN2003A 
    
-   
+   freeRTOS
 
 s   vertical stepper motor
     * 8 in1 
@@ -30,8 +30,6 @@ s   vertical stepper motor
 #define STOP 0
 int current_cmd;
 
-
-#define LED_STEPPER_MOTOR_ON 12
 
 void setup_stepper_motor() {
   //vertical_stepper.
@@ -73,15 +71,12 @@ void vertical_stepper_anticlockwise_steps(int steps) {
 void stepper_motor_action() {
   switch (current_cmd) {
     case LEFT:
-      digitalWrite(LED_STEPPER_MOTOR_ON, HIGH);
       vertical_stepper_anticlockwise();
       break;
     case RIGHT:
-      digitalWrite(LED_STEPPER_MOTOR_ON, HIGH);
       vertical_stepper_clockwise();
       break;
     case STOP:
-      digitalWrite(LED_STEPPER_MOTOR_ON, LOW);
       break;
     default:
       break;
@@ -131,7 +126,6 @@ void irremote_cmd() {
 void setup() {
   setup_stepper_motor();
   setup_irremote();
-  pinMode(LED_STEPPER_MOTOR_ON, OUTPUT);
   digitalWrite(LED_STEPPER_MOTOR_ON, LOW);
 };
 

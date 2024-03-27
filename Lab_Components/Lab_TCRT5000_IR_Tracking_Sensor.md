@@ -1,4 +1,4 @@
-# Use TCRT5000 IR Sensor Module With Arduino UNO
+# Use TCRT5000 IR Tracking Sensor Module With Arduino UNO
 
 TCRT5000 IR Sensor红外传感器具有干扰小、便于装配、使用方便等特点，可以广泛应用于机器人避障、避障小车、流水线计数及黑白线寻迹等众多场合。
 
