@@ -1,24 +1,21 @@
-/*
-  The Simple Dual-Axis Light Tracker
-    - 28BYJ-48 Stepper Motors and ULN2003A 
-    - IR remote control   
-    - 1602A I2C Display
-    - Photoresistor
-  
-   vertical stepper motor
-    * 8 in1 
-    * 9 in2 
-    * 10 in3
-    * 11 in4
-  
-  horizontal_stepper
-    * 4 in1 
-    * 5 in2 
-    * 6 in3
-    * 7 in4
-*/
+/*  The Simple Dual-Axis Light Tracker   */
 
 #include <AccelStepper.h>
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+#include "PinDefinitionsAndMore.h"
+#include <IRremote.hpp>
+
+#define DECODE_NEC
+#define IR_RECEIVE_PIN 2
+
+// IR Remoter: ZTE
+#define ACTION_LEFT 0x48
+#define ACTION_RIGHT 0x4A
+#define ACTION_UP 0x47
+#define ACTION_DOWN 0x4B
+#define AUTO_ON 0x49
+int auto_on = 0;
 
 const int left_photoresistor = A0;
 const int right_photoresistor = A1;
@@ -42,23 +39,7 @@ int left_right_steps = 50;
 int up_down_steps = 30;
 int manual_steps = 50;
 
-#include <Wire.h>
-#include <LiquidCrystal_I2C.h>
-LiquidCrystal_I2C lcd(0x27, 16, 2);  //配置LCD地址及行列
-
-
-#include "PinDefinitionsAndMore.h"
-#include <IRremote.hpp>
-#define DECODE_NEC
-#define IR_RECEIVE_PIN 2
-
-// IR Remoter: ZTE
-#define ACTION_LEFT 0x48
-#define ACTION_RIGHT 0x4A
-#define ACTION_UP 0x47
-#define ACTION_DOWN 0x4B
-#define AUTO_ON 0x49
-int auto_on = 0;
+LiquidCrystal_I2C lcd(0x27, 16, 2);  
 
 // Pins entered in sequence IN1-`IN3`-IN2-IN4 for proper step sequence
 AccelStepper vertical_stepper(AccelStepper::HALF4WIRE, 8, 10, 9, 11);
@@ -85,12 +66,12 @@ void turn_right(int steps) {
 }
 
 void turn_up(int steps) {
-  horizontal_stepper.move(-steps);  // relative position
+  horizontal_stepper.move(-steps);
   horizontal_stepper.runToPosition();
 }
 
 void turn_down(int steps) {
-  horizontal_stepper.move(steps);  // relative position
+  horizontal_stepper.move(steps);
   horizontal_stepper.runToPosition();
 }
 
@@ -98,9 +79,7 @@ void turn_down(int steps) {
 void setup_irremote() {
   Serial.begin(9600);
   Serial.println(F("START " __FILE__ " from " __DATE__ "\r\nUsing library version " VERSION_IRREMOTE));
-
   IrReceiver.begin(IR_RECEIVE_PIN, ENABLE_LED_FEEDBACK);
-
   Serial.print(F("Ready to receive IR signals of protocols: "));
   printActiveIRProtocols(&Serial);
   Serial.println(F("at pin " STR(IR_RECEIVE_PIN)));
@@ -158,14 +137,11 @@ void init_photoresistor() {
 
 void tracking_light_left_right() {
   if (auto_on == 1) {
-
     if (abs(diff_left_right_sensor) >= max_diff_left_right_sensor) {
       if (left_sensor > right_sensor) {
-        Serial.println("Turning Left: ");
         turn_left(left_right_steps);
       };
       if (right_sensor > left_sensor) {
-        Serial.println("Turning Right: ");
         turn_right(left_right_steps);
       };
     }
@@ -173,25 +149,15 @@ void tracking_light_left_right() {
   left_sensor = analogRead(left_photoresistor);
   right_sensor = analogRead(right_photoresistor);
   diff_left_right_sensor = left_sensor - right_sensor;
-  Serial.println(" ");
-  Serial.print("Left sensor: ");
-  Serial.println(left_sensor);
-  Serial.print("Right senso: ");
-  Serial.println(right_sensor);
-  Serial.print("diff left-right sensor value: ");
-  Serial.println(diff_left_right_sensor);
 }
 
 void tracking_light_up_down() {
   if (auto_on == 1) {
-
     if (abs(diff_up_down_sensor) >= max_diff_up_down_sensor) {
       if (up_sensor > down_sensor) {
-        Serial.println("Turning Up: ");
         turn_up(up_down_steps);
       };
       if (down_sensor > up_sensor) {
-        Serial.println("Turning Down: ");
         turn_down(up_down_steps);
       };
     }
@@ -199,14 +165,6 @@ void tracking_light_up_down() {
   up_sensor = analogRead(up_photoresistor);
   down_sensor = analogRead(down_photoresistor) + down_sensor_add;
   diff_up_down_sensor = up_sensor - down_sensor;
-  Serial.println(" ");
-  Serial.print("Up Sensor: ");
-  Serial.println(up_sensor);
-  Serial.print("Down Senso: ");
-  Serial.println(down_sensor);
-  diff_up_down_sensor = up_sensor - down_sensor;
-  Serial.print("diff up-down sensor: ");
-  Serial.println(diff_up_down_sensor);
 }
 
 void setup() {
