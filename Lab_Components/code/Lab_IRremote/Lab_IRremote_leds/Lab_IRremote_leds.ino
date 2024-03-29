@@ -3,12 +3,14 @@
  * Specify which protocol(s) should be used for decoding.
  * If no protocol is defined, all protocols (except Bang&Olufsen) are active.
  * This must be done before the #include <IRremote.hpp>
+
+ esp32 led:26,23, ir:14
  */
 
 #define DECODE_NEC          // Includes Apple and Onkyo
 
-#define LED_Left 8
-#define LED_Right 9
+#define LED_Left  26 // arduino uno 8
+#define LED_Right 13 // arduino uno  
 
 
 #include <Arduino.h>
@@ -16,10 +18,13 @@
 #include "PinDefinitionsAndMore.h" // Define macros for input and output pin etc.
 #include <IRremote.hpp>
 
+// IR
+#define DECODE_NEC
+#define IR_RECEIVE_PIN 14
+
 void setup() {
     pinMode(LED_Left, OUTPUT);
     pinMode(LED_Right, OUTPUT);
-    pinMode(LED_Back, OUTPUT);
     Serial.begin(115200);
     // Just to know which program is running on my Arduino
     Serial.println(F("START " __FILE__ " from " __DATE__ "\r\nUsing library version " VERSION_IRREMOTE));
@@ -68,29 +73,24 @@ void loop() {
             // forward - 2
              digitalWrite(LED_Left, HIGH);  
              digitalWrite(LED_Right, HIGH);  
-            digitalWrite(LED_Back, LOW);  
             
         } else if (IrReceiver.decodedIRData.command == 0x14) {
             // Left - 4 
             digitalWrite(LED_Left, HIGH);  
             digitalWrite(LED_Right, LOW);  
-            digitalWrite(LED_Back, LOW);  
        
         } else if (IrReceiver.decodedIRData.command == 0x16) {
             // right - 6 
             digitalWrite(LED_Left, LOW);  
             digitalWrite(LED_Right, HIGH); 
-            digitalWrite(LED_Back, LOW);   
         } else if (IrReceiver.decodedIRData.command == 0x19) {
             // back  
              digitalWrite(LED_Left, LOW);  
              digitalWrite(LED_Right, LOW);  
-             digitalWrite(LED_Back, HIGH);  
         } else if (IrReceiver.decodedIRData.command == 0x0) {
             // stop  
             digitalWrite(LED_Left, LOW);  
             digitalWrite(LED_Right, LOW);  
-            digitalWrite(LED_Back, LOW);  
         }
     }
 }
