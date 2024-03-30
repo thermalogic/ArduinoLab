@@ -51,7 +51,7 @@ ESP8266板子如何和Arduino板子协同工作
 
 ## ESP的WIFI热点
 
-只要连接好VCC,GND和EN+10k上拉电阻,芯片就能产生芯片ID名的WIFI热点：ESP-A55C7D，可以链接和pingt通
+只要连接好VCC,GND和EN+10k上拉电阻,芯片就能产生芯片ID名的WIFI热点：ESP-A55C7D，可以链接和ping通
 
 ![](img/wifispot_1.jpg)
 
