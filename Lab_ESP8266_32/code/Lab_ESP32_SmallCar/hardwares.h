@@ -1,14 +1,18 @@
 
-/*
-  ESP32 Example:
+/* SmallCar: ESP32 
       LED
       IR
       Ultrasonic
       TM1657
- */
+*/
+
 #include <Arduino.h>
 #include <IRremote.hpp>
 #include "PinDefinitionsAndMore.h"  // Define macros for input and output pin etc.
+#include <TM1637Display.h>
+
+#define CLK 26
+#define DIO 27
 
 #define DECODE_NEC  // Includes Apple and Onkyo
 #define IR_RECEIVE_PIN 19
@@ -30,10 +34,6 @@ const int DEV_LEFT = 4;
 const int DEV_RIGHT = 5;
 const int DEV_UP = 6;
 const int DEV_DOWN = 7;
-
-#include <TM1637Display.h>
-#define CLK 26
-#define DIO 27
 
 int trigPin = 12;  // Trigger
 int echoPin = 13;  // Echo
