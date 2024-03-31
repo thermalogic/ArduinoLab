@@ -11,7 +11,6 @@
 
 #include "components.h"
 
-
 // Set these to your desired credentials.
 const char *ssid = "ESP32";
 const char *password = "12345678";
@@ -139,8 +138,8 @@ void webclient_cmd(String motor_cmd) {
 
 void setup() {
   Serial.begin(115200);
-  setup_hardware();
 
+  setup_hardware();
   Serial.println();
   Serial.println("Configuring access point...");
 
@@ -164,11 +163,12 @@ void setup() {
 
 void loop() {
   loop_hardware();
+
   json = "{";
   json += "\"distance\":" + String(distance, 10);
   json += ", \"left_speed\":" + String(10.0, 10);
   json += ", \"right_speed\":" + String(20.0, 10);
- //
+  //
   json += ", \"temp\":" + String(Temperature, 10);
   json += ", \"humi\":" + String(Humidity, 10);
   json += "}";

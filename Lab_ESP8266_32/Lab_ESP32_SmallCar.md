@@ -30,6 +30,14 @@ DHT11使用库： DHT library from Adafruit
 ```c
 #define DHTPIN 4  
 ```
+
+### 1602A ICC
+I2C LCD	ESP32
+GND	GND
+VCC	VIN -  注意：用USB给ESP32供电时，可以从VIN取5V的电，ESP32的输出3.3V驱动1602A电压低，显示不清楚
+SDA	GPIO 21
+SCL	GPIO 22
+
 ### 问题
 
 * Arduino UNO的analogwrite和digitalwrite不能同时使用控制LED

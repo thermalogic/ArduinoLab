@@ -148,6 +148,8 @@ void setup_hardware() {
 
 void loop_hardware() {
 
+   loop_dht11();
+
   // The sensor is triggered by a HIGH pulse of 10 or more microseconds.
   // Give a short LOW pulse beforehand to ensure a clean HIGH pulse:
   digitalWrite(trigPin, LOW);
@@ -175,8 +177,6 @@ void loop_hardware() {
     do_action();
     cur_ir_cmd = ACTION_STOP;
   }
-
-  loop_dht11();
 
   if (cur_dev_cmd == DEV_BACK) {
     led_blink();
