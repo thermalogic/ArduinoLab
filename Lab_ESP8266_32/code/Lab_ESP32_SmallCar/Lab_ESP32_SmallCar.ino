@@ -18,7 +18,6 @@ const char *password = "12345678";
 
 WebServer server(80);
 
-StaticJsonDocument<300> sensor_json;
 String json;
 bool data_ready = false;
 
@@ -87,14 +86,12 @@ function getData() {
 </html>
 )=====";
 
-void handleRoot()
-{
+void handleRoot() {
   String s = webpage;
   server.send(200, "text/html", s);
 }
 
-void handleMotor()
-{
+void handleMotor() {
   String motor_cmd = server.arg("state");
   Serial.println(motor_cmd);
   server.send(200, "text/plane", motor_cmd);
@@ -102,55 +99,39 @@ void handleMotor()
   webclient_cmd(motor_cmd);
 }
 
-void handleSensor()
-{
-  if (data_ready)
-  {
-       server.send(200, "text/json", json);
-  }
-  else
-  {
+void handleSensor() {
+  if (data_ready) {
+    server.send(200, "text/json", json);
+  } else {
     server.send(503, "text/plane", "none data");
   }
 }
 
 void webclient_cmd(String motor_cmd) {
-   if (motor_cmd.compareTo("Go")==0)
-   {
-      cur_dev_cmd=DEV_GO;
-   }
-   else if (motor_cmd.compareTo("Back")==0)
-   {
-      cur_dev_cmd=DEV_BACK;
-   }
-   else if (motor_cmd.compareTo("Left")==0)
-   {
-      cur_dev_cmd=DEV_LEFT;
-   }
-   else if (motor_cmd.compareTo("Right")==0)
-   {
-      cur_dev_cmd=DEV_RIGHT;
-   }
-   else if (motor_cmd.compareTo("Stop")==0)
-   {
-      cur_dev_cmd=DEV_STOP;
-   }
-  else if (motor_cmd.compareTo("UpSpeed")==0)
-   {
-      cur_dev_cmd=DEV_UP;
-   }
-    if (motor_cmd.compareTo("DownSpeed")==0)
-   {
-      cur_dev_cmd=DEV_DOWN;
-   };
-   do_action(); 
+  if (motor_cmd.compareTo("Go") == 0) {
+    cur_dev_cmd = DEV_GO;
+  } else if (motor_cmd.compareTo("Back") == 0) {
+    cur_dev_cmd = DEV_BACK;
+  } else if (motor_cmd.compareTo("Left") == 0) {
+    cur_dev_cmd = DEV_LEFT;
+  } else if (motor_cmd.compareTo("Right") == 0) {
+    cur_dev_cmd = DEV_RIGHT;
+  } else if (motor_cmd.compareTo("Stop") == 0) {
+    cur_dev_cmd = DEV_STOP;
+  } else if (motor_cmd.compareTo("UpSpeed") == 0) {
+    cur_dev_cmd = DEV_UP;
+  }
+  if (motor_cmd.compareTo("DownSpeed") == 0) {
+    cur_dev_cmd = DEV_DOWN;
+  };
+  do_action();
 }
 
 
 void setup() {
   Serial.begin(115200);
   setup_hardware();
- 
+
   Serial.println();
   Serial.println("Configuring access point...");
 
@@ -158,12 +139,13 @@ void setup() {
   // a valid password must have more than 7 characters
   if (!WiFi.softAP(ssid, password)) {
     log_e("Soft AP creation failed.");
-    while(1);
+    while (1)
+      ;
   }
   IPAddress myIP = WiFi.softAPIP();
   Serial.print("AP IP address: ");
   Serial.println(myIP);
-   
+
   server.on("/", handleRoot);
   server.on("/motor_set", handleMotor);
   server.on("/data_read", handleSensor);
@@ -174,12 +156,11 @@ void setup() {
 void loop() {
   loop_hardware();
   json = "{";
-  json += "\"distance\":"+String(distance,10);
-  json += ", \"left_speed\":"+String(10.0,10);
-  json += ", \"right_speed\":"+String(20.0,10);
+  json += "\"distance\":" + String(distance, 10);
+  json += ", \"left_speed\":" + String(10.0, 10);
+  json += ", \"right_speed\":" + String(20.0, 10);
   json += "}";
   data_ready = true;
   server.handleClient();
-  delay(2);//allow the cpu to switch to other tasks
-
+  delay(2);  //allow the cpu to switch to other tasks
 }
