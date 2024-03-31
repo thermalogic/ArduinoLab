@@ -9,7 +9,7 @@
 #include <ESPmDNS.h>
 #include <ArduinoJson.h>
 
-#include "hardwares.h"
+#include "components.h"
 
 
 // Set these to your desired credentials.
@@ -50,6 +50,11 @@ const char webpage[] PROGMEM = R"=====(
   </h3>
   <h2> Motor State: <span id="state">NA</span> </h2>
 </div>
+<div>
+  <h3>Temp:&nbsp<span id="temp_val">0</span>
+      &nbspHumi:&nbsp<span id="humi_val">0</span><br>
+  </h3>
+</div>
 <script>
 function send(motor_cmd) 
 {
@@ -76,6 +81,10 @@ function getData() {
       document.getElementById("distance_val").innerHTML = dataobj.distance;
       document.getElementById("left_speed_val").innerHTML = dataobj.left_speed;
       document.getElementById("right_speed_val").innerHTML = dataobj.right_speed;
+  
+      document.getElementById("temp_val").innerHTML = dataobj.temp;
+      document.getElementById("humi_val").innerHTML = dataobj.humi;
+  
     }
   };
   xhttp.open("GET", "data_read", true);
@@ -159,6 +168,9 @@ void loop() {
   json += "\"distance\":" + String(distance, 10);
   json += ", \"left_speed\":" + String(10.0, 10);
   json += ", \"right_speed\":" + String(20.0, 10);
+ //
+  json += ", \"temp\":" + String(Temperature, 10);
+  json += ", \"humi\":" + String(Humidity, 10);
   json += "}";
   data_ready = true;
   server.handleClient();

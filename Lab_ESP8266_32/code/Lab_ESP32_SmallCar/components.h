@@ -10,6 +10,7 @@
 #include <IRremote.hpp>
 #include "PinDefinitionsAndMore.h"  // Define macros for input and output pin etc.
 #include <TM1637Display.h>
+#include "component_dht11.h"
 
 #define CLK 26
 #define DIO 27
@@ -139,6 +140,9 @@ void setup_hardware() {
   Serial.print(F("Ready to receive IR signals of protocols: "));
   printActiveIRProtocols(&Serial);
   Serial.println(F("at pin " STR(ACTION_RECEIVE_PIN)));
+
+  setup_dht11();
+
   delay(2000);
 }
 
@@ -171,6 +175,8 @@ void loop_hardware() {
     do_action();
     cur_ir_cmd = ACTION_STOP;
   }
+
+  loop_dht11();
 
   if (cur_dev_cmd == DEV_BACK) {
     led_blink();

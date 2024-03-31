@@ -20,16 +20,26 @@ TODO:
 int trigPin = 12;    // Trigger
 int echoPin = 13;    // Echo
 
-// Module connection pins (Digital Pins)
+// TM1637 Module connection pins (Digital Pins)
 #define CLK 26
 #define DIO 27
+
+```
+
+DHT11使用库： DHT library from Adafruit
+```c
+#define DHTPIN 4  
 ```
 ### 问题
 
 * Arduino UNO的analogwrite和digitalwrite不能同时使用控制LED
 
+* DHT11的out连接GPIO2,4可以，连接36,39都不行，连接GPIO2时，不能下载代码到ESP32,ESP32的各个GPIO 的功能很奇怪
+
+
+
 ## 有WebServer的小车控制
 
 * Lab_ESP32_SmallCar.ino
 
-其中， 修改`Lab_ESP32_IRremote_led_ultrasonic_tm1657.ino`为`hardwares.h`,不是比合并到一个源码中，减少代码大量的代码合并工作
+其中， 修改`Lab_ESP32_IRremote_led_ultrasonic_tm1657.ino`为`"components.h`,不是比合并到一个源码中，减少代码大量的代码合并工作
