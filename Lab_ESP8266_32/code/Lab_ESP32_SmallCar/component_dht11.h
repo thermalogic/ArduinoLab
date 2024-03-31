@@ -24,7 +24,7 @@ void setup_dht11() {
   lcd.setCursor(0, 0);  //设置显示位置
   lcd.print("ESP32 Demo");
   lcd.setCursor(0, 1);  //设置显示位置
-  lcd.print(" Cheng Maohua: ");
+  lcd.print("       2024");
 }
 
 void dht11_on() {
