@@ -116,20 +116,20 @@ void handleSensor() {
 
 void webclient_cmd(String motor_cmd) {
   if (motor_cmd.compareTo("G") == 0) {
-    cur_dev_cmd = DEV_GO;
+    cur_cmd = DEV_GO;
   } else if (motor_cmd.compareTo("B") == 0) {
-    cur_dev_cmd = DEV_BACK;
+    cur_cmd = DEV_BACK;
   } else if (motor_cmd.compareTo("L") == 0) {
-    cur_dev_cmd = DEV_LEFT;
+    cur_cmd = DEV_LEFT;
   } else if (motor_cmd.compareTo("R") == 0) {
-    cur_dev_cmd = DEV_RIGHT;
+    cur_cmd = DEV_RIGHT;
   } else if (motor_cmd.compareTo("S") == 0) {
-    cur_dev_cmd = DEV_STOP;
+    cur_cmd = DEV_STOP;
   } else if (motor_cmd.compareTo("U") == 0) {
-    cur_dev_cmd = DEV_UP;
+    cur_cmd = DEV_UP;
   }
   if (motor_cmd.compareTo("D") == 0) {
-    cur_dev_cmd = DEV_DOWN;
+    cur_cmd = DEV_DOWN;
   };
   do_action();
 }
@@ -164,11 +164,8 @@ void setup() {
 }
 
 void loop() {
-
   loop_components();
-
   loop_bluetooth();
-
   json = "{";
   json += "\"distance\":" + String(distance, 10);
   json += ", \"left_speed\":" + String(10.0, 10);

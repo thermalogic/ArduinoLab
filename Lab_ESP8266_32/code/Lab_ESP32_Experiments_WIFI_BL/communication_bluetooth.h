@@ -58,15 +58,15 @@ void loop_bluetooth() {
   }
   // Check The Received Message & Update Output LED State
   if (RxBuffer == "go") {
-    cur_dev_cmd = DEV_GO;
+    cur_cmd = DEV_GO;
   } else if (RxBuffer == "back") {
-    cur_dev_cmd = DEV_BACK;
+    cur_cmd = DEV_BACK;
   } else if (RxBuffer == "left") {
-    cur_dev_cmd = DEV_LEFT;
+    cur_cmd = DEV_LEFT;
   } else if (RxBuffer == "right") {
-    cur_dev_cmd = DEV_RIGHT;
+    cur_cmd = DEV_RIGHT;
   } else if (RxBuffer == "stop") {
-    cur_dev_cmd = DEV_STOP;
+    cur_cmd = DEV_STOP;
   };
   do_action();
  }
