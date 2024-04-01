@@ -65,9 +65,10 @@ The pins highlighted in green are OK to use. The ones highlighted in yellow are 
 
 * 6,7,8,9,10,11 connected to the integrated SPI flash
 * 34,35,36,39 input only
+* 2 connected to on-board LED, `must be left floating or LOW to enter flashing mode`
 
 板子的左侧不可用：9,10,11,34,35,36,39，余下可用的GPIO是8个
-板子的右侧不可用：6,7,8
+板子的右侧不可用：2,6,7,8
 
 * 参考： https://randomnerdtutorials.com/esp32-pinout-reference-gpios/
 
