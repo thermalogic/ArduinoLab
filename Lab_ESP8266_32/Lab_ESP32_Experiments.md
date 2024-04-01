@@ -21,6 +21,7 @@ TODO:
 * 元件组：components.h
 * 各元件：component_*.h
 * 蓝牙：communication_bluetooth.h
+* WIFI: communication_wifi.h
 
 ### 各种方案代码
 
