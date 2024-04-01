@@ -1,17 +1,18 @@
 /*
-   Point your web browser to http://192.168.4.1/
+  WIFI Access Point:
+    ESP32 @ http://192.168.4.1/
+  Bluetooth:
+    ESP32-BT-Slave
 */
 
 #include <WiFi.h>
 #include <WiFiClient.h>
 #include <WiFiAP.h>
 #include <WebServer.h>
-#include <ArduinoJson.h>
 
 #include "components.h"
 #include "communication_bluetooth.h"
 #include "communication_wifi.h"
-
 
 void setup()
 {
