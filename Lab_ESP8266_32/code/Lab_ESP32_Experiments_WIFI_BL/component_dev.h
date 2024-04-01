@@ -51,7 +51,6 @@ void do_action() {
     case DEV_LEFT:
       digitalWrite(LED_LEFT_PIN, HIGH);
       digitalWrite(LED_RIGHT_PIN, LOW);
-      Serial.println("LEFT");
       break;
     case DEV_RIGHT:
       digitalWrite(LED_LEFT_PIN, LOW);
