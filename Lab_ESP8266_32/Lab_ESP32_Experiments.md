@@ -42,10 +42,37 @@ TODO:
 
 ## ESP32 
 
+The ESP32 peripherals include:
+
+* 18 Analog-to-Digital Converter (ADC) channels
+* 3 SPI interfaces
+* 3 UART interfaces
+* 2 I2C interfaces
+* 16 PWM output channels
+* 2 Digital-to-Analog Converters (DAC)
+* 2 I2S interfaces
+* 10 Capacitive sensing GPIOs
+
 ![](img/esp32_pinout.jpg)
 
+![](img/esp32_pinout_2.jpg)
+
+there are pins with specific features that make them suitable or not for a particular project. The following table shows what pins are best to use as inputs, outputs and which ones you need to be cautious.
+
+The pins highlighted in green are OK to use. The ones highlighted in yellow are OK to use, but you need to pay attention because they may have an unexpected behavior mainly at boot. The pins highlighted in red are not recommended to use as inputs or outputs
+
+* 13-33 input/output 都可用
+
+* 6,7,8,9,10,11 connected to the integrated SPI flash
+* 34,35,36,39 input only
+
+
+板子的左侧不可用：9,10,11,34,35,36,39，余下可用的GPIO是8个
+板子的右侧不可用：6,7,8
+ 
 ## 元件连接
 
+板子的左侧可用的8个GPIO全部已经使用
 ```c
 #define LED_LEFT_PIN 25
 #define LED_RIGHT_PIN 12
@@ -61,7 +88,7 @@ int trigPin = 32; // Trigger
 int echoPin = 33; // Echo
 ```
 
-* 1602A I2C
+* 1602A I2C 使用右侧GPIO 21，22
 
 I2C LCD	ESP32
 GND -> GND
@@ -97,9 +124,7 @@ Make sure that you’ve reset your board by clicking the EN button on the ESP32 
 然后，使用“Serial Bluetooth Terminal“和ESP32通讯
 
 
-## 问题
-
-### 程序过大的问题的解决
+##  程序过大问题的解决
  
 WIFI和蓝牙的使用，其库都需要使用很多存储空间，其中，蓝牙更多
 
@@ -109,11 +134,14 @@ WIFI和蓝牙的使用，其库都需要使用很多存储空间，其中，蓝�
 
 * Sketch uses 1523121 bytes (48%) of program storage space. Maximum is 3145728 byte
 
-### 代解决问题
+## GPIO使用
+
+DHT11的out连接GPIO2,4可以，连接36,39都不行，连接GPIO2时，不能下载代码到ESP32,ESP32的各个GPIO 的功能很奇怪
+
+`原因`：GPIO34,39，34，35 input only、
+
+参考： https://randomnerdtutorials.com/esp32-pinout-reference-gpios/
+
+## 问题
 
 * Arduino UNO的analogwrite和digitalwrite不能同时使用控制LED
-
-* DHT11的out连接GPIO2,4可以，连接36,39都不行，连接GPIO2时，不能下载代码到ESP32,ESP32的各个GPIO 的功能很奇怪
-
-原因：
-* GPIO34,39，34，35 input only
