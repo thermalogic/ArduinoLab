@@ -5,8 +5,8 @@
 #ifndef DEVICE_H
 #define DEVICE_H
 
-#define LED_LEFT_PIN 18
-#define LED_RIGHT_PIN 5
+#define LED_LEFT_PIN 25
+#define LED_RIGHT_PIN 12
 
 // Device action code
 const int DEV_GO = 1;
@@ -84,6 +84,10 @@ void setup_dev()
 {
   pinMode(LED_LEFT_PIN, OUTPUT);
   pinMode(LED_RIGHT_PIN, OUTPUT);
+ 
+  digitalWrite(LED_LEFT_PIN, LOW);
+  digitalWrite(LED_RIGHT_PIN, LOW);
+ 
   cur_cmd = DEV_STOP;
 }
 

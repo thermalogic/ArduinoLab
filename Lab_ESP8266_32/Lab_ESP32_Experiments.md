@@ -123,3 +123,6 @@ WIFI和蓝牙的使用，其库都需要使用很多存储空间，其中，蓝�
 * Arduino UNO的analogwrite和digitalwrite不能同时使用控制LED
 
 * DHT11的out连接GPIO2,4可以，连接36,39都不行，连接GPIO2时，不能下载代码到ESP32,ESP32的各个GPIO 的功能很奇怪
+
+原因：
+* GPIO34,39，34，35 input only

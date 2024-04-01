@@ -9,8 +9,8 @@
 #define CLK 26
 #define DIO 27
 
-int trigPin = 12; // Trigger
-int echoPin = 13; // Echo
+int trigPin = 32; // Trigger
+int echoPin = 33; // Echo
 long duration, distance;
 
 TM1637Display display(CLK, DIO);

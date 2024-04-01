@@ -8,7 +8,7 @@
 #include "component_dev.h"
 
 #define DECODE_NEC // Includes Apple and Onkyo
-#define IR_RECEIVE_PIN 19
+#define IR_RECEIVE_PIN 14
 
 #define ACTION_GO 0x47 // IR_Remoter: ZTE
 #define ACTION_LEFT 0x48
