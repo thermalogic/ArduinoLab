@@ -1,16 +1,15 @@
 #include "DHT.h"
-#define DHTPIN 4
-#define DHTTYPE DHT11
-
-float Humidity;
-float Temperature;
-
-DHT dht(DHTPIN, DHTTYPE);
-
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 
+#define DHTPIN 4
+#define DHTTYPE DHT11
+
+DHT dht(DHTPIN, DHTTYPE);
 LiquidCrystal_I2C lcd(0x27, 16, 2); // 配置LCD地址及行列
+
+float Humidity;
+float Temperature;
 
 long previousMillis_dht11;
 const int interval_dht11 = 1000;
@@ -18,7 +17,7 @@ const int interval_dht11 = 1000;
 void setup_dht11()
 {
   dht.begin();
-  previousMillis_dht11=0;
+  previousMillis_dht11 = 0;
 
   lcd.init();          // 初始化LCD
   lcd.backlight();     // 打开背光
@@ -43,11 +42,11 @@ void dht11_on()
     return;
   }
 
-  //Serial.print(F("Humidity: "));
-  //Serial.print(Humidity);
-  //Serial.print(F("%  Temperature: "));
-  //Serial.print(Temperature);
-  //Serial.print(F("°C "));
+  // Serial.print(F("Humidity: "));
+  // Serial.print(Humidity);
+  // Serial.print(F("%  Temperature: "));
+  // Serial.print(Temperature);
+  // Serial.print(F("°C "));
 
   lcd.clear();
   lcd.setCursor(0, 0);

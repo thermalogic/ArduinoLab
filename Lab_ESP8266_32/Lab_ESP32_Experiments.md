@@ -19,7 +19,7 @@ TODO:
 `Lab_ESP32_Experiments_WIFI_BL.ino`
 
 * 元件组：components.h
-* DHT11,LCD元件：component_dht11.h
+* 各元件：component_*.h
 * 蓝牙：communication_bluetooth.h
 
 ### 各种方案代码

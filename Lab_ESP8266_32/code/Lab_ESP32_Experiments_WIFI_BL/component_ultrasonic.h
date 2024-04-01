@@ -9,23 +9,25 @@
 #define CLK 26
 #define DIO 27
 
-int trigPin = 12;  // Trigger
-int echoPin = 13;  // Echo
+int trigPin = 12; // Trigger
+int echoPin = 13; // Echo
 long duration, distance;
 
 TM1637Display display(CLK, DIO);
 
-void setup_ultrasonic() {
+void setup_ultrasonic()
+{
   // Define inputs and outputs
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
-  uint8_t data[] = { 0xff, 0xff, 0xff, 0xff };
+  uint8_t data[] = {0xff, 0xff, 0xff, 0xff};
   display.setBrightness(0x0f);
   // All segments on
   display.setSegments(data);
-  }
+}
 
-void loop_ultrasonic() {
+void loop_ultrasonic()
+{
   digitalWrite(trigPin, LOW);
   delayMicroseconds(5);
   digitalWrite(trigPin, HIGH);
@@ -39,15 +41,15 @@ void loop_ultrasonic() {
   duration = pulseIn(echoPin, HIGH);
 
   // Convert the time into a distance, cm
-  distance = (duration / 2) / 29.1;  // Divide by 29.1 or multiply by 0.0343
+  distance = (duration / 2) / 29.1; // Divide by 29.1 or multiply by 0.0343
 
-  if (distance < 20) {
+  if (distance < 20)
+  {
     cur_cmd = DEV_STOP;
     do_action();
   }
 
-  //Serial.print(distance);
-  //Serial.println(F("cm"));
+  // Serial.print(distance);
+  // Serial.println(F("cm"));
   display.showNumberDec(distance, false);
-
-} 
+}

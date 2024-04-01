@@ -93,12 +93,14 @@ function getData() {
 </html>
 )=====";
 
-void handleRoot() {
+void handleRoot()
+{
   String s = webpage;
   server.send(200, "text/html", s);
 }
 
-void handleMotor() {
+void handleMotor()
+{
   String motor_cmd = server.arg("state");
   Serial.println(motor_cmd);
   server.send(200, "text/plane", motor_cmd);
@@ -106,40 +108,56 @@ void handleMotor() {
   webclient_cmd(motor_cmd);
 }
 
-void handleSensor() {
-  if (data_ready) {
+void handleSensor()
+{
+  if (data_ready)
+  {
     server.send(200, "text/json", json);
-  } else {
+  }
+  else
+  {
     server.send(503, "text/plane", "none data");
   }
 }
 
-void webclient_cmd(String motor_cmd) {
-  if (motor_cmd.compareTo("G") == 0) {
+void webclient_cmd(String motor_cmd)
+{
+  if (motor_cmd.compareTo("G") == 0)
+  {
     cur_cmd = DEV_GO;
-  } else if (motor_cmd.compareTo("B") == 0) {
+  }
+  else if (motor_cmd.compareTo("B") == 0)
+  {
     cur_cmd = DEV_BACK;
-  } else if (motor_cmd.compareTo("L") == 0) {
+  }
+  else if (motor_cmd.compareTo("L") == 0)
+  {
     cur_cmd = DEV_LEFT;
-  } else if (motor_cmd.compareTo("R") == 0) {
+  }
+  else if (motor_cmd.compareTo("R") == 0)
+  {
     cur_cmd = DEV_RIGHT;
-  } else if (motor_cmd.compareTo("S") == 0) {
+  }
+  else if (motor_cmd.compareTo("S") == 0)
+  {
     cur_cmd = DEV_STOP;
-  } else if (motor_cmd.compareTo("U") == 0) {
+  }
+  else if (motor_cmd.compareTo("U") == 0)
+  {
     cur_cmd = DEV_UP;
   }
-  if (motor_cmd.compareTo("D") == 0) {
+  if (motor_cmd.compareTo("D") == 0)
+  {
     cur_cmd = DEV_DOWN;
   };
   do_action();
 }
 
-
-void setup() {
+void setup()
+{
   Serial.begin(115200);
 
   setup_components();
-
   setup_bluetooth();
 
   Serial.println();
@@ -147,11 +165,13 @@ void setup() {
 
   // You can remove the password parameter if you want the AP to be open.
   // a valid password must have more than 7 characters
-  if (!WiFi.softAP(ssid, password)) {
+  if (!WiFi.softAP(ssid, password))
+  {
     log_e("Soft AP creation failed.");
     while (1)
       ;
   }
+
   IPAddress myIP = WiFi.softAPIP();
   Serial.print("AP IP address: ");
   Serial.println(myIP);
@@ -163,9 +183,11 @@ void setup() {
   Serial.println("Server started");
 }
 
-void loop() {
+void loop()
+{
   loop_components();
   loop_bluetooth();
+
   json = "{";
   json += "\"distance\":" + String(distance, 10);
   json += ", \"left_speed\":" + String(10.0, 10);
@@ -175,6 +197,7 @@ void loop() {
   json += ", \"humi\":" + String(Humidity, 10);
   json += "}";
   data_ready = true;
+
   server.handleClient();
-  delay(2);  //allow the cpu to switch to other tasks
+  delay(2); // allow the cpu to switch to other tasks
 }
