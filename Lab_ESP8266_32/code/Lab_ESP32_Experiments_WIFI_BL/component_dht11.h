@@ -6,7 +6,7 @@
 #define DHTTYPE DHT11
 
 DHT dht(DHTPIN, DHTTYPE);
-LiquidCrystal_I2C lcd(0x27, 16, 2); // 配置LCD地址及行列
+LiquidCrystal_I2C lcd(0x27, 16, 2); 
 
 float Humidity;
 float Temperature;
@@ -19,22 +19,18 @@ void setup_dht11()
   dht.begin();
   previousMillis_dht11 = 0;
 
-  lcd.init();          // 初始化LCD
-  lcd.backlight();     // 打开背光
-  lcd.setCursor(0, 0); // 设置显示位置
+  lcd.init();          
+  lcd.backlight();     
+  lcd.setCursor(0, 0); 
   lcd.print("ESP32 Demo");
-  lcd.setCursor(0, 1); // 设置显示位置
+  lcd.setCursor(0, 1); 
   lcd.print("       2024");
 }
 
 void dht11_on()
 {
-  // Reading temperature or humidity takes about 250 milliseconds!
-  // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
   Humidity = dht.readHumidity();
-  // Read temperature as Celsius (the default)
   Temperature = dht.readTemperature();
-
   // Check if any reads failed and exit early (to try again).
   if (isnan(Humidity) || isnan(Temperature))
   {
@@ -54,7 +50,7 @@ void dht11_on()
   lcd.print(Humidity);
   lcd.setCursor(0, 1);
   lcd.print("Temp C: ");
-  lcd.print(Temperature); // Print the BPM valu
+  lcd.print(Temperature); 
 }
 
 void loop_dht11()
