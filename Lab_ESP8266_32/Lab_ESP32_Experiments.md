@@ -18,8 +18,8 @@ TODO:
 
 `Lab_ESP32_Experiments_WIFI_BL.ino`
 
-* 元件组：components.h
 * 各元件：component_*.h
+* 元件组：components.h
 * 蓝牙：communication_bluetooth.h
 * WIFI: communication_wifi.h
 
@@ -78,6 +78,33 @@ GND -> GND
 VCC -> VIN -  注意：用USB给ESP32供电时，可以从VIN取5V的电，ESP32的输出3.3V驱动1602A电压低，显示不清楚
 SDA	-> GPIO 21
 SCL	-> GPIO 22
+
+
+## ESP蓝牙控制
+
+ESP蓝牙控制：`Lab_ESP32_Experiments_bluetooth.ino`,通过
+
+* ESP32 Bluetooth Classic With Arduino – Complete Guide
+  * https://deepbluembedded.com/esp32-bluetooth-classic-with-arduino-complete-guide/
+
+* 手机端软件： “Serial Bluetooth Terminal”
+
+## ESP32 Bluetooth With Android Smartphone (RX)
+
+The ESP32 Bluetooth Receiver will Turn ON and OFF an LED based on the received string of data 
+
+that will be sent from the Smartphone over Bluetooth communication.
+
+上载代码到ESP32后， clicking the `EN` button on the ESP32 board after a new firmware (sketch) is uploaded
+
+Make sure that you’ve reset your board by clicking the EN button on the ESP32 board after a new firmware (sketch) is uploaded. And also make sure that the serial port baud rate in Arduino IDE serial monitor matches the serial.begin() baud rate in your code.
+
+不然，Arduino IDE Serial Monitor Blank or Printing Garbage
+
+看见Arduino IDE Serial Monitor 输出后，在手机中和ESP32蓝牙配对
+
+然后，使用“Serial Bluetooth Terminal“和ESP32通讯
+
 
 ## 问题
 
