@@ -72,6 +72,18 @@ The pins highlighted in green are OK to use. The ones highlighted in yellow are 
 板子的左侧不可用：9,10,11,34,35,36,39，余下可用的GPIO是8个
 板子的右侧不可用：2,6,7,8
 
+### Strapping Pins
+The ESP32 chip has the following strapping pins:
+
+* GPIO 0 (must be LOW to enter boot mode)
+* GPIO 2 (must be floating or LOW during boot)
+* GPIO 4
+* GPIO 5 (must be HIGH during boot)
+* GPIO 12 (must be LOW during boot)
+* GPIO 15 (must be HIGH during boot)
+
+“Strapping”（绑扎）通常是指将芯片或器件的管脚（引脚）连接到特定的电源或信号以配置其功能或行为
+
 * 参考： https://randomnerdtutorials.com/esp32-pinout-reference-gpios/
 
 ## 元件连接
@@ -79,7 +91,7 @@ The pins highlighted in green are OK to use. The ones highlighted in yellow are 
 板子的左侧可用的8个GPIO全部已经使用
 ```c
 #define LED_LEFT_PIN 25
-#define LED_RIGHT_PIN 12
+#define LED_RIGHT_PIN 12 
 
 #define DHTPIN 13
 
