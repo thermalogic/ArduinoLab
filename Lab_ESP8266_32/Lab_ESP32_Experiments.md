@@ -89,7 +89,7 @@ int trigPin = 32; // Trigger
 int echoPin = 33; // Echo
 ```
 
-* 1602A I2C 使用右侧GPIO 21，22
+* 1602A I2C 使用右侧GPIO 21，22(板子的SDA,SCL)
 
 I2C LCD	ESP32
 GND -> GND
