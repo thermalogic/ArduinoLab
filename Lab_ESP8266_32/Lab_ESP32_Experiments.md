@@ -61,7 +61,7 @@ there are pins with specific features that make them suitable or not for a parti
 
 The pins highlighted in green are OK to use. The ones highlighted in yellow are OK to use, but you need to pay attention because they may have an unexpected behavior mainly at boot. The pins highlighted in red are not recommended to use as inputs or outputs
 
-* 13-33 input/output 都可用
+* 4,5,13-33 input/output 都可用
 
 * 6,7,8,9,10,11 connected to the integrated SPI flash
 * 34,35,36,39 input only
