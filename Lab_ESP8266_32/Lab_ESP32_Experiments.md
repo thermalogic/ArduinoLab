@@ -66,10 +66,11 @@ The pins highlighted in green are OK to use. The ones highlighted in yellow are 
 * 6,7,8,9,10,11 connected to the integrated SPI flash
 * 34,35,36,39 input only
 
-
 板子的左侧不可用：9,10,11,34,35,36,39，余下可用的GPIO是8个
 板子的右侧不可用：6,7,8
- 
+
+* 参考： https://randomnerdtutorials.com/esp32-pinout-reference-gpios/
+
 ## 元件连接
 
 板子的左侧可用的8个GPIO全部已经使用
@@ -133,14 +134,6 @@ WIFI和蓝牙的使用，其库都需要使用很多存储空间，其中，蓝�
 改变Partition Scheme,选择Huge APP(3MB)
 
 * Sketch uses 1523121 bytes (48%) of program storage space. Maximum is 3145728 byte
-
-## GPIO使用
-
-DHT11的out连接GPIO2,4可以，连接36,39都不行，连接GPIO2时，不能下载代码到ESP32,ESP32的各个GPIO 的功能很奇怪
-
-`原因`：GPIO34,39，34，35 input only、
-
-参考： https://randomnerdtutorials.com/esp32-pinout-reference-gpios/
 
 ## 问题
 
