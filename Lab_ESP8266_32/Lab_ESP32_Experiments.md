@@ -63,8 +63,10 @@ The pins highlighted in green are OK to use. The ones highlighted in yellow are 
 
 * 4,5,13-33 input/output 都可用
 
-* 6,7,8,9,10,11 connected to the integrated SPI flash
-* 34,35,36,39 input only
+* 6,7,8,9,10,11 connected to the integrated SPI flash on the ESP-WROOM-32 chip and are not recommended for other uses. So, don’t use these pins in your projects:
+
+* 34,35,36,39 input only. These pins don’t have internal pull-up or pull-down resistors. They can’t be used as outputs, so use these pins only as inputs:
+
 * 2 connected to on-board LED, `must be left floating or LOW to enter flashing mode`
 
 板子的左侧不可用：9,10,11,34,35,36,39，余下可用的GPIO是8个
