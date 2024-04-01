@@ -46,39 +46,30 @@ TODO:
 
 ## 元件连接
 
-### components.h
+```c
+#define LED_LEFT_PIN 25
+#define LED_RIGHT_PIN 12
 
- ```c
-#define IR_RECEIVE_PIN 19
+#define DHTPIN 13
 
-#define LED_LEFT_PIN 18
-#define LED_RIGHT_PIN 5
+#define IR_RECEIVE_PIN 14
 
-int trigPin = 12;    // Trigger
-int echoPin = 13;    // Echo
-
-// TM1637 Module connection pins (Digital Pins)
 #define CLK 26
 #define DIO 27
+
+int trigPin = 32; // Trigger
+int echoPin = 33; // Echo
 ```
 
-### component_dht11.h
-
-* DHT11
-
-DHT11使用库： DHT library from Adafruit
-
-```c
-#define DHTPIN 4  
-```
 * 1602A I2C
 
 I2C LCD	ESP32
 GND -> GND
-VCC -> VIN -  注意：用USB给ESP32供电时，可以从VIN取5V的电，ESP32的输出3.3V驱动1602A电压低，显示不清楚
+VCC -> VIN
 SDA	-> GPIO 21
 SCL	-> GPIO 22
 
+`注意`：用USB给ESP32供电时，可以从VIN取5V的电，ESP32的输出3.3V驱动1602A电压低，显示不清楚
 
 ## ESP蓝牙控制
 
