@@ -4,6 +4,6 @@
 
 ![](img/DRV8833-Dual-Driver-Pinout.jpg)
 
-## NRV883 layout
+## NRV8833 layout
 
 ![](img/DRV8833-Dual-Driver-Circuit.jpg)
