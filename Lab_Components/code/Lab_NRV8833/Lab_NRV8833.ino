@@ -1,9 +1,5 @@
-   /*
+/*
   DRV8833-Dual-Motor-Driver-Module
-  made on 23 Nov 2020
-  by Amir Mohammad Shojaee @ Electropeak
-  Home
-
 */
 
 #define AIN1 4
