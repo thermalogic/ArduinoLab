@@ -125,7 +125,7 @@ for (pos = 25; pos <= 170; pos += 1) {  // goes from 0 degrees to 180 degrees
 }
 delay(1000);
 
-for (pos = 170; pos >= 45; pos -= 1) {  // goes from 0 degrees to 180 degrees
+for (pos = 170; pos >= 90; pos -= 1) {  // goes from 0 degrees to 180 degrees
   // in steps of 1 degree
   horizontal_servo.write(pos);  // tell servo to go to position in variable 'pos'
   delay(15);                    // waits 15ms for the servo to reach the position
@@ -145,13 +145,13 @@ void setup() {
 
   horizontal_servo.setPeriodHertz(FREQUENCY);                                       // standard 50 hz servo
   horizontal_servo.attach(horizontal_servo_pin, MIN_PULSE_WIDTH, MAX_PULSE_WIDTH);  // attaches the servo on pin 18 to the servo object
-  horizontal_servo.write(45);                                                       // tell servo to go to position in variable 'pos'
+  horizontal_servo.write(90);                                                       // tell servo to go to position in variable 'pos'
 
   // using default min/max of 1000us and 2000us
   // different servos may require different min/max settings
   // for an accurate 0 to 180 sweep
   delay(2000);
-  vertical_servo_turning();
+ vertical_servo_turning();
   horizontal_servo_turning();
 }
 
