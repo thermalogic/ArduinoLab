@@ -49,12 +49,12 @@
 * ADC留给模拟量：GPIO00,01,02,03,04
 * SCL,SDA留给I2C设备:GPIO 05,04
 * UART_RX,TX留给串口通讯: Pin08,09
-* boot: GPIO 09
+* boot: GPIO09
 * USB; GPIO18,19
 * 2路贴片LED指示灯:D4,D5(GPIO12,13)
 
 小车计划使用GPIO
-* DRV8833:GPIO10,06.07,11
+* DRV8833:GPIO10,06.07,11  standby：+5 Pin31 还是 GPIO08 HIGH/LOW待测试
 
 红外和超声的GPIO待实际测试，确定使用那些
 * IR:GPIO13，使用排座接入 
@@ -67,7 +67,7 @@ CORE-ESP32-C3核心板支持以下3种方式供电：
 
 * Type-C 接口供电（默认）
 
-* 5V和GND排针供电
+* 5V和GND排针供电: Pin31,Pin32
 
 * 3V3 和 GND 排针供电
 
@@ -94,6 +94,20 @@ GND  Ground
 
 ![](img/DRV8833-Dual-Driver-Circuit.jpg)
 
+管脚说明：
+* ANI1：AO1的逻辑输入控制端口，电平0-5V。
+* AIN2：AO2的逻辑输入控制端口，电平0-5V。
+* BNI1：BO1的逻辑输入控制端口，电平0-5V。
+* BIN2：BO2的逻辑输入控制端口，电平0-5V。
+
+* AO1、AO2为1路H桥输出端口，接一个直流电机的两个脚。
+* BO1、BO2为2路H桥输出端口，接另一个外直接电机的两个脚。
+* GND：接地。
+* `VM`：芯片和电机供电脚，电压范围2.7 V – 10.8 V。
+* `STBY`：接地或悬空芯片不工作，无输出，接5V工作；电平0-5V。
+* NC：空脚
+                        
+原文链接：https://blog.csdn.net/m0_51388102/article/details/127399902
 ## 降压模块
 
 
