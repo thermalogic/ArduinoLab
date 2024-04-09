@@ -13,19 +13,13 @@ Motor Drive：DRV8833
 | VM           |  +5 Power  公用|
 | GND          | GND            | 
 | STBY         |  +5 Power  公用|
-| AIN1         |  GPIO 2 绿    |
+| AIN1         |  GPIO 2 绿    | 02  z最好也不用
 | AIN2         |   GPIO 3 黄    |
 
 待测试Right Motor
 
-| BIN1         |   GPIO 7  绿   |
-| BIN2         |   GPIO 11 黄  |
-
-`发现问题： ESP32-C3的`
-
-GPIO08  一直为+5V
-GPIO09  一直为+5V
-GPIO11 Pin 24一直为+V
+| BIN1         |   GPIO   绿   |
+| BIN2         |   GPIO  黄  |
 
 ## ​Components
 
@@ -74,6 +68,16 @@ GPIO11 Pin 24一直为+V
 
 任意GPIO均可作为PWM脚, 编号与GPIO一致, 但同时只能开启`4路PWM`,务必注意
 
+* GPIO11 Pin 24，因为ESP32C3的GPIO11(VDD_SPI)默认功能是给flash供电,所以，不能用
+
+* GPIO2、8、9是Strapping管脚；它们和芯片复位状态有关，在芯片的系统复位过程中，Strapping管脚对自己电平采样并存储到锁存器，一直保持到芯片掉电或关闭。避免把这几个端口使用到其它功能上。
+
+* GPIO12-17通常用于SPI flash和PSRAM，不推荐用作其它用途；
+
+* GPIO18、19默认用于USB-JTAG，如果用作GPIO将无法使用USB-JTAG；
+
+* RTC：GPIO0-5可以在Deep-sleep模式时使用。
+
 * ADC留给模拟量：GPIO00,01,02,03,04
 * SCL,SDA留给I2C设备:GPIO 05,04
 * UART_RX,TX留给串口通讯: Pin08,09
@@ -81,8 +85,12 @@ GPIO11 Pin 24一直为+V
 * USB; GPIO18,19
 * 2路贴片LED指示灯:D4,D5(GPIO12,13)
 
+
+
+
 小车计划使用GPIO
-* DRV8833:GPIO10,06.07,11  standby：+5 Pin31 还是 GPIO08 HIGH/LOW待测试
+* DRV8833:GPIO02,03 
+   ,06.07,11  standby：+5 Pin31 还是 GPIO08 HIGH/LOW待测试
 
 红外和超声的GPIO待实际测试，确定使用那些
 * IR:GPIO13，使用排座接入 
