@@ -1,5 +1,32 @@
 # 基于ESP32-C3的Mini Car
 
+## 电机驱动和ESP32连接
+
+Motor Drive：DRV8833
+
+* ESP32-C3
+
+测试完成Left Motor
+
+| DRV8833      |                |
+|--------------|----------------|
+| VM           |  +5 Power  公用|
+| GND          | GND            | 
+| STBY         |  +5 Power  公用|
+| AIN1         |  GPIO 2 绿    |
+| AIN2         |   GPIO 3 黄    |
+
+待测试Right Motor
+
+| BIN1         |   GPIO 7  绿   |
+| BIN2         |   GPIO 11 黄  |
+
+`发现问题： ESP32-C3的`
+
+GPIO08  一直为+5V
+GPIO09  一直为+5V
+GPIO11 Pin 24一直为+V
+
 ## ​Components
 
 * ESP32-C3 X1
@@ -10,6 +37,7 @@
 * Ultrasonic Sensor：HC-SR04 x1   
 * 2WD Robotic Car Kit (2 wheels, 2 motors, and a chassis) x1 
 * Power: 18680 X2
+
 
 ## ESP32-C3
 
@@ -94,20 +122,52 @@ GND  Ground
 
 ![](img/DRV8833-Dual-Driver-Circuit.jpg)
 
-管脚说明：
-* ANI1：AO1的逻辑输入控制端口，电平0-5V。
-* AIN2：AO2的逻辑输入控制端口，电平0-5V。
-* BNI1：BO1的逻辑输入控制端口，电平0-5V。
-* BIN2：BO2的逻辑输入控制端口，电平0-5V。
+* ANI1：AO1的逻辑输入控制端口，电平0-5V。 GPIO 10 绿 
+* AIN2：AO2的逻辑输入控制端口，电平0-5V。GPIO 6  黄
+* BNI1：BO1的逻辑输入控制端口，电平0-5V。 GPIO 7  绿
+* BIN2：BO2的逻辑输入控制端口，电平0-5V。GPIO 11  黄
 
 * AO1、AO2为1路H桥输出端口，接一个直流电机的两个脚。
+  01 +  红色
 * BO1、BO2为2路H桥输出端口，接另一个外直接电机的两个脚。
 * GND：接地。
 * `VM`：芯片和电机供电脚，电压范围2.7 V – 10.8 V。
 * `STBY`：接地或悬空芯片不工作，无输出，接5V工作；电平0-5V。
 * NC：空脚
                         
-原文链接：https://blog.csdn.net/m0_51388102/article/details/127399902
+## Layout
+
+Motor Drive：DRV8833
+
+* ESP32-C
+
+| DRV8833      |                |
+|--------------|----------------|
+| VM           |  +5 Power  公用|
+| GND          | GND            | 
+| STBY         |  +5 Power  公用|
+| AIN1         |  GPIO 2 绿    |
+| AIN2         |   GPIO 3 黄    |
+| BIN1         |   GPIO 7  绿   |
+| BIN2         |   GPIO 11 黄  |
+
+* Motor
+
+| DRV8833      |                |
+|--------------|----------------|
+| AO1         | Left Motor + 红 |
+| AO2         | Right Motor - 黑 |
+| BO1         |   GPIO 7  绿   |
+| BO2         |   GPIO 11 黄  |
+
+电机的旋转方向可以通过对这些输入施加逻辑高电平 (5V) 或逻辑低电平（接地）来控制。下面的真值表显示了输入如何影响驱动器输出。
+
+输入1/输入3	输入2/输入4	旋转方向
+低(0)	低(0)	电机关闭
+高(1)	低(0)	向前
+低(0)	高(1)	向后
+高(1)	高(1)	电机关闭
+
 ## 降压模块
 
 
