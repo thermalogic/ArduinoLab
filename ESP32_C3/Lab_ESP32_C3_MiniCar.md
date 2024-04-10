@@ -13,7 +13,7 @@ Motor Drive：DRV8833
 | VM           |  +5 Power  公用|
 | GND          | GND            | 
 | STBY         |  +5 Power  公用|
-| AIN1         |  GPIO 2 绿    | 02  z最好也不用
+| AIN1         |  GPIO 10 绿    | 
 | AIN2         |   GPIO 3 黄    |
 
 待测试Right Motor
@@ -84,8 +84,6 @@ Motor Drive：DRV8833
 * boot: GPIO09
 * USB; GPIO18,19
 * 2路贴片LED指示灯:D4,D5(GPIO12,13)
-
-
 
 
 小车计划使用GPIO

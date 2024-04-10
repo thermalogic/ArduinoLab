@@ -5,11 +5,11 @@
 #ifndef MOTOR_H
 #define MOTOR_H
 
-#define LEFT_FORWARD 2 // AIN1 绿色
+#define LEFT_FORWARD 10 // AIN1 绿色
 #define LEFT_BACK 3     // AIN2 黄色
 
-#define RIGHT_FORWARD 6 //  BIN1
-#define RIGHT_BACK 10   // BIN2
+#define RIGHT_FORWARD 0 //  BIN1
+#define RIGHT_BACK 1   // BIN2
 
 // motor action code
 const int DEV_GO = 1;
@@ -93,10 +93,6 @@ void setup_motor()
   pinMode(LEFT_BACK, OUTPUT);
   pinMode(RIGHT_FORWARD, OUTPUT);
   pinMode(RIGHT_BACK, OUTPUT); 
-
-  
- digitalWrite(LEFT_FORWARD,LOW);
- digitalWrite(LEFT_BACK, LOW);
  
 }
 
