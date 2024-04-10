@@ -1,12 +1,18 @@
 # 基于ESP32-C3的Mini Car
 
-* TODO： ESP32的电机PWM控制，待继续学习分析
 
 ## DRV8833的PWM控制
+
+* TODO： ESP32的电机PWM控制，待继续学习分析
+
+代码：Lab_ESP32-C3_drv8833.ino 用于测试小车的运动控制
+
 
 * https://github.com/shurillu/Cdrv8833 
 
 已经安装库，没有测试
+
+* https://github.com/JoaoLopesF/ESP32MotorControl
 
 参考
 
@@ -25,19 +31,12 @@ Motor Drive：DRV8833
 | VM           |  +5 Power  公用|
 | GND          | GND            | 
 
-| AIN2         |   GPIO 7 黄    |
-| AIN1         |  GPIO 6 绿    | 
-| STBY         |  +5 Power  公用|
-| BIN1         |   GPIO  10 绿   |
-| BIN2         |   GPIO 3 黄  |
-
-```c
-#define LEFT_FORWARD 6 // AIN1 绿色
-#define LEFT_BACK 7     // AIN2 黄色
+#define LEFT_FORWARD 01 // AIN1 绿色
+#define LEFT_BACK 12     // AIN2 黄色
 
 #define RIGHT_FORWARD 10//  BIN1 绿色
 #define RIGHT_BACK 3   // BIN2 黄色
-```
+
 * IN1 绿色 ->O1-> 电机  
 
 + 红色

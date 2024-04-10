@@ -5,7 +5,7 @@
 #ifndef MOTOR_H
 #define MOTOR_H
 
-#define LEFT_FORWARD 01 // AIN1 绿色
+#define LEFT_FORWARD 1 // AIN1 绿色
 #define LEFT_BACK 12     // AIN2 黄色
 
 #define RIGHT_FORWARD 10//  BIN1 绿色
