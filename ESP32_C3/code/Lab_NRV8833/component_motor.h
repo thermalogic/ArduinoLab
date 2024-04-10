@@ -5,11 +5,11 @@
 #ifndef MOTOR_H
 #define MOTOR_H
 
-#define LEFT_FORWARD 10 // AIN1 绿色
-#define LEFT_BACK 3     // AIN2 黄色
+#define LEFT_FORWARD 6 // AIN1 绿色
+#define LEFT_BACK 7     // AIN2 黄色
 
-#define RIGHT_FORWARD 0 //  BIN1
-#define RIGHT_BACK 1   // BIN2
+#define RIGHT_FORWARD 10//  BIN1 绿色
+#define RIGHT_BACK 3   // BIN2 黄色
 
 // motor action code
 const int DEV_GO = 1;

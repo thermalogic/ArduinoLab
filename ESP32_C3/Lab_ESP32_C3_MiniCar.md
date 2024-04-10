@@ -12,14 +12,25 @@ Motor Drive：DRV8833
 |--------------|----------------|
 | VM           |  +5 Power  公用|
 | GND          | GND            | 
+
+| AIN2         |   GPIO 7 黄    |
+| AIN1         |  GPIO 6 绿    | 
 | STBY         |  +5 Power  公用|
-| AIN1         |  GPIO 10 绿    | 
-| AIN2         |   GPIO 3 黄    |
+| BIN1         |   GPIO  10 绿   |
+| BIN2         |   GPIO 3 黄  |
 
-待测试Right Motor
+```c
+#define LEFT_FORWARD 6 // AIN1 绿色
+#define LEFT_BACK 7     // AIN2 黄色
 
-| BIN1         |   GPIO   绿   |
-| BIN2         |   GPIO  黄  |
+#define RIGHT_FORWARD 10//  BIN1 绿色
+#define RIGHT_BACK 3   // BIN2 黄色
+```
+* IN1 绿色 ->O1-> 电机  
+
++ 红色
+* IN2 黄色 ->O2-> 电机 - 黑色-
+
 
 ## ​Components
 
