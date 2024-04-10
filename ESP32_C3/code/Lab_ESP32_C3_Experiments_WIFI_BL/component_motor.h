@@ -2,50 +2,49 @@
 /* MiniCar with ESP32-C3
       Motor
 */
-#ifndef DEVICE_H
-#define DEVICE_H
+#ifndef MOTOR_H
+#define MOTOR_H
 
-#define LEFT_FORWARD 10 // AIN1
-#define LEFT_BACK 6     // AIN2 6
-#define RIGHT_FORWARD 7 //  BIN1
-#define RIGHT_BACK 11   // BIN2
+#define LEFT_FORWARD 01 // AIN1 绿色
+#define LEFT_BACK 12     // AIN2 黄色
+
+#define RIGHT_FORWARD 10//  BIN1 绿色
+#define RIGHT_BACK 3   // BIN2 黄色
 
 // motor action code
 const int DEV_GO = 1;
 const int DEV_BACK = 2;
-const int DEV_LEFT = 4;
-const int DEV_RIGHT = 5;
-const int DEV_STOP = 3;
-
-int cur_cmd = DEV_STOP;
+const int DEV_LEFT = 3;
+const int DEV_RIGHT = 4;
+const int DEV_STOP = 5;
 
 // PWM - speed
-const int left_speed = 180;
-const int right_speed = 180;
-const int turn_speed_diff = 100;
+const int left_speed = 255;
+const int right_speed = 255;
+const int turn_speed_diff = 120;
 
 void motor_forward()
 {
-  digitalWrite(LEFT_FORWARD, HIGH);
+  analogWrite(LEFT_FORWARD, left_speed);
   digitalWrite(LEFT_BACK, LOW);
-  digitalWrite(RIGHT_FORWARD, HIGH);
+  analogWrite(RIGHT_FORWARD, right_speed);
   digitalWrite(RIGHT_BACK, LOW);
 }
 
 void motor_back()
 {
-  digitalWrite(LEFT_FORWARD, LOW);
+  analogWrite(LEFT_FORWARD,0);
   digitalWrite(LEFT_BACK, HIGH);
-  digitalWrite(RIGHT_FORWARD, LOW);
+  analogWrite(RIGHT_FORWARD,0);
   digitalWrite(RIGHT_BACK, HIGH);
 }
 
 void motor_stop()
 {
-  digitalWrite(LEFT_FORWARD, LOW);
+  analogWrite(LEFT_FORWARD, 0);
   digitalWrite(LEFT_BACK, LOW);
-  digitalWrite(RIGHT_FORWARD, LOW);
-  digitalWrite(RIGHT_BACK, LOW);
+  analogWrite(RIGHT_FORWARD, 0);
+  digitalWrite(RIGHT_BACK, LOW);  
 }
 
 void motor_turn_left()
@@ -64,9 +63,9 @@ void motor_turn_right()
   digitalWrite(RIGHT_BACK, LOW);
 }
 
-void do_action()
+void motor_action(int motor_cmd)
 {
-  switch (cur_cmd)
+  switch (motor_cmd)
   {
   case DEV_GO:
     motor_forward();
@@ -82,7 +81,6 @@ void do_action()
     break;
   case DEV_STOP:
     motor_stop();
-
     break;
   default:
     break;
@@ -91,9 +89,6 @@ void do_action()
 
 void setup_motor()
 {
-
-  cur_cmd = DEV_STOP;
-
   pinMode(LEFT_FORWARD, OUTPUT);
   pinMode(LEFT_BACK, OUTPUT);
   pinMode(RIGHT_FORWARD, OUTPUT);
@@ -103,8 +98,6 @@ void setup_motor()
 
 void loop_motor()
 {
-   do_action();
-   delay(2000);
   
 }
 

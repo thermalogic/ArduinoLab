@@ -1,5 +1,17 @@
 # 基于ESP32-C3的Mini Car
 
+* TODO： ESP32的电机PWM控制，待继续学习分析
+
+## DRV8833的PWM控制
+
+* https://github.com/shurillu/Cdrv8833 
+
+已经安装库，没有测试
+
+参考
+
+https://deepbluembedded.com/esp32-pwm-tutorial-examples-analogwrite-arduino/
+
 ## 电机驱动和ESP32连接
 
 Motor Drive：DRV8833
@@ -79,15 +91,15 @@ Motor Drive：DRV8833
 
 任意GPIO均可作为PWM脚, 编号与GPIO一致, 但同时只能开启`4路PWM`,务必注意
 
+* Strapping 管脚：GPIO2、GPIO8、和 GPIO9 是 Strapping 管脚。更多信息请参考 ESP32-C3 技术规格书。
+
+* SPI0/1：GPIO12-17 通常用于 SPI flash 和 PSRAM，不推荐用于其他用途。
+
+* USB-JTAG：GPIO18 和 GPIO19 默认用于 USB-JTAG。用做 GPIO 时驱动程序将禁用 USB-JTAG。
+
+* RTC：GPIO0-5 可用于将芯片从 Deep-sleep 模式中唤醒，其他 GPIO 仅能将芯片从 Light-sleep 模式中唤醒。更多信息请参考 唤醒源 章节。
+
 * GPIO11 Pin 24，因为ESP32C3的GPIO11(VDD_SPI)默认功能是给flash供电,所以，不能用
-
-* GPIO2、8、9是Strapping管脚；它们和芯片复位状态有关，在芯片的系统复位过程中，Strapping管脚对自己电平采样并存储到锁存器，一直保持到芯片掉电或关闭。避免把这几个端口使用到其它功能上。
-
-* GPIO12-17通常用于SPI flash和PSRAM，不推荐用作其它用途；
-
-* GPIO18、19默认用于USB-JTAG，如果用作GPIO将无法使用USB-JTAG；
-
-* RTC：GPIO0-5可以在Deep-sleep模式时使用。
 
 * ADC留给模拟量：GPIO00,01,02,03,04
 * SCL,SDA留给I2C设备:GPIO 05,04

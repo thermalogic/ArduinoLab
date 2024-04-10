@@ -5,7 +5,7 @@
 #include <WiFiClient.h>
 #include <WiFiAP.h>
 #include <WebServer.h>
-#include "component_dev.h"
+#include "component_motor.h"
 
 // Set these to your desired credentials.
 const char *ssid = "ESP32-C3";
@@ -32,20 +32,10 @@ const char webpage[] PROGMEM = R"=====(
 <p><button class="button" onclick="send('B')">BACK</button></p>
 <p><button class="button" onclick="send('L')">Turn Left</button></p>
 <p><button class="button" onclick="send('R')">Turn Right</button></p>
-<p><button class="button" onclick="send('U')">Speed Up</button></p>
-<p><button class="button" onclick="send('D')">Speed Down</button></p>
 <div><h2> 
   Distance(cm): <span id="distance">0</span><br>
   </h2>
-  <h3>Left Speed:&nbsp<span id="left_speed">0</span>
-      &nbspRight Speed:&nbsp<span id="right_speed">0</span><br>
-  </h3>
   <h2> Motor State: <span id="state">NA</span> </h2>
-</div>
-<div>
-  <h3>Temp:&nbsp<span id="temp">0</span>
-      &nbspHumi:&nbsp<span id="humi">0</span><br>
-  </h3>
 </div>
 <script>
 function send(motor_cmd) 
@@ -71,11 +61,6 @@ function getData() {
     if (this.readyState == 4 && this.status == 200) {
       var data=JSON.parse(this.responseText);
       document.getElementById("distance").innerHTML = data.distance;
-      document.getElementById("left_speed").innerHTML = data.left_speed;
-      document.getElementById("right_speed").innerHTML = data.right_speed;
-      document.getElementById("temp").innerHTML = data.temp;
-      document.getElementById("humi").innerHTML = data.humi;
-  
     }
   };
   xhttp.open("GET", "data_read", true);
@@ -88,6 +73,7 @@ function getData() {
 
 void webclient_cmd(String motor_cmd)
 {
+  int cur_cmd=DEV_STOP;
   if (motor_cmd.compareTo("G") == 0)
   {
     cur_cmd = DEV_GO;
@@ -108,15 +94,7 @@ void webclient_cmd(String motor_cmd)
   {
     cur_cmd = DEV_STOP;
   }
-  else if (motor_cmd.compareTo("U") == 0)
-  {
-    cur_cmd = DEV_UP;
-  }
-  if (motor_cmd.compareTo("D") == 0)
-  {
-    cur_cmd = DEV_DOWN;
-  };
-  do_action();
+  motor_action(cur_cmd);
 }
 
 
