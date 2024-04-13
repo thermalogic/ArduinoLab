@@ -1,6 +1,5 @@
 # 基于ESP32-C3的Mini Car
 
-
 ## DRV8833的PWM控制
 
 * TODO： ESP32的电机PWM控制，待继续学习分析
@@ -31,16 +30,19 @@ Motor Drive：DRV8833
 | VM           |  +5 Power  公用|
 | GND          | GND            | 
 
-#define LEFT_FORWARD 01 // AIN1 绿色
-#define LEFT_BACK 12     // AIN2 黄色
 
-#define RIGHT_FORWARD 10//  BIN1 绿色
-#define RIGHT_BACK 3   // BIN2 黄色
+```c
+// Motor A Right OK!
+int motor1Pin1 = 1;  //AIN1绿色
+int motor1Pin2 = 0;  //AIN2黄色
 
-* IN1 绿色 ->O1-> 电机  
+// Motor B
+int motor2Pin1 = 3;   //  BIN1 绿色
+int motor2Pin2 = 10;  // BIN2 黄色
+```
+* IN1 绿色 ->O1-> 电机 `+` 红色
 
-+ 红色
-* IN2 黄色 ->O2-> 电机 - 黑色-
+* IN2 黄色 ->O2-> 电机 `-` 黑色
 
 
 ## ​Components
@@ -108,10 +110,6 @@ Motor Drive：DRV8833
 * 2路贴片LED指示灯:D4,D5(GPIO12,13)
 
 
-小车计划使用GPIO
-* DRV8833:GPIO02,03 
-   ,06.07,11  standby：+5 Pin31 还是 GPIO08 HIGH/LOW待测试
-
 红外和超声的GPIO待实际测试，确定使用那些
 * IR:GPIO13，使用排座接入 
 * ultrasonic:GPIO 2,18
@@ -150,14 +148,13 @@ GND  Ground
 
 ![](img/DRV8833-Dual-Driver-Circuit.jpg)
 
-* ANI1：AO1的逻辑输入控制端口，电平0-5V。 GPIO 10 绿 
-* AIN2：AO2的逻辑输入控制端口，电平0-5V。GPIO 6  黄
-* BNI1：BO1的逻辑输入控制端口，电平0-5V。 GPIO 7  绿
-* BIN2：BO2的逻辑输入控制端口，电平0-5V。GPIO 11  黄
+* ANI1：AO1的逻辑输入控制端口，电平0-5V 
+* AIN2：AO2的逻辑输入控制端口，电平0-5V
+* BNI1：BO1的逻辑输入控制端口，电平0-5V
+* BIN2：BO2的逻辑输入控制端口，电平0-5V
 
 * AO1、AO2为1路H桥输出端口，接一个直流电机的两个脚。
-  01 +  红色
-* BO1、BO2为2路H桥输出端口，接另一个外直接电机的两个脚。
+ * BO1、BO2为2路H桥输出端口，接另一个外直接电机的两个脚。
 * GND：接地。
 * `VM`：芯片和电机供电脚，电压范围2.7 V – 10.8 V。
 * `STBY`：接地或悬空芯片不工作，无输出，接5V工作；电平0-5V。
@@ -169,24 +166,28 @@ Motor Drive：DRV8833
 
 * ESP32-C
 
-| DRV8833      |                |
-|--------------|----------------|
-| VM           |  +5 Power  公用|
-| GND          | GND            | 
-| STBY         |  +5 Power  公用|
-| AIN1         |  GPIO 2 绿    |
-| AIN2         |   GPIO 3 黄    |
-| BIN1         |   GPIO 7  绿   |
-| BIN2         |   GPIO 11 黄  |
+| DRV8833      |                 |
+|--------------|-----------------|
+| VM           |  +5 Power  公用 |
+| GND          |  GND            | 
+| STBY         |  +3.3  Pin18    |
+| AIN1         |  GPIO 01 绿     |
+| AIN2         |  GPIO 00 黄     |
+| BIN1         |  GPIO 03  绿    |
+| BIN2         |  GPIO 10 黄     |
 
-* Motor
+小车计划使用:standby：+3.3
 
-| DRV8833      |                |
-|--------------|----------------|
-| AO1         | Left Motor + 红 |
-| AO2         | Right Motor - 黑 |
-| BO1         |   GPIO 7  绿   |
-| BO2         |   GPIO 11 黄  |
+
+```c
+// Motor A Right OK!
+int motor1Pin1 = 1;  //AIN1绿色
+int motor1Pin2 = 0;  //AIN2黄色
+
+// Motor B
+int motor2Pin1 = 3;   //  BIN1 绿色
+int motor2Pin2 = 10;  // BIN2 黄色
+```
 
 电机的旋转方向可以通过对这些输入施加逻辑高电平 (5V) 或逻辑低电平（接地）来控制。下面的真值表显示了输入如何影响驱动器输出。
 

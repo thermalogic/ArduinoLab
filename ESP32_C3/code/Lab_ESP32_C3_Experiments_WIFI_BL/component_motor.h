@@ -6,10 +6,10 @@
 #define MOTOR_H
 
 #define LEFT_FORWARD 1 // AIN1 绿色
-#define LEFT_BACK 12     // AIN2 黄色
+#define LEFT_BACK 0     // AIN2 黄色
 
-#define RIGHT_FORWARD 10//  BIN1 绿色
-#define RIGHT_BACK 3   // BIN2 黄色
+#define RIGHT_FORWARD 3//  BIN1 绿色
+#define RIGHT_BACK 10   // BIN2 黄色
 
 // motor action code
 const int DEV_GO = 1;
