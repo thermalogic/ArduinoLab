@@ -90,10 +90,9 @@ ESP32-C3扩展板和元件板的杜邦线连接
 
 ![](img/minicar_layout.jpg)
 
+## 元件针脚
 
-### 元件针脚
-
-#### ESP32-C3核心开发版精简版
+### ESP32-C3核心开发版精简版
 
 ![](img/esp32-c3.jpg)
 
@@ -101,19 +100,29 @@ ESP32-C3扩展板和元件板的杜邦线连接
 
 ![](img/DRV8833_Pinout.jpg)
 
-### 电机驱动和ESP32连接
+* ANI1：AO1的逻辑输入控制端口，电平0-5V 
+* AIN2：AO2的逻辑输入控制端口，电平0-5V
+* BNI1：BO1的逻辑输入控制端口，电平0-5V
+* BIN2：BO2的逻辑输入控制端口，电平0-5V
 
-Motor Drive：DRV8833
+* AO1、AO2为1路H桥输出端口，接一个直流电机的两个脚。
+* BO1、BO2为2路H桥输出端口，接另一个外直接电机的两个脚。
+* GND：接地。
+* `VM`：芯片和电机供电脚，电压范围2.7 V – 10.8 V。
+* `STBY`：接地或悬空芯片不工作，无输出，接5V工作；电平0-5V。
+* NC：空脚
 
-* ESP32-C3
+#### 电机驱动连线
 
-测试完成Left Motor
-
-| DRV8833      |                |
-|--------------|----------------|
-| VM           |  +5 Power  公用|
-| GND          | GND            | 
-
+| DRV8833      |  ESP32-C3       |  
+|--------------|-----------------|
+| VM           |  +5 Power  公用 |  
+| GND          |  GND            | 
+| STBY         |  +3.3  Pin18    |
+| AIN1         |  GPIO 01 绿     | 
+| AIN2         |  GPIO 00 黄     |
+| BIN1         |  GPIO 03  绿    |
+| BIN2         |  GPIO 10 黄     |
 
 ```c
 // Motor A Right
@@ -125,53 +134,18 @@ int motor2Pin1 = 3;   //  BIN1 绿色
 int motor2Pin2 = 10;  // BIN2 黄色
 ```
 
-### 供电电源
+| DRV8833    |  Motor-C3       |  
+|------------|-----------------|
+| AO1        |  Left Motor 红  | 
+| AO2        |  Left Motor 黑  |
+| BO1        |  Right Motor 红 |
+| Bo2        |  Right Motor 黑 |
 
-* 5V和GND排针供电: Pin31,Pin32
 
-## 电机驱动DEV8833
+### 电源
 
-## NRV8833
+ 一节16850电池，连接开发扩展板电源接线柱
 
 
-* ANI1：AO1的逻辑输入控制端口，电平0-5V 
-* AIN2：AO2的逻辑输入控制端口，电平0-5V
-* BNI1：BO1的逻辑输入控制端口，电平0-5V
-* BIN2：BO2的逻辑输入控制端口，电平0-5V
-
-* AO1、AO2为1路H桥输出端口，接一个直流电机的两个脚。
- * BO1、BO2为2路H桥输出端口，接另一个外直接电机的两个脚。
-* GND：接地。
-* `VM`：芯片和电机供电脚，电压范围2.7 V – 10.8 V。
-* `STBY`：接地或悬空芯片不工作，无输出，接5V工作；电平0-5V。
-* NC：空脚
                         
-## Layout
-
-Motor Drive：DRV8833
-
-* ESP32-C
-
-| DRV8833      |                 |
-|--------------|-----------------|
-| VM           |  +5 Power  公用 |
-| GND          |  GND            | 
-| STBY         |  +3.3  Pin18    |
-| AIN1         |  GPIO 01 绿     |
-| AIN2         |  GPIO 00 黄     |
-| BIN1         |  GPIO 03  绿    |
-| BIN2         |  GPIO 10 黄     |
-
-小车计划使用:standby：+3.3
-
-
-```c
-// Motor A Right OK!
-int motor1Pin1 = 1;  //AIN1绿色
-int motor1Pin2 = 0;  //AIN2黄色
-
-// Motor B
-int motor2Pin1 = 3;   //  BIN1 绿色
-int motor2Pin2 = 10;  // BIN2 黄色
-```
 
