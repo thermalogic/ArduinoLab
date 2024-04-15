@@ -70,5 +70,5 @@ void loop_bluetooth() {
   } else if (RxBuffer == "stop") {
     cur_cmd = DEV_STOP;
   };
-  motor_action(cur_cmd);
+  car_action(cur_cmd);
 }

@@ -3,7 +3,7 @@
 */
 
 #include <TM1637Display.h>
-#include "component_motor.h"
+#include "component_drv8833.h"
 
 #define CLK 2
 #define DIO 7
@@ -40,7 +40,7 @@ void loop_ultrasonic() {
 
   if (distance < 20) {
     int cur_cmd = DEV_STOP;
-    motor_action(cur_cmd);
+    car_action(cur_cmd);
   }
 
   Serial.print(distance);

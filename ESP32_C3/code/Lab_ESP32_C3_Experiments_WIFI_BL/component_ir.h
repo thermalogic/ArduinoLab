@@ -5,7 +5,7 @@
 #include <Arduino.h>
 #include <IRremote.hpp>
 #include "PinDefinitionsAndMore.h" // Define macros for input and output pin etc.
-#include "component_motor.h"
+#include "component_drv8833.h"
 
 #define DECODE_NEC // Includes Apple and Onkyo
 #define IR_RECEIVE_PIN 13
@@ -40,7 +40,7 @@ void do_ir_cmd()
   default:
     break;
   } // switch
-  motor_action(cur_cmd);
+  car_action(cur_cmd);
 };
 
 void setup_ir()

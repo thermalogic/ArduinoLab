@@ -1,6 +1,5 @@
-/*
-
-*/
+#ifndef DRV8833_H
+#define DRV8833_H
 
 
 // Motor A Right OK!
@@ -15,9 +14,11 @@ int motor_left_Pin2 = 10;  // BIN2 黄色
 const int freq = 30000;
 const int pwmChannel_motor_right_forward= 0;
 const int pwmChannel_motor_left_forward= 1;
+const int pwmChannel_motor_right_backward= 2;
+const int pwmChannel_motor_left_backward= 3;
+
 const int resolution = 8;
 int dutyCycle = 200;
-
 
 // motor action code
 const int DEV_GO = 1;
@@ -31,8 +32,6 @@ int left_speed = 200;
 int right_speed = 200;
 const int turn_speed_diff = 120;
 const int speed_step = 30;
-
-int i = 0;
 
 void car_forward() {
   // Moving Forward
@@ -49,19 +48,24 @@ void car_back() {
   // Move DC motor backwards at maximum speed
   digitalWrite(motor_right_Pin1, LOW);
   digitalWrite(motor_right_Pin2, HIGH);
-  ledcWrite(pwmChannel_motor_right_forward, 100);
+  ledcWrite(pwmChannel_motor_right_backward, right_speed);
 
   digitalWrite(motor_left_Pin1, LOW);
   digitalWrite(motor_left_Pin2, HIGH);
-  ledcWrite(pwmChannel_motor_left_forward, 100);
+  ledcWrite(pwmChannel_motor_left_backward, left_speed);
 }
 
 void car_stop() {
   // Stop the DC motor
   digitalWrite(motor_right_Pin1, LOW);
   digitalWrite(motor_right_Pin2, LOW);
-  ledcWrite(pwmChannel_motor_left_forward, 0);
   ledcWrite(pwmChannel_motor_right_forward, 0);
+  ledcWrite(pwmChannel_motor_right_backward, 0);
+
+  digitalWrite(motor_left_Pin1, LOW);
+  digitalWrite(motor_left_Pin2, LOW);
+  ledcWrite(pwmChannel_motor_left_forward, 0);
+  ledcWrite(pwmChannel_motor_left_backward, 0);
 }
 
 void car_turn_left() {
@@ -145,7 +149,7 @@ void car_action(int car_cmd) {
   }  // switch
 };
 
-void setup() {
+void setup_drv8833() {
   // sets the pins as outputs:
   pinMode(motor_right_Pin1, OUTPUT);
   pinMode(motor_right_Pin2, OUTPUT);
@@ -160,39 +164,15 @@ void setup() {
   ledcSetup(pwmChannel_motor_left_forward, freq, resolution);
   ledcAttachPin(motor_left_Pin1, pwmChannel_motor_left_forward);
 
-  Serial.begin(115200);
-  // testing
-  Serial.print("Testing DC Motor...");
-
-  delay(2000);
-
-  i = 0;
+  ledcSetup(pwmChannel_motor_right_backward, freq, resolution);
+  ledcAttachPin(motor_right_Pin2, pwmChannel_motor_right_backward);
+  ledcSetup(pwmChannel_motor_left_backward, freq, resolution);
+  ledcAttachPin(motor_left_Pin2, pwmChannel_motor_left_backward);
 }
 
-
-void loop() {
-  // forward
-  while (i < 2) {
-    car_forward();
-    delay(2000);
-
-    car_speeddown();
-    delay(2000);
-    
-    car_speedup();
-    delay(2000);
-    
-    car_back();
-    delay(2000);
-
-    car_turn_left();
-    delay(2000);
-
-    car_turn_right();
-    delay(2000);
-
-    car_stop();
-    delay(1000);
-    i++;
-  }
+void loop_drv8833()
+{
+  
 }
+
+#endif /* MOTOR_H */

@@ -74,7 +74,7 @@ void motor_action(int motor_cmd)
     motor_turn_left();
     break;
   case DEV_RIGHT:
-    motor_turn_right();
+    motor_turn_right();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
     break;
   case DEV_BACK:
     motor_back();

@@ -5,7 +5,7 @@
 #include <WiFiClient.h>
 #include <WiFiAP.h>
 #include <WebServer.h>
-#include "component_motor.h"
+#include "component_drv8833.h"
 
 // Set these to your desired credentials.
 const char *ssid = "ESP32-C3";
@@ -94,7 +94,7 @@ void webclient_cmd(String motor_cmd)
   {
     cur_cmd = DEV_STOP;
   }
-  motor_action(cur_cmd);
+  car_action(cur_cmd);
 }
 
 
