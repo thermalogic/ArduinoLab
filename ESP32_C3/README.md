@@ -14,7 +14,7 @@
 * 超声模块：HC-SR04 x1
 * 数码管：TM1637 4位数码管
 * 红外遥控：
-  * 接收器：VS1838B x1
+  * 接收模块：VS1838B x1
   * 遥控器：[21 Keys](https://hobbycomponents.com/wired-wireless/464-low-profile-21-button-infrared-ir-remote)  x1
 * 开关：SS-12D00,3脚2档,直插立式 拨动开关
 * 洞洞板： 
