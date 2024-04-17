@@ -2,8 +2,8 @@
 #define DRV8833_H
 
 // Motor A Right OK!
-int motor_right_Pin1 = 1;  //AIN1绿色
-int motor_right_Pin2 = 0;  //AIN2黄色
+int motor_right_Pin1 = 1;  // AIN1绿色
+int motor_right_Pin2 = 0;  // AIN2黄色
 
 // Motor B left
 int motor_left_Pin1 = 3;   //  BIN1 绿色
