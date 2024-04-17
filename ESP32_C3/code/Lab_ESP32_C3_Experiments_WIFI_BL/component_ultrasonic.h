@@ -1,9 +1,7 @@
 
 /*  
-    Ultrasonic
-    TM1637 Display
+  MiniCar with ESP32-C3:  Ultrasonic,TM1637 Display
 */
-
 #include <TM1637Display.h>
 #include "component_drv8833.h"
 

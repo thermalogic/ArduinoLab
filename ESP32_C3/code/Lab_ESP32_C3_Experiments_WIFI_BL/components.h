@@ -1,10 +1,11 @@
 
-/* SmallCar: ESP32-C3
- */
+/* 
+   MiniCar with ESP32-C3: components
+*/
 
-#include "component_ir.h"
 #include "component_drv8833.h"
 #include "component_ultrasonic.h"
+#include "component_ir.h"
 
 String json;
 bool data_ready = false;

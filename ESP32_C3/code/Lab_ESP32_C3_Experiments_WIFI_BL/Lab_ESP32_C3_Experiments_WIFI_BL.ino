@@ -1,6 +1,9 @@
 /*
-  WIFI Access Point:
-    ESP32 @ http://192.168.4.1/
+  MiniCar with ESP32-C3
+  WIFI:
+     ssid = "ESP32-C3";
+     password = "12345678";
+     http://192.168.4.1/
   Bluetooth:
     ESP32-C3-BT-Slave
 */

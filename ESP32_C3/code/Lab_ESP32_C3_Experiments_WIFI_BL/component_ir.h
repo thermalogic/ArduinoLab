@@ -7,7 +7,7 @@
 #include "PinDefinitionsAndMore.h" // Define macros for input and output pin etc.
 #include "component_drv8833.h"
 
-#define DECODE_NEC // Includes Apple and Onkyo
+#define DECODE_NEC 
 #define IR_RECEIVE_PIN 13
 
 #define ACTION_GO 0x47 // IR_Remoter: ZTE
@@ -71,7 +71,7 @@ void loop_ir()
     {
       cur_ir_cmd = IrReceiver.decodedIRData.command;
       do_ir_cmd();
-    };                   // if
+    }; 
     IrReceiver.resume(); // Enable receiving of the next value
   };
 }

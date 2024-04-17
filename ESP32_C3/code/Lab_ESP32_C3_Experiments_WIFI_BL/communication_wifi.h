@@ -1,5 +1,8 @@
 /*
-   Point your web browser to http://192.168.4.1/
+  MiniCar with ESP32-C3: WIFI
+     ssid = "ESP32-C3";
+     password = "12345678";
+     http://192.168.4.1/
 */
 #include <WiFi.h>
 #include <WiFiClient.h>
@@ -78,7 +81,7 @@ function getData() {
 
 void webclient_cmd(String motor_cmd)
 {
-  int cur_cmd=DEV_STOP;
+  int cur_cmd = DEV_STOP;
   if (motor_cmd.compareTo("G") == 0)
   {
     cur_cmd = DEV_GO;
@@ -110,7 +113,6 @@ void webclient_cmd(String motor_cmd)
   car_action(cur_cmd);
 }
 
-
 void handleRoot()
 {
   String s = webpage;
@@ -120,9 +122,9 @@ void handleRoot()
 void handleMotor()
 {
   String motor_cmd = server.arg("state");
- 
+
   Serial.println(motor_cmd);
- 
+
   server.send(200, "text/plane", motor_cmd);
   webclient_cmd(motor_cmd);
 }
@@ -138,7 +140,6 @@ void handleSensor()
     server.send(503, "text/plane", "none data");
   }
 }
-
 
 void setup_wifi()
 {
