@@ -12,15 +12,15 @@ bool data_ready = false;
 void setup_components()
 {
     setup_drv8833();
-    // setup_ir();    
     setup_ultrasonic();
+   // setup_ir();    
 }
 
 void loop_components()
 {
     loop_drv8833();
-    // loop_ir();
     loop_ultrasonic();
+    // loop_ir();
     json = "{";
     json += "\"distance\":" + String(distance, 10);
     json += "}";

@@ -1,7 +1,6 @@
 #ifndef DRV8833_H
 #define DRV8833_H
 
-
 // Motor A Right OK!
 int motor_right_Pin1 = 1;  //AIN1绿色
 int motor_right_Pin2 = 0;  //AIN2黄色
@@ -12,10 +11,10 @@ int motor_left_Pin2 = 10;  // BIN2 黄色
 
 // Setting PWM properties
 const int freq = 30000;
-const int pwmChannel_motor_right_forward= 0;
-const int pwmChannel_motor_left_forward= 1;
-const int pwmChannel_motor_right_backward= 2;
-const int pwmChannel_motor_left_backward= 3;
+const int pwmChannel_motor_right_forward = 0;
+const int pwmChannel_motor_left_forward = 1;
+const int pwmChannel_motor_right_backward = 2;
+const int pwmChannel_motor_left_backward = 3;
 
 const int resolution = 8;
 int dutyCycle = 200;
@@ -26,6 +25,8 @@ const int DEV_BACK = 2;
 const int DEV_LEFT = 3;
 const int DEV_RIGHT = 4;
 const int DEV_STOP = 5;
+const int DEV_SPEED_UP = 6;
+const int DEV_SPEED_DOWN = 7;
 
 // PWM - speed
 int left_speed = 200;
@@ -87,7 +88,7 @@ void car_turn_right() {
   // turn right
   digitalWrite(motor_left_Pin1, HIGH);
   digitalWrite(motor_left_Pin2, LOW);
-  left_speed=200;
+  left_speed = 200;
   ledcWrite(pwmChannel_motor_left_forward, left_speed);
 
   digitalWrite(motor_right_Pin1, HIGH);
@@ -96,35 +97,33 @@ void car_turn_right() {
   if (right_turn_speed < 0) {
     right_turn_speed = 0;
   }
-  ledcWrite(pwmChannel_motor_right_forward,right_turn_speed);
+  ledcWrite(pwmChannel_motor_right_forward, right_turn_speed);
 }
 
-void car_speedup() {
+void car_speed_up() {
   right_speed += speed_step;
   if (right_speed > 255) {
     right_speed = 255;
   }
-  ledcWrite(pwmChannel_motor_right_forward, right_speed);
-
+  
   left_speed += speed_step;
   if (left_speed > 255) {
     left_speed = 255;
   }
-  ledcWrite(pwmChannel_motor_left_forward, left_speed);
+  car_forward();
 }
 
-void car_speeddown() {
+void car_speed_down() {
   right_speed -= speed_step;
-  if (right_speed <0) {
+  if (right_speed < 0) {
     right_speed = 0;
   }
-  ledcWrite(pwmChannel_motor_right_forward, right_speed);
-
+  
   left_speed -= speed_step;
-  if (left_speed <0 ) {
+  if (left_speed < 0) {
     left_speed = 0;
   }
-  ledcWrite(pwmChannel_motor_left_forward, left_speed);
+  car_forward();
 }
 
 void car_action(int car_cmd) {
@@ -143,6 +142,12 @@ void car_action(int car_cmd) {
       break;
     case DEV_STOP:
       car_stop();
+      break;
+    case DEV_SPEED_UP:
+      car_speed_up();
+      break;
+  case DEV_SPEED_DOWN:
+      car_speed_down();
       break;
     default:
       break;
@@ -170,9 +175,7 @@ void setup_drv8833() {
   ledcAttachPin(motor_left_Pin2, pwmChannel_motor_left_backward);
 }
 
-void loop_drv8833()
-{
-  
+void loop_drv8833() {
 }
 
 #endif /* MOTOR_H */

@@ -1,5 +1,7 @@
 
-/*   Ultrasonic
+/*  
+    Ultrasonic
+    TM1637 Display
 */
 
 #include <TM1637Display.h>
@@ -45,6 +47,5 @@ void loop_ultrasonic() {
 
   Serial.print(distance);
   Serial.println(F("cm"));
-   display.showNumberDec(distance, false);
+  display.showNumberDec(distance, false);
 }
-

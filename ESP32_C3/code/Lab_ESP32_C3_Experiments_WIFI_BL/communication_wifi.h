@@ -32,6 +32,8 @@ const char webpage[] PROGMEM = R"=====(
 <p><button class="button" onclick="send('B')">BACK</button></p>
 <p><button class="button" onclick="send('L')">Turn Left</button></p>
 <p><button class="button" onclick="send('R')">Turn Right</button></p>
+<p><button class="button" onclick="send('U')">Speed Up</button></p>
+<p><button class="button" onclick="send('D')">Speed Down</button></p>
 <div><h2> 
   Distance(cm): <span id="distance">0</span><br>
   </h2>
@@ -97,6 +99,14 @@ void webclient_cmd(String motor_cmd)
   {
     cur_cmd = DEV_STOP;
   }
+  else if (motor_cmd.compareTo("U") == 0)
+  {
+    cur_cmd = DEV_SPEED_UP;
+  }
+  else if (motor_cmd.compareTo("D") == 0)
+  {
+    cur_cmd = DEV_SPEED_DOWN;
+  };
   car_action(cur_cmd);
 }
 

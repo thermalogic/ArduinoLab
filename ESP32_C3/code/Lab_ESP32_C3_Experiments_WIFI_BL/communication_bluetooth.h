@@ -4,14 +4,14 @@
  *      Laptop Serial BT   <-> ESP32 Bluetooth
  */
 #include "BluetoothSerial.h"
-#include "component_motor.h"
+#include "component_drv8833.h"
 
-//#if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
-//#error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
-//#endif
-//#if !defined(CONFIG_BT_SPP_ENABLED)
-//#error Serial Bluetooth not available or not enabled. It is only available for the ESP32 chip.
-//#endif
+#if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
+#error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
+#endif
+#if !defined(CONFIG_BT_SPP_ENABLED)
+#error Serial Bluetooth not available or not enabled. It is only available for the ESP32 chip.
+#endif
 
 // Bluetooth Serial Object (Handle)
 BluetoothSerial SerialBT;
