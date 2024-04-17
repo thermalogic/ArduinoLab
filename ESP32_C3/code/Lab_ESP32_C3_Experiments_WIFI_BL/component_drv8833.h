@@ -76,11 +76,11 @@ void car_turn_left() {
 
   digitalWrite(motor_left_Pin1, HIGH);
   digitalWrite(motor_left_Pin2, LOW);
-  left_speed = right_speed - turn_speed_diff;
-  if (left_speed < 0) {
-    left_speed = 0;
+  int left_turn_speed = right_speed - turn_speed_diff;
+  if (left_turn_speed < 0) {
+    left_turn_speed = 0;
   }
-  ledcWrite(pwmChannel_motor_left_forward, left_speed);
+  ledcWrite(pwmChannel_motor_left_forward, left_turn_speed);
 }
 
 void car_turn_right() {
@@ -92,11 +92,11 @@ void car_turn_right() {
 
   digitalWrite(motor_right_Pin1, HIGH);
   digitalWrite(motor_right_Pin2, LOW);
-  right_speed = left_speed - turn_speed_diff;
-  if (right_speed < 0) {
-    right_speed = 0;
+  int right_turn_speed = left_speed - turn_speed_diff;
+  if (right_turn_speed < 0) {
+    right_turn_speed = 0;
   }
-  ledcWrite(pwmChannel_motor_right_forward,right_speed);
+  ledcWrite(pwmChannel_motor_right_forward,right_turn_speed);
 }
 
 void car_speedup() {

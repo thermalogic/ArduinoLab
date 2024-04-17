@@ -1,9 +1,18 @@
-# 基于ESP32-C3的Mini-Car
+# 基于ESP32-C3的Mini Car
 
 ## 功能
 
 * 红外，WIFI控制小车前进，后退，左、右转动
 * 超声避障
+
+## 手机WIFI遥控
+
+1. 连接小车的WIFI热点：ESP32-C3,  密码：12345678
+2. 浏览器访问小车Web服务：http://192.168.4.1
+
+![](img/web.jpg)
+
+![](img/mini_car.jpg)
 
 ## 元件
 

@@ -19,14 +19,14 @@ const char webpage[] PROGMEM = R"=====(
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-   html { font-family: Helvetica; display: inline-block; margin: 0px auto; text-align: center;}
+   html { font-family: sans-serif; display: inline-block; margin: 0px auto; text-align: center;}
    .button { background-color: #195B6A; border: none; color: white; padding: 3px 10px;
             width:150px; height: 30px;text-decoration: none; font-size: 18px; margin: 2px; cursor: pointer;}
 </style>
 </head>
-<title>Small Car</title>
+<title>Mini Car</title>
 <body>
-<h1 align=center>Small Car</h1>
+<h1 align=center>Mini Car</h1>
 <p><button class="button" onclick="send('G')">Go</button></p>
 <p><button class="button" onclick="send('S')">STOP</button></p>
 <p><button class="button" onclick="send('B')">BACK</button></p>
@@ -35,8 +35,11 @@ const char webpage[] PROGMEM = R"=====(
 <div><h2> 
   Distance(cm): <span id="distance">0</span><br>
   </h2>
-  <h2> Motor State: <span id="state">NA</span> </h2>
+  <h2>Car State: <span id="state">NA</span> </h2>
 </div>
+<h1 align=center>Happy Children's Day!<h1>
+<h3 align=center>Wishes to Huang Liangming always have a Childlike Innocence, every day Xiao Haha</h3>
+<h4 align=center>Xu Li, Cheng Maohua, 2024.06.01</h4>
 <script>
 function send(motor_cmd) 
 {
