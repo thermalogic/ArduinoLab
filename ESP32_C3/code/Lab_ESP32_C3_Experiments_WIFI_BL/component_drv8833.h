@@ -17,22 +17,24 @@ const int pwmChannel_motor_right_backward = 2;
 const int pwmChannel_motor_left_backward = 3;
 
 const int resolution = 8;
-int dutyCycle = 200;
 
-// motor action code
+// car action code
 const int DEV_GO = 1;
 const int DEV_BACK = 2;
 const int DEV_LEFT = 3;
 const int DEV_RIGHT = 4;
 const int DEV_STOP = 5;
+//
 const int DEV_SPEED_UP = 6;
 const int DEV_SPEED_DOWN = 7;
+// car running state
+int car_state = DEV_STOP;
 
 // PWM - speed
 int left_speed = 200;
 int right_speed = 200;
 const int turn_speed_diff = 120;
-const int speed_step = 30;
+const int speed_step = 10;
 
 void car_forward() {
   // Moving Forward
@@ -100,36 +102,13 @@ void car_turn_right() {
   ledcWrite(pwmChannel_motor_right_forward, right_turn_speed);
 }
 
-void car_speed_up() {
-  right_speed += speed_step;
-  if (right_speed > 255) {
-    right_speed = 255;
-  }
-  
-  left_speed += speed_step;
-  if (left_speed > 255) {
-    left_speed = 255;
-  }
-  car_forward();
-}
-
-void car_speed_down() {
-  right_speed -= speed_step;
-  if (right_speed < 0) {
-    right_speed = 0;
-  }
-  
-  left_speed -= speed_step;
-  if (left_speed < 0) {
-    left_speed = 0;
-  }
-  car_forward();
-}
-
-void car_action(int car_cmd) {
-  switch (car_cmd) {
+void running_with_new_speed() {
+  switch (car_state) {
     case DEV_GO:
       car_forward();
+      break;
+    case DEV_BACK:
+      car_back();
       break;
     case DEV_LEFT:
       car_turn_left();
@@ -137,16 +116,63 @@ void car_action(int car_cmd) {
     case DEV_RIGHT:
       car_turn_right();
       break;
+    default:
+      break;
+  }
+}
+
+void car_speed_up() {
+  right_speed += speed_step;
+  if (right_speed > 255) {
+    right_speed = 255;
+  }
+
+  left_speed += speed_step;
+  if (left_speed > 255) {
+    left_speed = 255;
+  }
+  running_with_new_speed();
+}
+
+void car_speed_down() {
+  right_speed -= speed_step;
+  if (right_speed < 0) {
+    right_speed = 0;
+  }
+
+  left_speed -= speed_step;
+  if (left_speed < 0) {
+    left_speed = 0;
+  }
+  running_with_new_speed();
+}
+
+void car_action(int car_cmd) {
+  switch (car_cmd) {
+    case DEV_GO:
+      car_forward();
+      car_state = DEV_GO;
+      break;
+    case DEV_LEFT:
+      car_turn_left();
+      car_state = DEV_LEFT;
+      break;
+    case DEV_RIGHT:
+      car_turn_right();
+      car_state = DEV_RIGHT;
+      break;
     case DEV_BACK:
       car_back();
+      car_state = DEV_BACK;
       break;
     case DEV_STOP:
       car_stop();
+      car_state = DEV_STOP;
       break;
     case DEV_SPEED_UP:
       car_speed_up();
       break;
-  case DEV_SPEED_DOWN:
+    case DEV_SPEED_DOWN:
       car_speed_down();
       break;
     default:
