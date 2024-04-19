@@ -10,11 +10,21 @@
 #define DECODE_NEC 
 #define IR_RECEIVE_PIN 13
 
+/*
 #define ACTION_GO 0x47 // IR_Remoter: ZTE
 #define ACTION_LEFT 0x48
 #define ACTION_STOP 0x49
 #define ACTION_RIGHT 0x4A
 #define ACTION_BACK 0x4B
+*/
+
+#define ACTION_GO 0x18 //  2 IR Remoter: 2 keys 
+#define ACTION_LEFT 0x8 // 4
+#define ACTION_STOP 0x1C // 5
+#define ACTION_RIGHT 0x5A // 6
+#define ACTION_BACK  0x52 // 8
+#define ACTION_SPEED_UP 0X15 // +
+#define ACTION_SPEED_DOWN 0x7 // -
 
 int cur_ir_cmd = ACTION_STOP;
 
@@ -36,6 +46,12 @@ void do_ir_cmd()
     break;
   case ACTION_STOP:
     cur_cmd = DEV_STOP;
+    break;
+  case ACTION_SPEED_UP:
+    cur_cmd = DEV_SPEED_UP;
+    break;
+  case ACTION_SPEED_DOWN:
+    cur_cmd = DEV_SPEED_DOWN;
     break;
   default:
     break;

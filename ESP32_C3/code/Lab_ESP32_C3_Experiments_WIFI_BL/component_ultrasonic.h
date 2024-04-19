@@ -43,7 +43,7 @@ void loop_ultrasonic() {
     car_action(cur_cmd);
   }
 
-  Serial.print(distance);
-  Serial.println(F("cm"));
+  //Serial.print(distance);
+  //Serial.println(F("cm"));
   display.showNumberDec(distance, false);
 }
