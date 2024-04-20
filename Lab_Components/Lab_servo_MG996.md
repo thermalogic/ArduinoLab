@@ -32,10 +32,11 @@ MG996R是MG995伺服的升级版。新的PCB和IC控制系统使其更加精确�
 
 根据我所做的几个实验，这些条件时的微秒值为：
 
-停止位置 – 写入微秒(1500)
-左转 – 写入微秒(1000)
-向右转 – 写入微秒(2000)
-脉冲在1.0和1.5ms或1.5ms和2.0ms之间，将产生成比例的速度。
+停止位置 90度  – 写入微秒(1500)
+左转到0度 – 写入微秒(544)
+右转到180度 – 写入微秒(2544)
+
+脉冲在0.544和1.5ms或1.5ms和2544之间，将产生成比例的速度。
 
 ### 布线
 
@@ -58,19 +59,19 @@ void setup() {
 }
 
 void demo_servo(Servo cur_servo) {
-  // rotate counter-clockwise full-speed
-  cur_servo.writeMicroseconds(1000);
+  // rotate counter-clockwise full-speed 0度
+  cur_servo.writeMicroseconds(544);
   delay(2000);
 
-  // rotation stopped
+  // rotation stopped 90度
   cur_servo.writeMicroseconds(1500);
   delay(1000);
 
-  // rotate clockwise full-speed
-  cur_servo.writeMicroseconds(2000);
+  // rotate clockwise full-speed 180度
+  cur_servo.writeMicroseconds(2544);
   delay(2000);
 
-  // rotation stopped
+  // rotation stopped 90度
   cur_servo.writeMicroseconds(1500);
   delay(2000);
 }
@@ -79,4 +80,3 @@ void loop() {
   demo_servo(vertical_servo);
   demo_servo(horizontal_servo);
 }
-```
