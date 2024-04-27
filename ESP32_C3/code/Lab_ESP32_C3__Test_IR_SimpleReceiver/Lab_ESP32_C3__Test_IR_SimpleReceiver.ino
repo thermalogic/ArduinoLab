@@ -70,7 +70,7 @@
 #include "PinDefinitionsAndMore.h"
 #include <IRremote.hpp> // include the library
 
-#define IR_RECEIVE_PIN 13  
+#define IR_RECEIVE_PIN 13
 
 void setup() {
     Serial.begin(115200);

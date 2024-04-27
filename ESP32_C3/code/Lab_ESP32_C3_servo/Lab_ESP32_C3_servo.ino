@@ -1,5 +1,8 @@
 /* 
    Servo S90
+
+    注意：使用GPIO 8，不使用                                                                                   电机驱动等模块已经使用的GPIO,便于集成
+    使用GPIO 12无效，绝对不能使用GPIO18,19会使的芯片的USB失效
 */
 
 #include <ESP32Servo.h>
@@ -18,7 +21,7 @@ int pos = 0;  // variable to store the servo position
 // Possible PWM GPIO pins on the ESP32-S3: 0(used by on-board button),1-21,35-45,47,48(used by on-board LED)
 // Possible PWM GPIO pins on the ESP32-C3: 0(used by on-board button),1-7,8(used by on-board LED),9-10,18-21
 
-int vertical_servo_pin = 2;
+int vertical_servo_pin =6;
 
 void vertical_servo_turning() {
   for (pos = 90; pos >= 0; pos -= 1) {  // goes from 180 degrees to 0 degrees
