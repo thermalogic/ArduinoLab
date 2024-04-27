@@ -49,7 +49,7 @@ void setup() {
   display.setBrightness(0x0f);
   // All segments on
   display.setSegments(data);
-  delay(2000);
+  delay(500);
 }
 
 void loop() {
