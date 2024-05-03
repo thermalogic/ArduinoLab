@@ -16,10 +16,6 @@ dht11
 #endif
 
 
-/*
-  U8g2lib Example Overview:
-*/
-
 // Please UNCOMMENT one of the contructor lines below
 // U8g2 Contructor List (Picture Loop Page Buffer)
 // The complete list is available here: https://github.com/olikraus/u8g2/wiki/u8g2setupcpp
@@ -136,10 +132,8 @@ void draw(const char *s, uint8_t symbol, int degree)
 
 
 void setup(void) {
-
   u8g2.begin();  
   u8g2.enableUTF8Print();
-
   Serial.begin(115200);
   setup_dht11();
 }
