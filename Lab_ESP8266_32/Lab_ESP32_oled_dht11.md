@@ -9,11 +9,13 @@
 
 ![](img/esp32_pinout.jpg)
 
+* 4,5,13,14,16-33 input/output 都可用
+
 ## 元件连接
 
 * DHT11
 ```c
-#define DHTPIN 13
+#define DHTPIN 15
 ```
 
 * i2c oled  

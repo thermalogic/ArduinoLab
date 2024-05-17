@@ -6,7 +6,7 @@
 
 #include "DHT.h"
 
-#define DHTPIN 13
+#define DHTPIN 15
 #define DHTTYPE DHT11  // DHT 11
 
 DHT dht(DHTPIN, DHTTYPE);

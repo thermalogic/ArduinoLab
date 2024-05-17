@@ -1,7 +1,7 @@
 #include "DHT.h"
 #include <Wire.h>
 
-#define DHTPIN 13
+#define DHTPIN 15
 #define DHTTYPE DHT11
 
 float Humidity;
