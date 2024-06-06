@@ -73,7 +73,7 @@ BTN7919B双驱动板是：电源和电机驱动一体板
 
 超声舵机S90连接到BTN7919B
 
-* BTN7919B舵机PWM -> GPIO 2
+* BTN7919B舵机PWM -> GPIO 15
 
 ![](img/s90_servo.jpg)
 
