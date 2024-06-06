@@ -16,16 +16,16 @@ bool data_ready = false;
 void setup_components() {
   setup_servo();
   setup_btn7919();
-  setup_ultrasonic();
-  setup_ir();   
-  setup_ssd1306();
+//  setup_ultrasonic();
+ // setup_ir();   
+//  setup_ssd1306();
 }
 
 void loop_components() {
 
-  loop_ultrasonic();
-  loop_ir();
-  loop_ssd1306();
+  //loop_ultrasonic();
+  //loop_ir();
+  //loop_ssd1306();
   json = "{";
   json += "\"distance\":" + String(distance, 10);
   json += "}";

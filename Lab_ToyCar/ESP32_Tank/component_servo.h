@@ -1,8 +1,5 @@
 /* 
    Servo S90
-
-    注意：使用GPIO 8，不使用 电机驱动等模块已经使用的GPIO,便于集成
-         GPIO 12无效，绝对不能使用GPIO18,19会使的芯片的USB失效
 */
 #ifndef SERVO_H
 #define SERVO_H

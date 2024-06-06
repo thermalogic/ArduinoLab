@@ -1,18 +1,48 @@
 # 飞思卡尔电源模块BTN7919B双驱动-电源驱动一体板
 
-
 ## ESP32 
 
 ![](img/esp32_pinout.jpg)
 
-* 4,5,13,14,16-33 input/output 都可用
+##  BTN7919B双驱动
+
+BTN7919B板子可以 ：
+
+* 输出：5V,3,3V电源
+* 驱动: 2电机，1个舵机
+  
+![](img/BTN7919B.jpg)
+
+信号P1,p2,p3,p4都是PWM，对应out1（电机1- 右）,out2（电机2-左）
+
+此外，还有舵机PWM
+
+* Recommended PWM GPIO pins on the ESP32 include: 2,4,12-19,21-23,25-27,32-33
+
+### 电机
+
+```c
+ 右电机 红线 -> 电机1 out1 线圈侧 -> BTN7919 PMW2 -> GPIO 33 黄色
+ 右电机 黑线 -> 电机1 out1 开关侧 -> BTN7919 PMW1 -> GPIO 32 绿色
+
+ 左电机 红线 -> 电机2 out2 开关侧 -> BTN7919 PMW4 -> GPIO 12 黄色
+ 左电机 黑线 -> 电机2 out2 线圈侧 -> BTN7919 PMW3 -> GPIO 14 绿色 
+```
+
+### 舵机
+
+超声舵机S90连接到BTN7919B
+
+* BTN7919B舵机PWM -> GPIO 2
+
+![](img/s90_servo.jpg)
+
 
 ## DHT11
 
 ```c
 #define DHTPIN 15
 ```
-
 ## I2C oled  
 
 |I2C oled|	ESP32|
@@ -23,51 +53,5 @@
 |SDA   | GPIO 21|
 
 
-##  BTN7919B
-
-BTN7919B板子可以 ：
-
-* 输出：5V,3,3V电源
-
-* 驱动: 2电机，1个舵机
-
-  
-![](img/BTN7919B.jpg)
-
-## BTN7919B双驱动
-
-信号输入P1,p2,p3,p4都是PWM，对应out1（电机1）,out2（电机）
-
-* P1-> out1线圈侧
-* P2-> out1电源开关侧
-
-* P3->out2的out1侧
-* P4->out2的电源开关侧
-
-此外，还有舵机PWM
 
 
-## BTN7919B测试
-
-### out1和舵机
-
-P1-> out1线圈侧
-P2-> out1电源开关侧
- 
-`test_btn7919_toycar_out1_turn.ino` 测试正常
-
-### out2
-
-`test_btn7919_toycar_out2.ino` 测试异常
- 
- * out2开关侧-正常
- 
- * out2靠out1侧-异常 - `有信号时，信号灯不亮`- `电压测试，没有接受到高电平信号`，原因不明！
-  
- 此外，电机2和电机1 似乎有联动关系？
-
-`test_btn7919_toycar_out1_out2.ino` 测试异常
-
- * 因为out2靠out1侧-异常 - `有信号时，信号灯不亮`，和out1和out2同步动作时，信号灯也都不亮
-
-PCB板子问题？ 可能是控制out2靠out1侧接口的BTN7919芯片有问题

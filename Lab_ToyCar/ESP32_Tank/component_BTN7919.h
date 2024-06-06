@@ -1,20 +1,21 @@
 #ifndef BTN7919_H
 #define BTN7919_H
 
-// Motor A Right OK!
-int motor_right_Pin1 = 1;  // PMW1 绿色
-int motor_right_Pin2 = 0;  // PMW2 黄色
+/*
+ 右电机 红线 -> 电机1 out1 线圈侧 -> BTN7919 PMW2 -> GPIO 33 黄色
+ 右电机 黑线 -> 电机1 out1 开关侧 -> BTN7919 PMW1 -> GPIO 32 绿色
 
-// Motor B left
-int motor_left_Pin1 = 2;   //  PMW3  绿色
-int motor_left_Pin2 = 3;  // PMW4 黄色
+ 左电机 红线 -> 电机2 out2 开关侧 -> BTN7919 PMW4 -> GPIO 12 黄色
+ 左电机 黑线 -> 电机2 out2 线圈侧 -> BTN7919 PMW3 -> GPIO 14 绿色 
+*/
 
-// Setting PWM properties
-//const int freq = 30000;
-//const int pwmChannel_motor_right_forward = 0;
-//const int pwmChannel_motor_left_forward = 1;
-//const int pwmChannel_motor_right_backward = 2;
-//const int pwmChannel_motor_left_backward = 3;
+// Motor right
+int motor_right_Pin_Red = 33;   // PMW2 黄色
+int motor_right_Pin_Black = 32;  // PMW1 绿色
+
+// Motor left 
+int motor_left_Pin_Red = 12;   //  PMW4 黄色
+int motor_left_Pin_Black = 14; //  PMW3  绿色
 
 const int resolution = 8;
 
@@ -38,47 +39,47 @@ const int speed_step = 10;
 
 void car_forward() {
   // Moving Forward
-  digitalWrite(motor_right_Pin1, HIGH);
-  digitalWrite(motor_right_Pin2, LOW);
+  digitalWrite(motor_right_Pin_Red, HIGH);
+  digitalWrite(motor_right_Pin_Black, LOW);
   //ledcWrite(pwmChannel_motor_right_forward, right_speed);
 
-  digitalWrite(motor_left_Pin1, HIGH);
-  digitalWrite(motor_left_Pin2, LOW);
+  digitalWrite(motor_left_Pin_Red, HIGH);
+  digitalWrite(motor_left_Pin_Black, LOW);
   //ledcWrite(pwmChannel_motor_left_forward, left_speed);
 }
 
 void car_back() {
   // Move DC motor backwards at maximum speed
-  digitalWrite(motor_right_Pin1, LOW);
-  digitalWrite(motor_right_Pin2, HIGH);
+  digitalWrite(motor_right_Pin_Red, LOW);
+  digitalWrite(motor_right_Pin_Black, HIGH);
   //ledcWrite(pwmChannel_motor_right_backward, right_speed);
 
-  digitalWrite(motor_left_Pin1, LOW);
-  digitalWrite(motor_left_Pin2, HIGH);
+  digitalWrite(motor_left_Pin_Red, LOW);
+  digitalWrite(motor_left_Pin_Black, HIGH);
   //ledcWrite(pwmChannel_motor_left_backward, left_speed);
 }
 
 void car_stop() {
   // Stop the DC motor
-  digitalWrite(motor_right_Pin1, LOW);
-  digitalWrite(motor_right_Pin2, LOW);
+  digitalWrite(motor_right_Pin_Red, LOW);
+  digitalWrite(motor_right_Pin_Black, LOW);
   //ledcWrite(pwmChannel_motor_right_forward, 0);
   //ledcWrite(pwmChannel_motor_right_backward, 0);
 
-  digitalWrite(motor_left_Pin1, LOW);
-  digitalWrite(motor_left_Pin2, LOW);
+  digitalWrite(motor_left_Pin_Red, LOW);
+  digitalWrite(motor_left_Pin_Black, LOW);
   //ledcWrite(pwmChannel_motor_left_forward, 0);
   //ledcWrite(pwmChannel_motor_left_backward, 0);
 }
 
 void car_turn_left() {
   // turn_left
-  digitalWrite(motor_right_Pin1, HIGH);
-  digitalWrite(motor_right_Pin2, LOW);
+  digitalWrite(motor_right_Pin_Red, HIGH);
+  digitalWrite(motor_right_Pin_Black, LOW);
   //ledcWrite(pwmChannel_motor_right_forward, right_speed);
 
-  digitalWrite(motor_left_Pin1, LOW);
-  digitalWrite(motor_left_Pin2, LOW);
+  digitalWrite(motor_left_Pin_Red, LOW);
+  digitalWrite(motor_left_Pin_Black, LOW);
   int left_turn_speed = right_speed - turn_speed_diff;
   if (left_turn_speed < 0) {
     left_turn_speed = 0;
@@ -88,13 +89,13 @@ void car_turn_left() {
 
 void car_turn_right() {
   // turn right
-  digitalWrite(motor_right_Pin1, LOW);
-  digitalWrite(motor_right_Pin2, LOW);
+  digitalWrite(motor_right_Pin_Red, LOW);
+  digitalWrite(motor_right_Pin_Black, LOW);
    left_speed = 200;
   //ledcWrite(pwmChannel_motor_left_forward, left_speed);
 
-  digitalWrite(motor_left_Pin1, HIGH);
-  digitalWrite(motor_left_Pin2, LOW);
+  digitalWrite(motor_left_Pin_Red, HIGH);
+  digitalWrite(motor_left_Pin_Black, LOW);
  
   int right_turn_speed = left_speed - turn_speed_diff;
   if (right_turn_speed < 0) {
@@ -187,13 +188,13 @@ void car_action(int car_cmd) {
   }  // switch
 };
 
-void setup_drv8833() {
+void setup_btn7919() {
   // sets the pins as outputs:
-  pinMode(motor_right_Pin1, OUTPUT);
-  pinMode(motor_right_Pin2, OUTPUT);
+  pinMode(motor_right_Pin_Red, OUTPUT);
+  pinMode(motor_right_Pin_Black, OUTPUT);
 
-  pinMode(motor_left_Pin1, OUTPUT);
-  pinMode(motor_left_Pin2, OUTPUT);
+  pinMode(motor_left_Pin_Red, OUTPUT);
+  pinMode(motor_left_Pin_Black, OUTPUT);
 
   // configure LED PWM functionalitites
   //ledcSetup(pwmChannel_motor_right_forward, freq, resolution);
@@ -207,8 +208,9 @@ void setup_drv8833() {
   //ledcSetup(pwmChannel_motor_left_backward, freq, resolution);
   //ledcAttachPin(motor_left_Pin2, pwmChannel_motor_left_backward);
 }
+ 
 
-void loop_drv8833() {
+void loop_btn7919() {
 }
 
-#endif /* DRV8833_H */
+#endif /* BTN7919_H */

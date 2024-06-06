@@ -5,7 +5,7 @@
 #ifndef UC_H
 #define UC_H
 
-#include "component_drv8833.h"
+#include "component_btn7919.h"
 #include <Arduino.h>
 
 int trigPin = 10; //5;  // Trigger

@@ -1,6 +1,6 @@
 /*
-  MiniCar with ESP32-C3: WIFI
-     ssid = "ESP32-C3";
+  Tank  with ESP32: WIFI
+     ssid = "ESP32-Tank";
      password = "12345678";
      http://192.168.4.1/
 */
@@ -8,11 +8,11 @@
 #include <WiFiClient.h>
 #include <WiFiAP.h>
 #include <WebServer.h>
-#include "component_drv8833.h"
+#include "component_btn7919.h"
 #include "component_servo.h"
 
 // Set these to your desired credentials.
-const char *ssid = "ESP32";
+const char *ssid = "ESP32-Tank";
 const char *password = "12345678";
 
 WebServer server(80);
@@ -28,9 +28,9 @@ const char webpage[] PROGMEM = R"=====(
             width:150px; height: 30px;text-decoration: none; font-size: 18px; margin: 2px; cursor: pointer;}
 </style>
 </head>
-<title>Mini Car</title>
+<title>Tank</title>
 <body>
-<h1 align=center>Mini Car</h1>
+<h1 align=center>Tank</h1>
 <p><button class="button" onclick="send('G')">Go</button></p>
 <p><button class="button" onclick="send('S')">STOP</button></p>
 <p><button class="button" onclick="send('B')">BACK</button></p>
@@ -43,9 +43,6 @@ const char webpage[] PROGMEM = R"=====(
   </h2>
   <h2>Car State: <span id="state">NA</span> </h2>
 </div>
-<h1 align=center>Happy Children's Day!<h1>
-<h3 align=center>Wishes to Huang Liangming always have a Childlike Innocence, every day Xiao Haha</h3>
-<h4 align=center>Xu Li, Cheng Maohua, 2024.06.01</h4>
 <script>
 function send(motor_cmd) 
 {
@@ -107,13 +104,13 @@ void webclient_cmd(String motor_cmd)
   {
     cur_cmd = DEV_STOP;
     car_action(cur_cmd);
-    servo_action( SERVO_CLOCKWISE);
+    ultrasonic_servo_action( SERVO_CLOCKWISE);
   }
   else if (motor_cmd.compareTo("A") == 0)
   {
     cur_cmd = DEV_STOP;
     car_action(cur_cmd);
-    servo_action( SERVO_ANTI_CLOCKWISE);
+    ultrasonic_servo_action( SERVO_ANTI_CLOCKWISE);
   };
   car_action(cur_cmd);
 }

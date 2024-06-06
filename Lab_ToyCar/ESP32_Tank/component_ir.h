@@ -1,5 +1,5 @@
 
-/* SmallCar: ESP32
+/* Tank with ESP32
       IR
 */
 #ifndef IR_H
@@ -8,7 +8,7 @@
 #include <Arduino.h>
 #include <IRremote.hpp>
 #include "PinDefinitionsAndMore.h" // Define macros for input and output pin etc.
-#include "component_drv8833.h"
+#include "component_btn7919.h"
 #include "component_servo.h"
 
 #define DECODE_NEC
@@ -72,13 +72,13 @@ void do_ir_cmd()
     cur_cmd = DEV_STOP;
     car_action(cur_cmd);
     cur_ir_servo_cmd=SERVO_CLOCKWISE;
-    servo_action(cur_ir_servo_cmd); 
+    ultrasonic_servo_action(cur_ir_servo_cmd); 
     break;
   case ACTION_SERVO_ANTI_CLOCKWISE:
     cur_cmd = DEV_STOP;
     car_action(cur_cmd);
     cur_ir_servo_cmd=SERVO_ANTI_CLOCKWISE;
-    servo_action(cur_ir_servo_cmd); 
+    ultrasonic_servo_action(cur_ir_servo_cmd); 
     break;  
   default:
     break;
