@@ -8,4 +8,7 @@
 
  需要从其github下载软件包的zip文件，然后，本地加入
 
-* D:\Embedded\Arduino\Software\esp32-arduino-libs-3.0.0-alpha3.zip
+* D:\Embedded\Arduino\Software\esp32-arduino-libs-3.0.1.zip
+
+
+
