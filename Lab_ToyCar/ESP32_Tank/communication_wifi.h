@@ -28,9 +28,9 @@ const char webpage[] PROGMEM = R"=====(
             width:150px; height: 30px;text-decoration: none; font-size: 18px; margin: 2px; cursor: pointer;}
 </style>
 </head>
-<title>Tank</title>
+<title>The Tracked Vehicle</title>
 <body>
-<h1 align=center>Tank</h1>
+<h1 align=center>The Tracked Vehicle</h1>
 <p><button class="button" onclick="send('G')">Go</button></p>
 <p><button class="button" onclick="send('S')">STOP</button></p>
 <p><button class="button" onclick="send('B')">BACK</button></p>

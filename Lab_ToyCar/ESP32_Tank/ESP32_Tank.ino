@@ -1,7 +1,7 @@
 /*
-  Tank  with ESP32 and BTN7919
+  TThe Tracked Vehicle  with ESP32 and BTN7919
   WIFI:
-     ssid = "ESP32";
+     ssid = "ESP32-Tank";
      password = "12345678";
      http://192.168.4.1/
 */
