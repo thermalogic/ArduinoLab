@@ -41,7 +41,7 @@ const char webpage[] PROGMEM = R"=====(
 <div><h2> 
   Distance(cm): <span id="distance">0</span><br>
   </h2>
-  <h2>Car State: <span id="state">NA</span> </h2>
+  <h2>Robot State: <span id="state">NA</span> </h2>
 </div>
 <script>
 function send(motor_cmd) 
