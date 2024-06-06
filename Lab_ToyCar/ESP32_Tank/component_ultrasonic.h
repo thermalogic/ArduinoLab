@@ -1,6 +1,7 @@
 
 /*  
-  MiniCar with ESP32-C3:  Ultrasonic
+  Tank  with ESP32
+    Ultrasonic
 */
 #ifndef UC_H
 #define UC_H
@@ -8,8 +9,8 @@
 #include "component_btn7919.h"
 #include <Arduino.h>
 
-int trigPin = 10; //5;  // Trigger
-int echoPin = 6; //4;  // Echo
+int trigPin = 14;  // Trigger
+int echoPin = 12;  // Echo
 long duration;
 float distance;
 //long mem_distance[5];
