@@ -6,7 +6,7 @@
 #include "component_btn7919.h"
 #include "component_ultrasonic.h"
 #include "component_ssd1306.h"
-#include "component_ir.h"
+//#include "component_ir.h"
 #include "component_servo.h"
 #include "component_dht11.h"
 

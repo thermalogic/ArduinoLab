@@ -5,8 +5,8 @@
  右电机 红线 -> 电机1 out1 线圈侧 -> BTN7919 PMW2 -> GPIO 33 黄色
  右电机 黑线 -> 电机1 out1 开关侧 -> BTN7919 PMW1 -> GPIO 32 绿色
 
- 左电机 红线 -> 电机2 out2 开关侧 -> BTN7919 PMW4 -> GPIO 12 黄色
- 左电机 黑线 -> 电机2 out2 线圈侧 -> BTN7919 PMW3 -> GPIO 14 绿色 
+ 左电机 红线 -> 电机2 out2 开关侧 -> BTN7919 PMW4 -> GPIO 27 黄色
+ 左电机 黑线 -> 电机2 out2 线圈侧 -> BTN7919 PMW3 -> GPIO 26 绿色 
 */
 
 // Motor right
@@ -14,8 +14,8 @@ int motor_right_Pin_Red = 33;   // PMW2 黄色
 int motor_right_Pin_Black = 32;  // PMW1 绿色
 
 // Motor left 
-int motor_left_Pin_Red = 12;   //  PMW4 黄色
-int motor_left_Pin_Black = 14; //  PMW3  绿色
+int motor_left_Pin_Red = 27;   //  PMW4 黄色
+int motor_left_Pin_Black = 26; //  PMW3  绿色
 
 const int resolution = 8;
 
@@ -158,16 +158,16 @@ void car_action(int car_cmd) {
     case DEV_LEFT:
       car_turn_left();
       car_state = DEV_LEFT;
-      delay(100);
-      car_stop();
-      car_state = DEV_STOP;
+      //delay(100);
+      //car_stop();
+      //car_state = DEV_STOP;
       break;
     case DEV_RIGHT:
       car_turn_right();
       car_state = DEV_RIGHT;
-      delay(100);
-      car_stop();
-      car_state = DEV_STOP;
+    //  delay(100);
+    //  car_stop();
+    //  car_state = DEV_STOP;
       break;
     case DEV_BACK:
       car_back();
