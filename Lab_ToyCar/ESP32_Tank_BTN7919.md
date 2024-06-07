@@ -108,7 +108,6 @@ https://madhephaestus.github.io/ESP32Servo/annotated.html
 
 ## LED
 
-10mm Ultra-High Brightness 
 
 ```c
 #define LED_LEFT_PIN 12
@@ -117,6 +116,15 @@ https://madhephaestus.github.io/ESP32Servo/annotated.html
 电阻：820欧，可以降低电阻，增大亮度
 
 * 目前，LED没有使用PMW，所以，只有`亮、灭`2种状态，不能调整亮度和闪烁
+
+* 10mm Ultra-High Brightness Green LED
+
+![](img/10mm-white-led.png)
+
+* 10mm Chrome LED Holder
+
+![](img/10mm-led-holder.png)
+
 
 ## I2C oled  
 
