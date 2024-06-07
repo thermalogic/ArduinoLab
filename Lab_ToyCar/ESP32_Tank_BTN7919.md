@@ -90,18 +90,7 @@ BTN7919B双驱动板是：电源和电机驱动一体板
 
 锂电池：11.4V,4200mAh
 
-## 其他
-
-* DHT11
-* OLED
-
-### DHT11
-
-```c
-#define DHTPIN 15
-```
-
-### I2C oled  
+## I2C oled  
 
 |I2C oled|	ESP32|
 |------|------|
