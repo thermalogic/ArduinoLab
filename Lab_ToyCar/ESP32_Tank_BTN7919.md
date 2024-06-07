@@ -2,6 +2,10 @@
 
 ## 电源问题
 
+锂电池：11.4V,4200mAh
+
+* 现在测量电压7V,下降很多，需要充电
+
 ### 飞思卡尔BTN7919B的5V电源向ESP32供电
 
 * 5V超声模块工作异常
@@ -102,9 +106,6 @@ https://madhephaestus.github.io/ESP32Servo/annotated.html
 | Trig      |  GPIO 18   | 白色 |
 | Echo      |  GPIO 19   | 橙色 |
 
-## 电池
-
-锂电池：11.4V,4200mAh
 
 ## I2C oled  
 
