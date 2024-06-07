@@ -77,52 +77,36 @@ function getData() {
 </html>
 )=====";
 
-void webclient_cmd(String motor_cmd)
-{
+void webclient_cmd(String motor_cmd) {
   int cur_cmd = DEV_STOP;
-  if (motor_cmd.compareTo("G") == 0)
-  {
+  if (motor_cmd.compareTo("G") == 0) {
     cur_cmd = DEV_GO;
-  }
-  else if (motor_cmd.compareTo("B") == 0)
-  {
+  } else if (motor_cmd.compareTo("B") == 0) {
     cur_cmd = DEV_BACK;
-  }
-  else if (motor_cmd.compareTo("L") == 0)
-  {
+  } else if (motor_cmd.compareTo("L") == 0) {
     cur_cmd = DEV_LEFT;
-  }
-  else if (motor_cmd.compareTo("R") == 0)
-  {
+  } else if (motor_cmd.compareTo("R") == 0) {
     cur_cmd = DEV_RIGHT;
-  }
-  else if (motor_cmd.compareTo("S") == 0)
-  {
+  } else if (motor_cmd.compareTo("S") == 0) {
     cur_cmd = DEV_STOP;
-  }
-  else if (motor_cmd.compareTo("C") == 0)
-  {
+  } else if (motor_cmd.compareTo("C") == 0) {
     cur_cmd = DEV_STOP;
     car_action(cur_cmd);
-    ultrasonic_servo_action( SERVO_CLOCKWISE);
-  }
-  else if (motor_cmd.compareTo("A") == 0)
-  {
+    ultrasonic_servo_action(SERVO_CLOCKWISE);
+  } else if (motor_cmd.compareTo("A") == 0) {
     cur_cmd = DEV_STOP;
     car_action(cur_cmd);
-    ultrasonic_servo_action( SERVO_ANTI_CLOCKWISE);
+    ultrasonic_servo_action(SERVO_ANTI_CLOCKWISE);
   };
   car_action(cur_cmd);
 }
 
-void handleRoot()
-{
+void handleRoot() {
   String s = webpage;
   server.send(200, "text/html", s);
 }
 
-void handleMotor()
-{
+void handleMotor() {
   String motor_cmd = server.arg("state");
 
   Serial.println(motor_cmd);
@@ -131,27 +115,21 @@ void handleMotor()
   webclient_cmd(motor_cmd);
 }
 
-void handleSensor()
-{
-  if (data_ready)
-  {
+void handleSensor() {
+  if (data_ready) {
     server.send(200, "text/json", json);
-  }
-  else
-  {
+  } else {
     server.send(503, "text/plane", "none data");
   }
 }
 
-void setup_wifi()
-{
+void setup_wifi() {
   Serial.println();
   Serial.println("Configuring access point...");
 
   // You can remove the password parameter if you want the AP to be open.
   // a valid password must have more than 7 characters
-  if (!WiFi.softAP(ssid, password))
-  {
+  if (!WiFi.softAP(ssid, password)) {
     log_e("Soft AP creation failed.");
     while (1)
       ;
@@ -168,7 +146,6 @@ void setup_wifi()
   Serial.println("Server started");
 }
 
-void loop_wifi()
-{
+void loop_wifi() {
   server.handleClient();
 }

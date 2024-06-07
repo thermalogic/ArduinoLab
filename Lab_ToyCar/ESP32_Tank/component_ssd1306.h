@@ -52,8 +52,6 @@ void  loop_ssd1306()
 {
   tempString  = String(distance,0); // two decimal places
   tempString += "cm";
-
-  Serial.println(tempString);    // print the temperature in Celsius to Serial Monitor
   oledDisplayCenter(tempString); // display temperature on OLED
 }
 

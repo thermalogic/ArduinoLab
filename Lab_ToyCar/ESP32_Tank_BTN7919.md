@@ -1,5 +1,17 @@
 #  基于ESP32和飞思卡尔BTN7919B驱动模块的履带车
 
+## 电源问题
+
+### 飞思卡尔BTN7919B的5V电源向ESP32供电
+
+* 5V超声模块工作异常
+* 启动WIFI，请求服务后，WIFI服务会退出
+
+### Micro USB向ESP32供电
+
+*  WIFI工作正常
+* 5V超声模块正常
+
 ## T200金属履带式坦克底盘
 
 * https://detail.1688.com/offer/571430740572.html
@@ -73,6 +85,10 @@ BTN7919B双驱动板是：电源和电机驱动一体板
 
 超声舵机S90连接到BTN7919B
 
+舵机驱动库： 使用3.0.0， 不能更新到3.0.1
+
+https://madhephaestus.github.io/ESP32Servo/annotated.html
+
 * BTN7919B舵机PWM -> GPIO 15
 
 ![](img/s90_servo.jpg)
@@ -83,8 +99,8 @@ BTN7919B双驱动板是：电源和电机驱动一体板
 
 | HC-SR04    |  MSP32    | 连线 |  
 |-----------|------------|------|
-| Trig      |  GPIO 0   | 白色 |
-| Echo      |  GPIO 4   | 橙色 |
+| Trig      |  GPIO 18   | 白色 |
+| Echo      |  GPIO 19   | 橙色 |
 
 ## 电池
 
