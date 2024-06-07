@@ -9,6 +9,7 @@
 #include <WiFiAP.h>
 #include <WebServer.h>
 #include "component_btn7919.h"
+#include "component_led.h"
 #include "component_servo.h"
 
 // Set these to your desired credentials.
@@ -92,6 +93,7 @@ void webclient_cmd(String motor_cmd) {
   } else if (motor_cmd.compareTo("C") == 0) {
     cur_cmd = DEV_STOP;
     car_action(cur_cmd);
+    led_action(cur_cmd);
     ultrasonic_servo_action(SERVO_CLOCKWISE);
   } else if (motor_cmd.compareTo("A") == 0) {
     cur_cmd = DEV_STOP;
@@ -99,6 +101,7 @@ void webclient_cmd(String motor_cmd) {
     ultrasonic_servo_action(SERVO_ANTI_CLOCKWISE);
   };
   car_action(cur_cmd);
+  led_action(cur_cmd);
 }
 
 void handleRoot() {

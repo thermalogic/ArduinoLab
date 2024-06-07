@@ -106,6 +106,14 @@ https://madhephaestus.github.io/ESP32Servo/annotated.html
 | Trig      |  GPIO 18   | 白色 |
 | Echo      |  GPIO 19   | 橙色 |
 
+## LED
+
+```c
+#define LED_LEFT_PIN 12
+#define LED_RIGHT_PIN 23
+```
+
+* 目前，LED没有使用PMW，所以，只有`亮、灭`2种状态，不能调整亮度和闪烁
 
 ## I2C oled  
 
