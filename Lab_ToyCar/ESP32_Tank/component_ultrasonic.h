@@ -9,8 +9,8 @@
 #include "component_btn7919.h"
 #include <Arduino.h>
 
-int trigPin = 14;  // Trigger
-int echoPin = 12;  // Echo
+int trigPin = 0;  // Trigger
+int echoPin = 4;  // Echo
 long duration;
 float distance;
 //long mem_distance[5];
@@ -64,7 +64,7 @@ void loop_ultrasonic() {
     car_action(cur_cmd);
   }
 
-  //Serial.print(distance);
- // Serial.println(F("cm"));
+  Serial.print(distance);
+  Serial.println(F("cm"));
   }
 #endif /* UC_H */
