@@ -11,7 +11,7 @@
 #define LED_LEFT_PIN 12
 #define LED_RIGHT_PIN 23
 
-int led_brightness;        // how bright the LED is ,fade for STOP
+// int led_brightness;        // how bright the LED is ,fade for STOP
 long previousMillis_blink; // for led blink
 const int interval_blink = 200;
 int led_left_cur_action, led_right_cur_action; // led_cur_action used to set the LED
@@ -54,11 +54,6 @@ void setup_led()
 
 void led_action(int cur_cmd)
 {
-  // if (cur_cmd ==  DEV_BACK)
-  // {
-  //   led_blink();
-  // };
-
   switch (cur_cmd)
   {
   case DEV_GO:
@@ -74,20 +69,16 @@ void led_action(int cur_cmd)
     digitalWrite(LED_RIGHT_PIN, HIGH);
     break;
   case DEV_BACK:
-    digitalWrite(LED_LEFT_PIN, HIGH);
-    digitalWrite(LED_RIGHT_PIN, HIGH);
-    //
-    // previousMillis_blink = 0;
-    // led_left_cur_action = LOW;
-    // led_right_cur_action = LOW;
-    // digitalWrite(LED_LEFT_PIN, led_left_cur_action);
-    // digitalWrite(LED_RIGHT_PIN, led_right_cur_action);
+    previousMillis_blink = 0;
+    led_left_cur_action = LOW;
+    led_right_cur_action = LOW;
+    digitalWrite(LED_LEFT_PIN, led_left_cur_action);
+    digitalWrite(LED_RIGHT_PIN, led_right_cur_action);
     break;
   case DEV_STOP:
-    led_brightness = 20;
+    // led_brightness = 20;
     digitalWrite(LED_LEFT_PIN, HIGH);
     digitalWrite(LED_RIGHT_PIN, HIGH);
-
     // digitalWrite(LED_LEFT_PIN, LOW);
     // digitalWrite(LED_RIGHT_PIN, LOW);
     //  analogWrite(LED_LEFT_PIN, led_brightness);
@@ -100,7 +91,10 @@ void led_action(int cur_cmd)
 
 void loop_led()
 {
-  led_action(car_state);
+  if (car_state == DEV_BACK)
+  {
+    led_blink();
+  };
 }
 
 #endif /* LED_H */
