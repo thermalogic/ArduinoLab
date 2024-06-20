@@ -54,7 +54,6 @@ Radio-frequency (RF) remote controls are very common. Garage-door openers, car-a
 
 They’re still pretty rare in home-theater devices,but you will find RF remotes controlling certain satellite-TV receivers and high-end stereo systems. Instead of sending out light signals, an RF remote transmits radio waves that correspond to the binary command for the button you’re pushing. A radio receiver on the micro -controller (in our case Arduino) receives the signal and decodes it. The greatest advantage to radio-frequency remotes is their range: They can transmit up to 30 meters from the receiver, and Infra-red signals can go through walls. This is why you’ll now find IR/RF remotes for home-theater components. These remotes use RF-to-IR converters to extend the range of an infrared remote
 
-
 ![](img/xd-yd04-suit.jpg)
 
 The remote has 4 buttons which corresponds to 4 pins on the receiver.  The RF module uses the `SC2272-M4`, which is the `momentary` version, so the pin will stay `HIGH` as long as we `hold down` the button.
