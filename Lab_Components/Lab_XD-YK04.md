@@ -57,7 +57,15 @@ They’re still pretty rare in home-theater devices,but you will find RF remotes
 
 ![](img/xd-yd04-suit.jpg)
 
-The remote has 4 buttons which corresponds to 4 pins on the receiver.  The RF module uses the SC2272-M4, which is the momentary version, so the pin will stay HIGH as long as we hold down the button. To use this device we don’t need any special library. You will need the following:
+The remote has 4 buttons which corresponds to 4 pins on the receiver.  The RF module uses the `SC2272-M4`, which is the `momentary` version, so the pin will stay `HIGH` as long as we `hold down` the button.
+
+工作模式三种
+
+* 点动: 芯片`SC2272-M4`： the `momentary` version
+* 自锁：芯片`SC2272-L4`
+* 互锁：芯片`SC2272-T4`
+
+To use this device we don’t need any special library. You will need the following:
 
 * Arduino Uno
 * RF receiver
@@ -82,10 +90,10 @@ Something to note is that the `S (VT)` is not connected because it goes high whe
 ```c
 /*
 
-pin 9 -> D0 - A
-pin 10 ->D1 - B
+pin 9 ->  D0 - A
+pin 10 -> D1 - B
 pin 11 -> D2 - C
-pin 12 ->D3 - D 
+pin 12 -> D3 - D 
 */
 
 void setup() {
