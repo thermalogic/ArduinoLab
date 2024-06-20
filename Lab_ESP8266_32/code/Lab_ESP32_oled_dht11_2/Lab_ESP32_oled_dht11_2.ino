@@ -115,7 +115,7 @@ void setup() {
   }
   // Clear the buffer
   display.clearDisplay();
-  printText();
+  //printText();
   delay(1000);
 }
 
@@ -127,6 +127,9 @@ void loop() {
     Serial.println("Failed to read from DHT sensor!");
     return;
   }
+
+  Serial.println(h);
+  Serial.println(t);
 
   showBitmap();
   printText();

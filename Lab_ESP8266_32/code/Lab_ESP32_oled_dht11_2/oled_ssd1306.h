@@ -105,7 +105,7 @@ void setup_oled() {
   }
   // Clear the buffer
   display.clearDisplay();
-  printText();
+//  printText();
   delay(1000);
 }
 

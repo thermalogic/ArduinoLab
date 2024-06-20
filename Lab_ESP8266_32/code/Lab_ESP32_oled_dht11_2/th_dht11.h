@@ -4,7 +4,7 @@
 
 #include "DHT.h"
 
-#define DHTPIN 13
+#define DHTPIN 15
 #define DHTTYPE DHT11  // DHT 11
 
 DHT dht(DHTPIN, DHTTYPE);
@@ -12,11 +12,11 @@ int h;
 int t;
 
 
-void setup() {
+void setup_dht11() {
   dht.begin();
 }
 
-void loop() {
+void loop_dht11() {
   
   h = dht.readHumidity();
   t = dht.readTemperature();
