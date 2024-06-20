@@ -61,7 +61,7 @@ The remote has 4 buttons which corresponds to 4 pins on the receiver.  The RF mo
 
 工作模式三种
 
-* 点动: 芯片`SC2272-M4`： the `momentary` version
+* 点动: 芯片`SC2272-M4`： the `momentary` version - 瞬时版本
 * 自锁：芯片`SC2272-L4`
 * 互锁：芯片`SC2272-T4`
 
