@@ -48,5 +48,8 @@ The `SCL, SDA, VCC, and GND` pins at the right side of the module are connected 
  
 使用该库的examples测试！ OK！
 
-
 ![](img/arduino-ds3231-real-time-clock-wiring-diagram)
+
+### 串口更新时间示例
+
+* https://www.circuitbasics.com/how-to-use-a-real-time-clock-module-with-the-arduino/
