@@ -58,7 +58,7 @@ PIN（引脚）	名称	说明
 
 1. DFRobot示例简单
 2. Adafruit示例更全面
-3. Rob Tillaart示例类型都，可以自动检测传感器类型
+3. Rob Tillaart示例类型多，可以自动检测传感器类型
 
 ![](img/components/DHT11/install_dht11_lib-DFRobot.jpg)
 
