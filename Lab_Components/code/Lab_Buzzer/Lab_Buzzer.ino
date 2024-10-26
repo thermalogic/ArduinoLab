@@ -5,7 +5,8 @@
 //Email: info@primerobotics.in
 //Website: www.rimerobotics.in
 /************************************/
-int buzzer = 12;//the pin of the active buzzer
+int buzzer = 11;//the pin of the active buzzer
+
 void setup()
 {
   pinMode(buzzer,OUTPUT);//initialize the buzzer pin as an output
