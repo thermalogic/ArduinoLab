@@ -18,7 +18,7 @@ void setup_dht11() {
 }
 
 void dht11_on() {
-  Humidity = dht.readHumidity()+15.0;
+  Humidity = dht.readHumidity() + 15.0;
   Temperature = dht.readTemperature();
 
   Serial.print(F("Humidity: "));
