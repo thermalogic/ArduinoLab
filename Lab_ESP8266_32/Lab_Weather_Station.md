@@ -1,10 +1,35 @@
 # ESP32气象站
 
-## How to use ArduinoJson with HTTPClient?
+*  本地DHT11测量温湿度
+*  网络天气数据
+
+## 元件
+
+* 自制ESP32开发板
+* 0.96 oled蓝色(板载)
+* 温湿度:DHT11(板载)
+
+### ESP32 
+
+![](img/esp32_pinout.jpg)
+
+* 4,5,13,14,16-33 input/output 都可用, 其他有特定用途，
+
+如: 2 connected to on-board LED, `must be left floating or LOW to enter flashing mode`
+
+###  DHT11
+```c
+#define DHTPIN 15
+```
+
+![](img/dht11-shield-3pin.jpg)
+
+##  网络天气数据
+
+### How to use ArduinoJson with HTTPClient?
 
 * https://arduinojson.org/v6/how-to/use-arduinojson-with-httpclient/
 
-## 天气数据
 
 高德地图天气 API 免费版可用资源
 
@@ -133,9 +158,9 @@ extensions: 气象类型, 可选值：base/all, base:返回实况天气; all:返
 }
 ```
 
-##  其他参考天气
+###  其他参考天气
 
-### 和风天气
+#### 和风天气
 
 已经要求付费，请求返回：`402` Payment Required
 
@@ -178,7 +203,7 @@ extensions: 气象类型, 可选值：base/all, base:返回实况天气; all:返
 }
 ```
 
-###  OpenWeather weather data
+####  OpenWeather weather data
 
 * https://www.makerguides.com/simple-esp32-internet-weather-station/
 

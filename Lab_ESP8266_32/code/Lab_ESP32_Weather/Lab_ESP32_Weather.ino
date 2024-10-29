@@ -2,11 +2,16 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 #include "ArduinoJson.h"
+#include "component_dht11.h"
 
 //高德 - lives
 String weatherURL = "https://restapi.amap.com/v3/weather/weatherInfo?key=d4aa79aeab835f56274c27742bb731cc&city=320100&extensions=base";
 StaticJsonDocument<4096> doc;
 HTTPClient http;
+
+long previousMillis_weather;
+const int interval_weather = 6000;
+
 
 void getWeatherData() {
   // Serial.println(weatherURL);   // URL
@@ -53,7 +58,7 @@ void WiFi_Connect() {
 }
 
 void setup() {
-  Serial.begin(9600);  // open the serial port at 115200 bps;
+  Serial.begin(115200);
   delay(100);
   Serial.print("Connecting.. ");
 
@@ -62,10 +67,18 @@ void setup() {
   Serial.println("WiFi connected");
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
+
+  previousMillis_weather = 0;
+
+  setup_dht11();
   delay(2000);
 }
 
 void loop() {
-  getWeatherData();
-  delay(2000);
+  unsigned long currentMillis = millis();
+  if (currentMillis - previousMillis_weather >= interval_weather) {
+    previousMillis_weather = currentMillis;  // Remember the time
+    getWeatherData();
+  };
+  loop_dht11();
 }
