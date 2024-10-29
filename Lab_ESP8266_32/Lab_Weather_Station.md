@@ -13,27 +13,52 @@
 
 * https://restapi.amap.com/v3/weather/weatherInfo?key=d4aa79aeab835f56274c27742bb731cc&city=320100&extensions=all
 
+extensions: 气象类型, 可选值：base/all
+
+* base:返回实况天气
+* all:返回预报天气
+
+* base:返回实况天气
 ```c
-    String weatherinfo = http.getString();  // get the weather info
-    // Parse JSON
-    DeserializationError err = deserializeJson(doc, weatherinfo);
-    if (err == DeserializationError::Ok) {
-      // Extract weather information
+  String weather = doc["lives"][0]["weather"];
+  int temperature = doc["lives"][0]["temperature"];
+  int humidity = doc["lives"][0]["humidity"];
+  String winddirection = doc["lives"][0]["winddirection"];
+  String windpower= doc["lives"][0]["windpower"];
+```
+```json
+{
+    "status": "1",
+    "count": "1",
+    "info": "OK",
+    "infocode": "10000",
+    "lives": [
+        {
+            "province": "江苏",
+            "city": "南京市",
+            "adcode": "320100",
+            "weather": "多云",
+            "temperature": "13",
+            "winddirection": "北",
+            "windpower": "≤3",
+            "humidity": "75",
+            "reporttime": "2024-10-29 20:01:42",
+            "temperature_float": "13.0",
+            "humidity_float": "75.0"
+        }
+    ]
+}
+```
+
+* all:返回预报天气
+
+```c
+ // Extract weather information
       String date = doc["forecasts"][0]["casts"][0]["date"];
       String week = doc["forecasts"][0]["casts"][0]["week"];
       String dayweather = doc["forecasts"][0]["casts"][0]["dayweather"];
       float temperature = doc["forecasts"][0]["casts"][0]["daytemp"];
-      
-      // Print weather information
-      Serial.printf("date: %s \r\n", date);
-      Serial.printf("week: %s \r\n", week);
-      Serial.printf("day weather: %s \r\n", dayweather);
-      Serial.printf("temperature: %f \r\n", temperature);
-      
-   }
 ```
-
-
 ```json
 {
     "status": "1",

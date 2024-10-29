@@ -3,14 +3,13 @@
 #include <HTTPClient.h>
 #include "ArduinoJson.h"
 
-//高德
-String weatherURL = "https://restapi.amap.com/v3/weather/weatherInfo?key=d4aa79aeab835f56274c27742bb731cc&city=320100&extensions=all";
+//高德 - lives
+String weatherURL = "https://restapi.amap.com/v3/weather/weatherInfo?key=d4aa79aeab835f56274c27742bb731cc&city=320100&extensions=base";
 
 // DynamicJsonDocument doc(1024);
 StaticJsonDocument<4096> doc;
 
 HTTPClient http;
-WiFiClient client;
 
 void getWeatherData() {
   // Serial.println(weatherURL);   // URL
@@ -19,22 +18,23 @@ void getWeatherData() {
   if (httpCode > 0) {
     Serial.printf("HTTP Get Code: %d\r\n", httpCode);
     String weatherinfo = http.getString();  // get the weather info
-    // Serial.print(weatherinfo);
+    //Serial.print(weatherinfo);
 
     // Parse JSON
     DeserializationError err = deserializeJson(doc, weatherinfo);
     if (err == DeserializationError::Ok) {
       // Extract weather information
-      String date = doc["forecasts"][0]["casts"][0]["date"];
-      String week = doc["forecasts"][0]["casts"][0]["week"];
-      String dayweather = doc["forecasts"][0]["casts"][0]["dayweather"];
-      float temperature = doc["forecasts"][0]["casts"][0]["daytemp"];
-      
+      String weather = doc["lives"][0]["weather"];
+      int temperature = doc["lives"][0]["temperature"];
+      int humidity = doc["lives"][0]["humidity"];
+      String winddirection = doc["lives"][0]["winddirection"];
+      String windpower= doc["lives"][0]["windpower"];
       // Print weather information
-      Serial.printf("date: %s \r\n", date);
-      Serial.printf("week: %s \r\n", week);
-      Serial.printf("day weather: %s \r\n", dayweather);
-      Serial.printf("temperature: %f \r\n", temperature);
+      Serial.printf("weather: %s \r\n", weather);
+      Serial.printf("temperature: %d \r\n", temperature);
+      Serial.printf("humidity: %d \r\n",  humidity);
+      Serial.printf("wind direction: %s \r\n",  winddirection);
+      Serial.printf("wind power: %s \r\n",  windpower);
       Serial.printf("\r\n");
     } else {
       Serial.printf("Deserializion error: %s\n", err.f_str());
