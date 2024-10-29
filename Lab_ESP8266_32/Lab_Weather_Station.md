@@ -13,12 +13,10 @@
 
 * https://restapi.amap.com/v3/weather/weatherInfo?key=d4aa79aeab835f56274c27742bb731cc&city=320100&extensions=all
 
-extensions: 气象类型, 可选值：base/all
+extensions: 气象类型, 可选值：base/all, base:返回实况天气; all:返回预报天气
 
 * base:返回实况天气
-* all:返回预报天气
 
-* base:返回实况天气
 ```c
   String weather = doc["lives"][0]["weather"];
   int temperature = doc["lives"][0]["temperature"];
@@ -26,6 +24,7 @@ extensions: 气象类型, 可选值：base/all
   String winddirection = doc["lives"][0]["winddirection"];
   String windpower= doc["lives"][0]["windpower"];
 ```
+
 ```json
 {
     "status": "1",

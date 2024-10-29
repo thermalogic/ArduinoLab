@@ -5,10 +5,7 @@
 
 //高德 - lives
 String weatherURL = "https://restapi.amap.com/v3/weather/weatherInfo?key=d4aa79aeab835f56274c27742bb731cc&city=320100&extensions=base";
-
-// DynamicJsonDocument doc(1024);
 StaticJsonDocument<4096> doc;
-
 HTTPClient http;
 
 void getWeatherData() {
@@ -16,7 +13,7 @@ void getWeatherData() {
   http.begin(weatherURL);     // HTTP begin
   int httpCode = http.GET();  // Make the request
   if (httpCode > 0) {
-    Serial.printf("HTTP Get Code: %d\r\n", httpCode);
+    //Serial.printf("HTTP Get Code: %d\r\n", httpCode);
     String weatherinfo = http.getString();  // get the weather info
     //Serial.print(weatherinfo);
 
@@ -28,13 +25,13 @@ void getWeatherData() {
       int temperature = doc["lives"][0]["temperature"];
       int humidity = doc["lives"][0]["humidity"];
       String winddirection = doc["lives"][0]["winddirection"];
-      String windpower= doc["lives"][0]["windpower"];
+      String windpower = doc["lives"][0]["windpower"];
       // Print weather information
       Serial.printf("weather: %s \r\n", weather);
       Serial.printf("temperature: %d \r\n", temperature);
-      Serial.printf("humidity: %d \r\n",  humidity);
-      Serial.printf("wind direction: %s \r\n",  winddirection);
-      Serial.printf("wind power: %s \r\n",  windpower);
+      Serial.printf("humidity: %d \r\n", humidity);
+      Serial.printf("wind direction: %s \r\n", winddirection);
+      Serial.printf("wind power: %s \r\n", windpower);
       Serial.printf("\r\n");
     } else {
       Serial.printf("Deserializion error: %s\n", err.f_str());
