@@ -69,7 +69,7 @@ static const int clockPin = 32;  // E
 
 **备注**
 
-测试U8glib库，可以编译上载，单不显示
+测试U8glib库，可以编译上载，但不显示
 
 ```c
 // SPI Com: SCK = en =32, MOSI = rw = 33, CS = di = 25

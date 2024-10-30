@@ -8,30 +8,31 @@
 #include "component_dht11.h"
 #include "component_lcd12864.h"
 
-
-
 WiFiUDP ntpUDP;
 // NTPClient(UDP& udp, const char* poolServerName, long timeOffset, unsigned long updateInterval);
 NTPClient timeClient(ntpUDP, "europe.pool.ntp.org", 28800, 60000);
 ESP32Time rtc(0);
 
-//高德 - lives
+// 高德 - lives
 String weatherURL = "https://restapi.amap.com/v3/weather/weatherInfo?key=d4aa79aeab835f56274c27742bb731cc&city=320100&extensions=base";
 StaticJsonDocument<4096> doc;
 HTTPClient http;
 
-void getWeatherData() {
+void getWeatherData()
+{
   // Serial.println(weatherURL);   // URL
-  http.begin(weatherURL);     // HTTP begin
-  int httpCode = http.GET();  // Make the request
-  if (httpCode > 0) {
-    //Serial.printf("HTTP Get Code: %d\r\n", httpCode);
-    String weatherinfo = http.getString();  // get the weather info
-    //Serial.print(weatherinfo);
+  http.begin(weatherURL);    // HTTP begin
+  int httpCode = http.GET(); // Make the request
+  if (httpCode > 0)
+  {
+    // Serial.printf("HTTP Get Code: %d\r\n", httpCode);
+    String weatherinfo = http.getString(); // get the weather info
+    // Serial.print(weatherinfo);
 
     // Parse JSON
     DeserializationError err = deserializeJson(doc, weatherinfo);
-    if (err == DeserializationError::Ok) {
+    if (err == DeserializationError::Ok)
+    {
       // Extract weather information
       String weather = doc["lives"][0]["weather"];
       int temperature = doc["lives"][0]["temperature"];
@@ -48,34 +49,40 @@ void getWeatherData() {
       Serial.printf("reporttime: %s \r\n", reporttime);
       Serial.printf("\r\n");
       // LCD Display
-      //LCDA.DisplayString(0,2, (unsigned char *)reporttime.c_str(), 10);
+      // LCDA.DisplayString(0,2, (unsigned char *)reporttime.c_str(), 10);
       char strTemperature[5];
       char strhumidity[5];
-      dtostrf(temperature, 5, 2, strTemperature);   
-      LCDA.DisplayString(2, 4, (unsigned char *)strTemperature, 2);  // Display humidity data
-      dtostrf(humidity, 5, 2, strhumidity);                          // Converts a floating-point number to a string
-      LCDA.DisplayString(2, 6, (unsigned char *)strhumidity, 2);     // Display humidity data
-    } else {
+      dtostrf(temperature, 5, 2, strTemperature);
+      LCDA.DisplayString(2, 4, (unsigned char *)strTemperature, 2); // Display humidity data
+      dtostrf(humidity, 5, 2, strhumidity);                         // Converts a floating-point number to a string
+      LCDA.DisplayString(2, 6, (unsigned char *)strhumidity, 2);    // Display humidity data
+    }
+    else
+    {
       Serial.printf("Deserializion error: %s\n", err.f_str());
     }
-  } else {
+  }
+  else
+  {
     Serial.printf("HTTP request failed with error code %d\n", httpCode);
   }
-  http.end();  // Close connection
+  http.end(); // Close connection
 }
 
-
-void WiFi_Connect() {
-  const char *ssid = "TP-LINK_3DB3";     // type your ssid
-  const char *password = "chengmaohua";  // type your password
+void WiFi_Connect()
+{
+  const char *ssid = "TP-LINK_3DB3";    // type your ssid
+  const char *password = "chengmaohua"; // type your password
   WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {  // 这里是阻塞程序，直到连接成功
+  while (WiFi.status() != WL_CONNECTED)
+  { // 这里是阻塞程序，直到连接成功
     delay(300);
     Serial.print(".");
   }
 }
 
-void setup() {
+void setup()
+{
   Serial.begin(115200);
   delay(100);
   Serial.print("Connecting.. ");
@@ -89,20 +96,21 @@ void setup() {
   setup_dht11();
   setup_lcd12864();
   getWeatherData();
- 
+
   timeClient.begin();
 }
 
-void loop() {
+void loop()
+{
   getWeatherData();
 
   loop_dht11();
   loop_lcd12864();
 
   timeClient.update();
-  unsigned long epochTime=timeClient.getEpochTime();
+  unsigned long epochTime = timeClient.getEpochTime();
   rtc.setTime(epochTime);
-  LCDA.DisplayString(0, 2, (unsigned char *)rtc.getTime("%Y-%m-%d").c_str(),10);
-  LCDA.DisplayString(3, 2, (unsigned char *)rtc.getTime("%H:%M:%S").c_str(), 8); 
+  LCDA.DisplayString(0, 2, (unsigned char *)rtc.getTime("%Y-%m-%d").c_str(), 10);
+  LCDA.DisplayString(3, 2, (unsigned char *)rtc.getTime("%H:%M:%S").c_str(), 8);
   delay(1000);
 }
