@@ -9,8 +9,10 @@
 #include "component_lcd12864.h"
 
 WiFiUDP ntpUDP;
+
 // NTPClient(UDP& udp, const char* poolServerName, long timeOffset, unsigned long updateInterval);
 NTPClient timeClient(ntpUDP, "europe.pool.ntp.org", 28800, 60000);
+
 unsigned long epochTime;
 ESP32Time rtc(0);
 
@@ -113,5 +115,5 @@ void loop() {
     previousMillis_weather = currentMillis;  // Remember the time
     getWeatherData();
   };
-  delay(500);
+  delay(1000);
 }

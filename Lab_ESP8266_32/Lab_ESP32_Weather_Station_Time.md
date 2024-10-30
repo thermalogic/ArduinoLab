@@ -1,7 +1,7 @@
 # ESP32气象站
 
 *  本地DHT11测量温湿度
-*  网络时间
+*  NTP时间
 *  网络天气数据
 
 
@@ -76,12 +76,16 @@ static const int clockPin = 32;  // E
 U8GLIB_ST7920_128X64_1X u8g(32, 33, 25);	
 //U8GLIB_ST7920_128X64_4X u8g(32, 33, 25);	
 ```
-## 网络时间
+## 使用NTP获取当前时间
+
+NTP（Network Time Protocol，网络时间协议）
 
 * WiFiUdp.h
 
 * NTPClient库，获取网络时间
    * https://github.com/arduino-libraries/NTPClient/
+
+*  `测试无效：`阿里云的NTP服务器地址通常为：time.aliyun.com或time.aliyuncs.com，端口通常为123。
 
 * ESP32Time库，转换EpochTime到年月日，时分秒
    * https://github.com/fbiego/ESP32Time
