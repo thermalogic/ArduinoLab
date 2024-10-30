@@ -4,6 +4,7 @@
 
 #include "DHT.h"
 #include <Wire.h>
+#include "component_lcd12864.h"
 
 #define DHTPIN 15
 #define DHTTYPE DHT11
@@ -43,6 +44,12 @@ void loop_dht11() {
   if (currentMillis - previousMillis_dht11 >= interval_dht11) {
     previousMillis_dht11 = currentMillis;  // Remember the time
     dht11_on();
+    char strTemperature[4];
+    char strhumidity[4];
+    dtostrf(Temperature, 4, 2, strTemperature);                    // Converts a floating-point number to a string
+    LCDA.DisplayString(1, 4, (unsigned char *)strTemperature, 2);  // Display humidity data
+    dtostrf(Humidity, 4, 2, strhumidity);                          // Converts a floating-point number to a string
+    LCDA.DisplayString(1, 6, (unsigned char *)strhumidity, 2);     // Display humidity data
   };
 }
 #endif /* TH_H */
