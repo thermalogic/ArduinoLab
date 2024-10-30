@@ -23,6 +23,8 @@
 
 ###  LM2577升压模块
 
+Boosts a 3.7V input up to a 5V
+
 ![](img/LM2577.jpg)
 
 ###  DHT11
