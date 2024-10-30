@@ -6,8 +6,10 @@
 ## 元件
 
 * 自制ESP32开发板
-* 0.96 oled蓝色(板载)
+* LCD 12864
 * 温湿度:DHT11(板载)
+* 升压模块：3.7到5V
+* 1节18650锂电池
 
 ### ESP32 
 
@@ -24,6 +26,39 @@
 
 ![](img/dht11-shield-3pin.jpg)
 
+
+## LCD12864 
+
+![](img/12864/12864.jpg)
+
+SPI12864 SPI communication timing diagram
+
+![](img/components/12864/12864_timer.png)
+
+## LCD12864
+
+
+```c
+static const int latchPin = 8; 
+static const int clockPin = 3;  
+static const int dataPin = 9;  
+```
+
+| LCD12864 | ESP32  |
+|----------|----------|
+|  Vss	   |  GND     |
+|  Vdd	   |  +5V     |
+|  RS	     |  25       |   
+|  R/W	   |  33	      | 
+|  E       |	32       |
+|  PSB     |	GND     |
+|  BLA     |	+5V     |
+|  BLK     |	GND     |
+```c
+static const int latchPin = 25;  // RS
+static const int clockPin = 32;  // E
+static const int dataPin = 33;   // R/W
+```
 ##  网络天气数据
 
 ### How to use ArduinoJson with HTTPClient?
