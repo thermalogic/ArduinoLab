@@ -34,21 +34,27 @@
 SPI12864 SPI communication
 
 ```c
-static const int latchPin = 8; 
-static const int clockPin = 3;  
-static const int dataPin = 9;  
+static const int latchPin = 25;  // RS
+static const int clockPin = 32;  // E
+static const int dataPin = 33;   // R/W
 ```
 
-| LCD12864 | ESP32  |
-|----------|----------|
-|  Vss	   |  GND     |
-|  Vdd	   |  +5V     |
-|  RS	     |  25       |   
-|  R/W	   |  33	      | 
-|  E       |	32       |
-|  PSB     |	GND     |
-|  BLA     |	+5V     |
-|  BLK     |	GND     |
+*  RS(CS)	-  H/L并行的指令/数据选择信号；串行的片选信号  
+*  R/W(SID) -   H/L并行的读写选择信号; 串行的数据口   
+*  E(CLK)-    H/L并行的使能;  串行的同步时钟
+
+*  PSB -  H/L并/串行的接口选择; H-并行,L -串行
+
+| LCD12864   | ESP32  |
+|------------|----------|
+|  VSS	     |  GND     |
+|  VDD	     |  +5V     |
+|  RS(CS)    |  25       |   
+|  R/W(SID)  |  33	      | 
+|  E(CLK)    |  32       |
+|  PSB       |	GND     |
+|  BLA       |	+5V     |
+|  BLK       |	GND     |
 
 
 ### 库
