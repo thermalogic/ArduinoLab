@@ -1,7 +1,9 @@
 # ESP32气象站
 
 *  本地DHT11测量温湿度
+*  网络时间
 *  网络天气数据
+
 
 ## 元件
 
@@ -73,6 +75,31 @@ static const int clockPin = 32;  // E
 // SPI Com: SCK = en =32, MOSI = rw = 33, CS = di = 25
 U8GLIB_ST7920_128X64_1X u8g(32, 33, 25);	
 //U8GLIB_ST7920_128X64_4X u8g(32, 33, 25);	
+```
+## 网络时间
+
+* WiFiUdp.h
+
+* NTPClient库，获取网络时间
+   * https://github.com/arduino-libraries/NTPClient/
+
+* ESP32Time库，转换EpochTime到年月日，时分秒
+   * https://github.com/fbiego/ESP32Time
+
+```c
+  WiFiUDP ntpUDP;
+  // NTPClient(UDP& udp, const char* poolServerName, long timeOffset, unsigned long updateInterval);
+  NTPClient timeClient(ntpUDP, "europe.pool.ntp.org", 28800, 60000);
+  ESP32Time rtc(0);
+
+  timeClient.begin();
+
+  timeClient.update();
+  unsigned long epochTime=timeClient.getEpochTime(); //return time in seconds since Jan. 1, 1970
+  rtc.setTime(epochTime);
+  
+  LCDA.DisplayString(0, 2, (unsigned char *)rtc.getTime("%Y-%m-%d").c_str(),10);
+  LCDA.DisplayString(3, 2, (unsigned char *)rtc.getTime("%H:%M:%S").c_str(), 8); 
 ```
 
 ##  网络天气数据
