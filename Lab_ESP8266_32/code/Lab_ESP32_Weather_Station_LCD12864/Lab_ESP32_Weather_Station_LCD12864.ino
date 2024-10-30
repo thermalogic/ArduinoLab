@@ -39,7 +39,12 @@ void getWeatherData() {
       Serial.printf("\r\n");
       // LCD Display
       LCDA.DisplayString(0, 2, (unsigned char *)reporttime.c_str(), 10);
-      LCDA.DisplayString(3,6, (unsigned char *)windpower.c_str(), 3);
+      char strTemperature[5];
+      char strhumidity[5];
+      dtostrf(temperature, 5, 2, strTemperature);   
+      LCDA.DisplayString(3, 3, (unsigned char *)strTemperature, 2);  // Display humidity data
+      dtostrf(humidity, 5, 2, strhumidity);                          // Converts a floating-point number to a string
+      LCDA.DisplayString(3, 5, (unsigned char *)strhumidity, 2);     // Display humidity data
     } else {
       Serial.printf("Deserializion error: %s\n", err.f_str());
     }
