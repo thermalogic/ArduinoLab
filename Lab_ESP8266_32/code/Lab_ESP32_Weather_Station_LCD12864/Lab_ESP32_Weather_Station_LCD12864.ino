@@ -84,5 +84,5 @@ void loop() {
   getWeatherData();
   loop_dht11();
   loop_lcd12864();
-  delay(1000);
+  delay(2000);
 }

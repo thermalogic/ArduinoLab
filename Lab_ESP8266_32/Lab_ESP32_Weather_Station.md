@@ -38,8 +38,8 @@ SPI12864 SPI communication
 
 ```c
 static const int latchPin = 25;  // RS
-static const int clockPin = 32;  // E
 static const int dataPin = 33;   // R/W
+static const int clockPin = 32;  // E
 ```
 
 *  RS(CS)	-  H/L并行的指令/数据选择信号；串行的片选信号  
