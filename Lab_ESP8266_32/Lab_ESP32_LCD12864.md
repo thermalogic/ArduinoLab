@@ -52,6 +52,11 @@ We provide the `AdeeptLCD12864RSPI` library which is easy to control with the LC
 
 * https://www.adeept.com/blog/wp-content/uploads/2018/08/AdeeptLCD12864RSPI.zip
 
+本例使用`AdeeptLCD12864RSPI`
+
+另有使用：`U8g2` library V2.27.6 By Oliver.
+
+*  https://www.instructables.com/ST7920-128X64-LCD-Display-to-ESP32/
 ## 问题12864ZW不能调对比度
 
 `电位器连接连接VO，但是，不能调对比度？`

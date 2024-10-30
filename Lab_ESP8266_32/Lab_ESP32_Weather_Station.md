@@ -50,6 +50,15 @@ static const int dataPin = 9;
 |  BLA     |	+5V     |
 |  BLK     |	GND     |
 
+
+### 库
+
+本例使用`AdeeptLCD12864RSPI`
+
+另有使用：`U8g2` library V2.27.6 By Oliver.
+
+*  https://www.instructables.com/ST7920-128X64-LCD-Display-to-ESP32/
+
 ##  网络天气数据
 
 ### How to use ArduinoJson with HTTPClient?
