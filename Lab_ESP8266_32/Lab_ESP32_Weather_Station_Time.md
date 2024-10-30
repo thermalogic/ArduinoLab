@@ -21,6 +21,10 @@
 
 如: 2 connected to on-board LED, `must be left floating or LOW to enter flashing mode`
 
+###  LM2577升压模块
+
+![](img/LM2577.jpg)
+
 ###  DHT11
 ```c
 #define DHTPIN 15
