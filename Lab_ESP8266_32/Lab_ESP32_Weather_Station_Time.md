@@ -1,25 +1,31 @@
 # ESP32气象站
 
-*  本地DHT11测量温湿度
+*  DHT11测量温湿度
 *  NTP时间
 *  网络天气数据
 
+![](img/weather_time.jpg)
 
 ## 元件
 
 * 自制ESP32开发板
-* LCD 12864
-* 温湿度:DHT11(板载)
-* 升压模块：3.7到5V
+* LCD 12864显示屏
+* DHT11温湿度传感器
+* LM2577升压模块
 * 1节18650锂电池
+* 舵机U型梁
 
 ### ESP32 
 
-![](img/esp32_pinout.jpg)
+自制ESP32开发板
+
+![](img/esp32_board.jpg)
 
 * 4,5,13,14,16-33 input/output 都可用, 其他有特定用途，
 
 如: 2 connected to on-board LED, `must be left floating or LOW to enter flashing mode`
+![](img/esp32_pinout.jpg)
+
 
 ###  LM2577升压模块
 
