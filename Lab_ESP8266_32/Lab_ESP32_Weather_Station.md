@@ -27,16 +27,11 @@
 ![](img/dht11-shield-3pin.jpg)
 
 
-## LCD12864 
+## LCD12864
 
 ![](img/12864/12864.jpg)
 
-SPI12864 SPI communication timing diagram
-
-![](img/components/12864/12864_timer.png)
-
-## LCD12864
-
+SPI12864 SPI communication
 
 ```c
 static const int latchPin = 8; 
@@ -54,11 +49,7 @@ static const int dataPin = 9;
 |  PSB     |	GND     |
 |  BLA     |	+5V     |
 |  BLK     |	GND     |
-```c
-static const int latchPin = 25;  // RS
-static const int clockPin = 32;  // E
-static const int dataPin = 33;   // R/W
-```
+
 ##  网络天气数据
 
 ### How to use ArduinoJson with HTTPClient?
