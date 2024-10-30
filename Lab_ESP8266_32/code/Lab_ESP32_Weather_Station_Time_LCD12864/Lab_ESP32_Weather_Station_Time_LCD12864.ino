@@ -93,24 +93,24 @@ void setup()
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
 
-  setup_dht11();
-  setup_lcd12864();
-  getWeatherData();
-
   timeClient.begin();
+ 
+  setup_lcd12864();
+  setup_dht11();
+
+  getWeatherData();
 }
 
 void loop()
 {
-  getWeatherData();
-
-  loop_dht11();
-  loop_lcd12864();
-
   timeClient.update();
   unsigned long epochTime = timeClient.getEpochTime();
   rtc.setTime(epochTime);
-  LCDA.DisplayString(0, 2, (unsigned char *)rtc.getTime("%Y-%m-%d").c_str(), 10);
+  LCDA.DisplayString(0, 1, (unsigned char *)rtc.getTime(" %Y-%m-%d").c_str(), 11);
   LCDA.DisplayString(3, 2, (unsigned char *)rtc.getTime("%H:%M:%S").c_str(), 8);
-  delay(1000);
+
+  getWeatherData();
+  loop_dht11();
+  loop_lcd12864();
+  delay(500);
 }

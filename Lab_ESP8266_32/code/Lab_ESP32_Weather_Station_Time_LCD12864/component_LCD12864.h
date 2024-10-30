@@ -8,8 +8,8 @@
 #include "component_dht11.h"
 #define AR_SIZE(a) sizeof(a) / sizeof(a[0])
 
-unsigned char show1[] = "RoomTH: ";
-unsigned char show2[] = "EnviTH: ";
+unsigned char show1[] = " RoomTH: ";
+unsigned char show2[] = " EnviTH: ";
 
 void setup_lcd12864() {
   LCDA.Initialise();  // The screen is initialized
