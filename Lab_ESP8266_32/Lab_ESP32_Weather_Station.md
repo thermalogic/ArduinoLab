@@ -29,6 +29,9 @@
 
 ## LCD12864
 
+屏型号：12864ZW, ZW - 带中文字库
+* 128x64 with controller ST7920, (model 12864ZW).
+
 ![](img/12864/12864.jpg)
 
 SPI12864 SPI communication
@@ -61,9 +64,16 @@ static const int dataPin = 33;   // R/W
 
 本例使用`AdeeptLCD12864RSPI`
 
-另有使用：`U8g2` library V2.27.6 By Oliver.
 
-*  https://www.instructables.com/ST7920-128X64-LCD-Display-to-ESP32/
+**备注**
+
+测试U8glib库，可以编译上载，单不显示
+
+```c
+// SPI Com: SCK = en =32, MOSI = rw = 33, CS = di = 25
+U8GLIB_ST7920_128X64_1X u8g(32, 33, 25);	
+//U8GLIB_ST7920_128X64_4X u8g(32, 33, 25);	
+```
 
 ##  网络天气数据
 
