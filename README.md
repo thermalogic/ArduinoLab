@@ -55,17 +55,19 @@ Arduino有很多类型开发版，本实验室使用其中的2种：`Auduino Uno
 
 ## 实验
 
-1. [LED](./Lab_Components/Lab_LED.md)
+* [LED](./Lab_Components/Lab_LED.md)
 
-2. [LM35](./Lab_Components/Lab_LM35.md)
+* [RGBLED](./Lab_Components/Lab_RGBLED.md)
 
-3. [DHT11实验](./Lab_Components/Lab_DHT11.md)
+* [LM35](./Lab_Components/Lab_LM35.md)
 
-4. [土壤湿度](./Lab_Components/Lab_Soil_Moisture.md)
+* [DHT11实验](./Lab_Components/Lab_DHT11.md)
 
-5.  [超声](./Lab_Components/Lab_TCRT5000_IR_Sensor.md)
+* [土壤湿度](./Lab_Components/Lab_Soil_Moisture.md)
 
-6.  [PowerBox](./PowerBox/s)
+*  [超声](./Lab_Components/Lab_TCRT5000_IR_Sensor.md)
+
+*  [PowerBox](./PowerBox/)
 
 * OneWire
 
