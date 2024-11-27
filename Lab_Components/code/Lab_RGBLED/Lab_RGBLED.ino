@@ -9,7 +9,7 @@
  *              4: rgb fading
  */
 
-rgbled my_rgbled(10,11,12, 'c');
+rgbled my_rgbled(9,8,7, 'c');
 
 void setup() 
 {
