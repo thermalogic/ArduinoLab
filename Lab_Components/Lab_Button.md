@@ -42,7 +42,7 @@ When the pushbutton is open (unpressed) there is no connection between the two l
 
 If you disconnect the digital I/O pin from everything, the LED may blink erratically. This is because the input is "floating" - that is, not connected to either voltage or ground. It will more or less randomly return either HIGH or LOW. That's why you need a pull-down resistor in the circuit.
 
-![button led](./img/button.jpg)
+![button_layout](./img/button/button_layout.jpg)
 
 ## code
 

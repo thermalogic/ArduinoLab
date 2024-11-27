@@ -1,12 +1,22 @@
 # freeRTOS实验：DS18B20和RGBLED
 
+## 功能
+
+* 温度测量和显示
+* RGBLED变色，可用按钮开启和关闭
+
 ##  元件
 
 *  开发板：Arduino Pro Mini
-*  USB-TTL模块FTD1232-1
+   *  USB-TTL模块FTD1232-1
 *  DS18B20传感器
 *  共阴四脚5MM全彩LED发光二极管
+  * 电阻： 330欧 3个
 *  4位数码管TM1637
+*  Button
+   * 电阻： 10K 1个
+*  2P接线柱，开关
+*  面包板，2个 
 *  16850锂电池一节
 
 ## DS18B20传感器和连接
@@ -50,6 +60,13 @@ my_rgbled(9,8,7, 'c');
 #define CLK 2
 #define DIO 3
 ```
+## 按钮
+
+![](./img/button/Arduino-Button-Tutorial-0002-Button-Basics.jpg)
+
+![](./img/button/Arduino-Button-Tutorial-0004-Button-Basics.jpg)
+
+![button_layout](./img/button/button_layout.jpg)
 
 ##  freeRTOS
 

@@ -8,6 +8,11 @@
 // define two tasks for Blink & AnalogRead
 void TaskBlink(void *pvParameters);
 void TaskTempRead(void *pvParameters);
+void TaskButton(void *pvParameters);
+
+// variables will change:
+int buttonState = 0;  // variable for reading the pushbutton status
+int rgbled_on = 1;
 
 // the setup function runs once when you press reset or power the board
 void setup() {
@@ -32,16 +37,41 @@ void setup() {
     ,
     NULL);
 
-  // Now the task scheduler, which takes over control of scheduling individual tasks, is automatically started.
-}
+  xTaskCreate(
+    TaskButton, "Button", 256  // Stack size
+    ,
+    NULL, 3  // Priority
+    ,
+    NULL);
+};
 
-void loop() {
+void loop(){
   // Empty. Things are done in Tasks.
-}
+};
 
 /*--------------------------------------------------*/
 /*---------------------- Tasks ---------------------*/
 /*--------------------------------------------------*/
+void TaskButton(void *pvParameters)  // This is a task.
+{
+  (void)pvParameters;
+  int buttonPin = 6;
+  for (;;)  // A Task shall never return or exit.
+  {
+    buttonState = digitalRead(buttonPin);
+    if (buttonState == HIGH) {
+      if (rgbled_on == 0) {
+        rgbled_on = 1;
+      //  Serial.println(rgbled_on);
+      } else if (rgbled_on == 1) {
+        rgbled_on = 0;
+       // Serial.println(rgbled_on);
+      }
+    }
+    vTaskDelay(1);
+   // Serial.println(rgbled_on);
+  }
+}
 
 void TaskBlink(void *pvParameters)  // This is a task.
 {
@@ -49,18 +79,43 @@ void TaskBlink(void *pvParameters)  // This is a task.
   rgbled my_rgbled(9, 8, 7, 'c');
   for (;;)  // A Task shall never return or exit.
   {
-    my_rgbled.out(100, 0, 0);              // red
-    vTaskDelay(500 / portTICK_PERIOD_MS);  // wait for one second
-    my_rgbled.out(0, 100, 0);              // green
-    vTaskDelay(500 / portTICK_PERIOD_MS);  // wait for one second
-    my_rgbled.out(0, 0, 100);              // blue
-    vTaskDelay(500 / portTICK_PERIOD_MS); 
-    my_rgbled.out(0, 100, 100);              // 
-    vTaskDelay(500 / portTICK_PERIOD_MS);  
-    my_rgbled.out(100, 100, 100);            // white 
-    vTaskDelay(500 / portTICK_PERIOD_MS);  
-    my_rgbled.out(100, 100,0);              // 
-    vTaskDelay(500 / portTICK_PERIOD_MS);     
+    // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
+    if (rgbled_on == 1) {
+      my_rgbled.out(100, 0, 0);  // red
+      if (rgbled_on == 1)
+        vTaskDelay(500 / portTICK_PERIOD_MS);  // wait for one second
+      else
+        continue;
+      my_rgbled.out(0, 100, 0);  // green
+      if (rgbled_on == 1)
+        vTaskDelay(500 / portTICK_PERIOD_MS);  // wait for one second
+      else
+        continue;
+      my_rgbled.out(0, 0, 100);  // blue
+      if (rgbled_on == 1)
+        vTaskDelay(500 / portTICK_PERIOD_MS);
+      else
+        continue;
+      my_rgbled.out(0, 100, 100);  //
+      if (rgbled_on == 1)
+        vTaskDelay(500 / portTICK_PERIOD_MS);
+      else
+        continue;
+      my_rgbled.out(100, 100, 100);  // white
+      if (rgbled_on == 1)
+        vTaskDelay(500 / portTICK_PERIOD_MS);
+      else
+        continue;
+      my_rgbled.out(100, 100, 0);  //
+      if (rgbled_on == 1)
+        vTaskDelay(500 / portTICK_PERIOD_MS);
+      else
+        continue;
+    } else {
+      // turn LED off:
+      my_rgbled.out(0, 0, 0);
+    }
+    vTaskDelay(1);  //
   }
 }
 
@@ -91,10 +146,10 @@ void TaskTempRead(void *pvParameters)  // This is a task.
     float tempC = sensors.getTempCByIndex(0);
     // Check if reading was successful
     if (tempC != DEVICE_DISCONNECTED_C) {
-      Serial.print("Temperature for the device 1 (index 0) is: ");
-      Serial.println(tempC);
+      // Serial.print("Temperature for the device 1 (index 0) is: ");
+      //  Serial.println(tempC);
     } else {
-     Serial.println("Error: Could not read temperature data");
+      //  Serial.println("Error: Could not read temperature data");
     }
 
     display.setBrightness(0x0f);
