@@ -21,6 +21,8 @@
 
 ## DS18B20传感器和连接
 
+![](img/DS18B20-digital-temperature-sensor-pinout.png)
+
 * 库：DallasTemperature library by Miles Burton
 
 ```c
@@ -67,6 +69,10 @@ my_rgbled(9,8,7, 'c');
 ![](./img/button/Arduino-Button-Tutorial-0004-Button-Basics.jpg)
 
 ![button_layout](./img/button/button_layout.jpg)
+
+| Button |Arduino |
+|-------|--------|
+|   4    |  6     |
 
 ##  freeRTOS
 
