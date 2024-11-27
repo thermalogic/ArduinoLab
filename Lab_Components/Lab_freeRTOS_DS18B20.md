@@ -3,9 +3,11 @@
 ##  元件
 
 *  开发板：Arduino Pro Mini
+*  USB-TTL模块FTD1232-1
 *  DS18B20传感器
 *  共阴四脚5MM全彩LED发光二极管
-*  TM1637
+*  4位数码管TM1637
+*  16850锂电池一节
 
 ## DS18B20传感器和连接
 
@@ -17,7 +19,7 @@
 |DS18B20     |Arduino |
 |------------|--------|
 |Pin 1 (GND) |	GND   |
-|Pin 2 (DQ)	 |Pin `2 Arduino and via 4.7 kΩ resistor to 5V|
+|Pin 2 (DQ)	 |Pin 12 Arduino and via 4.7 kΩ resistor to 5V|
 |PIN 3 (VDD) |	5V    |
 
 ##  RGBLED连线
