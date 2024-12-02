@@ -20,8 +20,6 @@ Arduino有很多类型开发版，本实验室使用其中的2种：`Auduino Uno
 
 * Windows https://www.arduino.cc/en/Guide/Windows
 
-* Linux https://www.arduino.cc/en/Guide/Linux
-
 ### 1.2 安装软件库
 
 * https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-installing-a-library
